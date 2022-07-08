@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout continueOnError="false" enabled="true" name="FC-CheckOperationIsAllowedForGetAccountDetails">
+    <DisplayName>FC-CheckOperationIsAllowedForGetAccountDetails</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <SharedFlowBundle>CE-check-request-is-allowed</SharedFlowBundle>
+    <Parameters>
+        <Parameter name="theRequiredScope">bank:accounts.detail:read</Parameter>
+        <Parameter name="theRequiredAccount" ref="theAccountId"/>
+    </Parameters>
+</FlowCallout>

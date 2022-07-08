@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="internal">
+    <Description>Internal used endpoint. Meant to be called by the Consent Management Component only</Description>
+    <FaultRules>
+        <FaultRule name="Invalid Access Token">
+            <Condition>(fault.name Matches "*access_token*") or (fault.name = "apiresource_doesnot_exist") or (fault.name = "InvalidAccessToken") or (fault.name = "InvalidAPICallAsNoApiProductMatchFound")</Condition>
+            <Step>
+                <FaultRules/>
+                <Name>EV-GetErrorDetail</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>AM-TokenNotVerified</Name>
+            </Step>
+        </FaultRule>
+    </FaultRules>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>CORS-Add-CORS-Headers</Name>
+            </Step>
+            <Step>
+                <Name>EV-Preserve-Request-Headers</Name>
+            </Step>
+            <Step>
+                <Name>AM-Extract-Pagination-Params</Name>
+            </Step>
+            <Step>
+                <Name>AM-Set-Pagination-Settings</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>AM-MockFullListOfAccounts</Name>
+            </Step>
+            <Step>
+                <Condition>proxy.pathsuffix Matches "*/balance*"</Condition>
+                <FaultRules/>
+                <Name>AM-MockFullListOfBalances</Name>
+            </Step>
+            <Step>
+                <Name>AM-SetCustomerIdFromParam</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>EV-GetAllAcountsForCustomer</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response>
+            <Step>
+                <Name>FC-PaginateResponse</Name>
+            </Step>
+            <Step>
+                <Name>FC-AddResponseHeaders-Link-Meta</Name>
+            </Step>
+        </Response>
+    </PostFlow>
+    <Flows>
+        <Flow name="Get Accounts for Customer">
+            <Description>Returns list of accounts for a given customer</Description>
+            <Request>
+                <Step>
+                    <Name>OA-VerifyAccessToken</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>JS-BuildListAccountsResponseInternal</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="notFound">
+            <Description>Not Found</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>RF-NotFound</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+    <HTTPProxyConnection>
+        <BasePath>/ce/internal/accounts</BasePath>
+        <Properties/>
+        <VirtualHost>default</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute"/>
+</ProxyEndpoint>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-ExtractErrorDetails">
+    <DisplayName>EV-ExtractErrorDetails</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="code">
+            <JSONPath>$.error_code</JSONPath>
+        </Variable>
+        <Variable name="title">
+            <JSONPath>$.error</JSONPath>
+        </Variable>
+        <Variable name="detail">
+            <JSONPath>$.error_hint</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <VariablePrefix>consentErrorInfo</VariablePrefix>
+    <Source clearPayload="false">introspectTokenCalloutResponse</Source>
+</ExtractVariables>

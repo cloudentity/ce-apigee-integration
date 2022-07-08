@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PopulateCache continueOnError="false" enabled="true" name="PC-StoreConsentMangementToken">
+    <DisplayName>PC-StoreConsentMangementToken</DisplayName>
+    <Properties/>
+    <CacheKey>
+        <Prefix>consentMgmtToken</Prefix>
+    </CacheKey>
+    <Scope>Global</Scope>
+    <ExpirySettings>
+        <TimeoutInSeconds ref="consentMgmtToken.expires_in"/>
+    </ExpirySettings>
+    <Source>consentMgmtToken.access_token</Source>
+</PopulateCache>

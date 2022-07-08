@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-TokenIntrospectResult">
+    <DisplayName>EV-TokenIntrospectResult</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="isActive">
+            <JSONPath>$.active</JSONPath>
+        </Variable>
+        <Variable name="consentId">
+            <JSONPath>$.cdr_arrangement_id</JSONPath>
+        </Variable>
+        <Variable name="clientId">
+            <JSONPath>$.client_id</JSONPath>
+        </Variable>
+        <Variable name="customerId">
+            <JSONPath>$.customer_id</JSONPath>
+        </Variable>
+        <Variable name="state">
+            <JSONPath>$.cdr_arrangement.status</JSONPath>
+        </Variable>
+        <Variable name="scope">
+            <JSONPath>$.scope</JSONPath>
+        </Variable>
+        <Variable name="accounts">
+            <JSONPath>$.AccountIDs</JSONPath>
+        </Variable>
+        <Variable name="expiresAtEpoch">
+            <JSONPath>$.exp</JSONPath>
+        </Variable>
+        <Variable name="expiresAt">
+            <JSONPath>$.cdr_arrangement.expiry</JSONPath>
+        </Variable>
+        <Variable name="createdAt">
+            <JSONPath>$.cdr_arrangement.created_at</JSONPath>
+        </Variable>
+        <Variable name="updatedAt">
+            <JSONPath>$.cdr_arrangement.updated_at</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <VariablePrefix>consentInfo</VariablePrefix>
+    <Source clearPayload="false">introspectTokenCalloutResponse</Source>
+</ExtractVariables>

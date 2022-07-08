@@ -1,0 +1,44 @@
+<APIProxy revision="32" name="CE-banking-api-accounts">
+    <DisplayName>CE-banking-api-accounts</DisplayName>
+    <Description>Mock Banking API that returns list of accounts or details about a particular account. Also provides an internal endpoint to retrieve all accounts associated with a given customerId, to be used for displaying in consent screen</Description>
+    <CreatedAt>1651454932863</CreatedAt>
+    <LastModifiedAt>1651454932863</LastModifiedAt>
+    <BasePaths>/ce/internal/accounts</BasePaths>
+    <BasePaths>/ce/banking/accounts</BasePaths>
+    <Policies>
+        <Policy>RF-NotFound</Policy>
+        <Policy>JS-BuildDetailsResponse</Policy>
+        <Policy>JS-BuildListAccountsResponseExternal</Policy>
+        <Policy>RF-InvalidAccountInURI</Policy>
+        <Policy>FC-CheckOperationIsAllowedForGetAccountsBasic</Policy>
+        <Policy>JS-BuildListAccountsResponseInternal</Policy>
+        <Policy>CORS-Add-CORS-Headers</Policy>
+        <Policy>RF-UnsupportedMethod</Policy>
+        <Policy>OA-VerifyAccessToken</Policy>
+        <Policy>AM-MockFullListOfAccounts</Policy>
+        <Policy>AM-TokenNotVerified</Policy>
+        <Policy>EV-ResultsForAccountId</Policy>
+        <Policy>AM-SetCustomerId</Policy>
+        <Policy>EV-AccountIdFromURL</Policy>
+        <Policy>AM-CopyListOfAllAccountsToAllResults</Policy>
+        <Policy>EV-GetAllAcountsForCustomer</Policy>
+        <Policy>FC-CheckOperationIsAllowedForGetAccountDetails</Policy>
+        <Policy>EV-GetErrorDetail</Policy>
+        <Policy>AM-SetCustomerIdFromParam</Policy>
+        <Policy>AM-MockFullListOfBalances</Policy>
+        <Policy>AM-InvalidScope</Policy>
+        <Policy>AM-Set-Pagination-Settings</Policy>
+        <Policy>FC-PaginateResponse</Policy>
+        <Policy>FC-AddResponseHeaders-Link-Meta</Policy>
+        <Policy>AM-Extract-Pagination-Params</Policy>
+        <Policy>EV-Preserve-Request-Headers</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>internal</ProxyEndpoint>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+    <Resources>
+        <Resource>jsc://buildDetailsResponse.js</Resource>
+        <Resource>jsc://buildListAccountsResponse.js</Resource>
+    </Resources>
+</APIProxy>

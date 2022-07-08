@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupCache continueOnError="false" enabled="true" name="LC-GetConsentManagementToken">
+    <DisplayName>LC-GetConsentManagementToken</DisplayName>
+    <Properties/>
+    <CacheKey>
+        <Prefix>consentMgmtToken</Prefix>
+    </CacheKey>
+    <Scope>Global</Scope>
+    <AssignTo>consentMgmtToken.access_token</AssignTo>
+</LookupCache>

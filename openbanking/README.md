@@ -15,7 +15,8 @@ regulations.
 ## Required systems
 
 * [Cloudentity SaaS tenant](https://developer.cloudentity.com/get_started/getting_started_with_cloudentity_access_management/)
-* [ApigeeX SaaS tenant](https://cloud.google.com/apigee)  
+* [Google Cloud Project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project)
+* [ApigeeX SaaS tenant](https://cloud.google.com/apigee). You can provision a free evaluation instance by following these [instructions](https://cloud.google.com/apigee/docs/api-platform/get-started/eval-orgs)
 
 ## Configure
 
@@ -168,79 +169,51 @@ that represents a data recipient app.
     ![Cloudentity-ApigeeX](./images/ce-cdr-financroo-oauth-scopes.png)
 
 
-### ApigeeX
 
-* Expose open banking data APIs
-    // TODO: 
+## Deploying the solution components into GCP
 
-* Deploy shared flows
-    // TODO: 
+We are now ready to deploy the required components into GCP. These are:
 
-* Configure shared flows
-    * Configure Cloudentity connection settings // TODO:  
-
-
-## Run Financro & Consent App in Google Cloud                
-
-We will run 2 demo applications in GCP cloud run environment.
-* Custom consent application - This application talks to Bank APIs exposed by ApigeeX & Cloudentity APIs to gather and store consent within Cloudentity 
-* Financroo - Data Recipient app that can interact with Bank APIs to use customer data
+- ApigeeX artefacts that implement the Banking data APIs. They return mock data
+- Demo consent application: This application talks to Bank APIs exposed by ApigeeX & Cloudentity APIs to gather and store consent within Cloudentity 
+- Demo client to test this solution: We will use the Financroo data recipient app. This is a Data Recipient app that can interact with Bank APIs to use customer data
 after obtaining customer consent.
 
-To deploy demo applications in GCP, 
+### GCP Deployment Steps
 
-* Obtain Cloudrun YAML file
- Users can use the provided Cloudrun YAML file, and then deploy the applications onto GCP Cloudrun platform within minutes
+1. __Prerequisites:__ In order to run the deployment script you need the following prerequisites:
+   - __gcloud__, Google Cloud CLI tool. Installation instructions: https://cloud.google.com/sdk/docs/install
+   - __jq__. If using Linux, install it by running: `sudo apt-get install jq`
+   - __apigeecli__, tool to manage Apigee entities. Download the appropriate binary for your platform from https://github.com/apigee/apigeecli/releases
 
- // TODO(): Put the github URL with Cloud run templates
 
-* Configure Cloudrun YAML file
+2. __Configure environment variables:__ The deployment script reads a file with environment variables holding the configuration it needs, such as the URL for the CloudEntity ACP workspace, the GCP Project where the applications will be deployed, etc.
 
-To integrate and talk to Cloudentity & APigeeX properly, the file needs to be configured 
-with appropriate secrets & endpoints
+   - Make a copy of the [environment file](./deploy/consent_mgmt_solution_config.env)
+   - Edit the file. Set the variables values to reflect your own instances
 
- * Configuring consent App
+3. __Run the deployment script__: Run the following commands from the root folder of the cloned repo: 
+   ````
+   cd openbanking
+   deploy/deploy_consent_mgmt_solution.sh <PATH_TO_YOUR_ENVIRONMENT_CONFIGURATION_FILE>
+   ````
 
-    Consent app needs to configured to set the following URL
+4. __Update CloudEntity workspace configuration__: Once the deployment script finish, you will need to go back to the CloudEntity workspace and update the configuration for the consent application and the Financroo client application. The deployment script will indicate the values to be updated:
+   ```` 
+   ===================================================================================================
+   == IMPORTANT!                                                                                    == 
+   == Remember to update the Cloud Entity ACP Workspace as follows:                                 ==
+   == 1) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  ==
+      https://<hostnameForConsentApp>                                                         
+   == 2) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: ==
+      https://<hostnameForDemoClientApp>/api/callback                                        
+   ===================================================================================================
+   ````
 
-    environment:
-      - ISSUER_URL=https://ce-apigeex-demo.au.authz.cloudentity.io/ce-apigeex-demo/system
-      - CLIENT_ID=<REPLACE WITH CLOUDENTITY CONSENT APP CLIENT ID>
-      - CLIENT_SECRET=<REPLACE WITH CLOUDENTITY CONSENT APP CLIENT SECRET>
-      - LOG_LEVEL=debug
-      - SPEC=cdr
-      - GIN_MODE=debug # change to release to disable gin debug
-      - OTP_MODE=mock # change to custom to enable custom OTP handling
-      - MFA_CLAIM=sub # for mobile use mobile_verified
-      - BANK_ID_CLAIM=customer_id
-      - BANK_URL=<REPLACE WITH BANKING URL EXPOSED BY APIGEE URL>
-      - BANK_CLIENT_TOKEN_URL=<REPLACE WITH APIGEE TOKEN ENDPOINT> 
-      - BANK_CLIENT_ID=<REPLACE WITH APIGEE BANK CLIENT ID> 
-      - BANK_CLIENT_SECRET=<REPLACE WITH APIGEE BANK CLIENT ID>
-      - BANK_CLIENT_SCOPES=bank:accounts.basic:read,bank:accounts.detail:read
-      - BANK_ACCOUNTS_ENDPOINT=<REPLACE WITH BANKING INTERNAL ACCOUNTS ENDPOINT EXPOSED BY APIGEE URL>
-
-  * COnfigure Financroo APp
-
-      Financroo app needs to configured to set the following URL
-        *
-            ```sh
-            - ACP_MTLS_URL=<REPLACE WITH MTLS URL FROM CLOUDENTITY FINANCROO OAUTH CLIENT> (https://ce-apigeex-demo.mtls.au.authz.cloudentity.io/ce-apigeex-demo/cdr/oauth2/token)
-            - TENANT=<REPLACE WITH CLOUDENTITY TENANT> (ce-apigeex-demo)
-            - GIN_MODE=debug # change to release to disable gin debug
-            - SPEC=cdr
-            - OPENBANKING_SERVER_ID=<REPLACE_WITH_CLOUDENTITY_WORKSPACE_NAME>
-            - BANK_URL=<REPLACE WITH BANKING URL EXPOSED BY APIGEE URL>
-            - UI_URL=https://ce-demo-client-ftz6uwntrq-ts.a.run.app'
-            - ENABLE_TLS_SERVER=false
-            - CLIENT_ID=cah9d021pkhkrv729gg0'
-            - DB_FILE=/tmp/my.db
-        ```
-* Now that both the apps have been configured and deployed, let's go ahead and deploy this in GCP.
 
 ## Verify the application.
 
-* Launch financroo URL obtained from above deployment. For using the default demo sanbox use
+* Launch financroo URL obtained from above deployment. For using the default demo sandbox use
     `https://ce-demo-client-ftz6uwntrq-ts.a.run.app/`
 
 * Use test user to login to Financroo. This login is served by Financroo itself with an inbuilt auth
@@ -262,7 +235,7 @@ and redirects user back to financroo  app
 
 * Now financroo requests "Go Bank" accounts, balances & transactions APIs using above CDR accessTokens
 
-* Go Bank APIs are exposed & protected by ApiGeex and the user consent and CDR accessToken is issued by Cloudentity. Apigeex checks with Cloudentity to ensure customer consent is in place before returning data to Financroo
+* Go Bank APIs are exposed & protected by ApigeeX and the user consent and CDR accessToken is issued by Cloudentity. ApigeeX checks with Cloudentity to ensure customer consent is in place before returning data to Financroo
 
 ![Cloudentity-ApigeeX](./images/ce-cdr-quickstart-financroo-app.png)
 

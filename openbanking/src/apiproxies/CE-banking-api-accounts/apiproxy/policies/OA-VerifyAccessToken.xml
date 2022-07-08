@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 continueOnError="false" enabled="true" name="OA-VerifyAccessToken">
+    <DisplayName>OA-VerifyAccessToken</DisplayName>
+    <Operation>VerifyAccessToken</Operation>
+    <Scope>bank:accounts.internal:read</Scope>
+</OAuthV2>

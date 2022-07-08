@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage async="false" continueOnError="false" enabled="true" name="AM-MockFullListOfAccounts">
+    <DisplayName>AM-MockFullListOfAccounts</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <AssignVariable>
+        <Name>listOfAllAccountDetailsByCustomer</Name>
+        <Template>[{
+    "customer": "bfb689fb-7745-45b9-bbaa-b21e00072447",
+    "accounts": [{
+            "accountId": "10203040-Acc001",
+            "creationDate": "2017-01-28T00:00:00+11:00",
+            "displayName": "Savings Account ************001",
+            "nickname": "My Savings Account",
+            "maskedNumber": "************001",
+            "openStatus": "OPEN",
+            "isOwned": true,
+            "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS",
+            "productName": "Savings Account Basic",
+            "bsb": "111000",
+            "accountNumber": "10203040001"
+        },
+        {
+            "accountId": "10203040-Acc002",
+            "creationDate": "2014-10-03T00:00:00+11:00",
+            "displayName": "Savings Account ************002",
+            "nickname": "An old Savings Account",
+            "maskedNumber": "************002",
+            "openStatus": "CLOSED",
+            "isOwned": false,
+            "productCategory": "TRANS_AND_SAVINGS_ACCOUNTS",
+            "productName": "Savings Account Basic",
+            "bsb": "111000",
+            "accountNumber": "10203040002"
+        },
+        {
+            "accountId": "10203040-Acc003",
+            "creationDate": "2018-12-15T00:00:00+11:00",
+            "displayName": "Basic Mortgage ************003",
+            "nickname": "My mortgage",
+            "maskedNumber": "************003",
+            "openStatus": "OPEN",
+            "isOwned": true,
+            "productCategory": "RESIDENTIAL_MORTGAGES",
+            "productName": "Mortgage Basic",
+            "bsb": "111000",
+            "accountNumber": "10203040003",
+            "specificAccountUType": "loan",
+            "loan": {
+                "originalStartDate": "2018-11-01",
+                "originalLoanAmount": "100000.00",
+                "originalLoanCurrency": "AUD",
+                "loanEndDate": "2048-11-01",
+                "nextInstalmentDate": "2019-03-01",
+                "minInstalmentAmount": "500.00",
+                "minInstalmentCurrency": "AUD",
+                "maxRedraw": "20000.00",
+                "maxRedrawCurrency": "AUD",
+                "minRedraw": "0.00",
+                "minRedrawCurrency": "AUD",
+                "offsetAccountEnabled": false,
+                "repaymentType": "INTEREST_ONLY",
+                "repaymentFrequency": "P1M"
+            },
+            "fees": [{
+                "name": "Annual Fees",
+                "feeType": "PERIODIC",
+                "additionalValue": "P1Y",
+                "amount": "200.00"
+            }],
+            "lendingRates": [{
+                "lendingRateType": "VARIABLE",
+                "rate": "0.0414",
+                "additionalValue": "P1Y"
+            }]
+        }
+    ]
+ }
+]</Template>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>listOfAllResultsByCustomer</Name>
+        <Ref>listOfAllAccountDetailsByCustomer</Ref>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>resultsType</Name>
+        <Value>accounts</Value>
+    </AssignVariable>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo type="request" transport="http" createNew="false"/>
+</AssignMessage>

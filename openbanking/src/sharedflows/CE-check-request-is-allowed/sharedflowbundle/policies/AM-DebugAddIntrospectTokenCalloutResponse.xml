@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-DebugAddIntrospectTokenCalloutResponse">
+    <DisplayName>AM-DebugAddIntrospectTokenCalloutResponse</DisplayName>
+    <Set>
+        <Headers>
+            <Header name="x-debug-token-introspect-response">{introspectTokenCalloutResponse.content}</Header>
+            <Header name="x-debug-token-introspect-status-code">{introspectTokenCalloutResponse.status.code}</Header>
+            <Header name="x-debug-token-introspect-sc-url">{servicecallout.SC-IntrospectToken.target.url}</Header>
+        </Headers>
+    </Set>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>
