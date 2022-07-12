@@ -46,28 +46,14 @@ function upload_and_deploy_artefact {
 
 #### End Utility functions
 
-# Deploy KVM admin proxy for configuring KVM values
-echo "-->" Cloning KVM Admin proxy from https://github.com/apigee/devrel
-cd deploy
-mkdir tmp
-git clone https://github.com/apigee/devrel.git tmp/devrel
-cd tmp/devrel/references/kvm-admin-api
-KVM_ARTEFACT_NAME=kvm-admin-v1
-upload_and_deploy_artefact apis $KVM_ARTEFACT_NAME
-cd ../../../../..
-rm -rf deploy/tmp
-
 
 # Obtain ACP Instance hostname and basepath from env variable
 CE_ACP_HOSTNAME=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $3}')
-echo CE_ACP_HOSTNAME = "$CE_ACP_HOSTNAME"
 CE_ACP_BASEPATH=$(echo $CE_ACP_AUTH_SERVER  |  cut -d/ -f4-)
-echo CE_ACP_BASEPATH = "$CE_ACP_BASEPATH"
-
 
 # Create Target Server
 echo "--->" Creating target server
-apigeecli targetservers create --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name CE-ACP-Instance --host $CE_ACP_HOSTNAME --port 443 --tls
+apigeecli targetservers create --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name CE-ACP-Instance --host $CE_ACP_HOSTNAME --sslinfo --tls --port 443
 
 # Deploy sharedflows
 # They need to be deployed in order
@@ -123,32 +109,15 @@ sed -i '' "s/.*APIGEE_CE_CLIENT_SECRET.*/export APIGEE_CE_CLIENT_SECRET=$APIGEE_
 # Create Config KVM
 echo "--->" Creating Config Key Value Map
 KVM_NAME=Config
-apigeecli kvms create --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name $KVM_NAME --encrypt
+apigeecli kvms create --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name $KVM_NAME
 
 # Configure KVM values 
 # TODO - Use apigeecli
 echo "--->" Adding Client Id and Secret defined in ACP for Apigee use - Adding ACP base path
-curl -X POST \
-    -H "Authorization: Bearer $TOKEN" \
-    -d key=ApigeeConsentManagement_ClientId -d value=$CE_ACP_APIGEE_CLIENT_ID \
-    "https://$APIGEE_X_ENDPOINT/kvm-admin/v1/organizations/$APIGEE_X_ORG/environments/$APIGEE_X_ENV/keyvaluemaps/$KVM_NAME/entries"
+apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_ClientId --value $CE_ACP_APIGEE_CLIENT_ID
+apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_ClientSecret --value $CE_ACP_APIGEE_CLIENT_SECRET
+apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_BasePath --value $CE_ACP_BASEPATH
 
-curl -X POST \
-    -H "Authorization: Bearer $TOKEN" \
-    -d key=ApigeeConsentManagement_ClientSecret -d value=$CE_ACP_APIGEE_CLIENT_SECRET \
-    "https://$APIGEE_X_ENDPOINT/kvm-admin/v1/organizations/$APIGEE_X_ORG/environments/$APIGEE_X_ENV/keyvaluemaps/$KVM_NAME/entries"
-
-curl -X POST \
-    -H "Authorization: Bearer $TOKEN" \
-    -d key=ApigeeConsentManagement_BasePath -d value=$CE_ACP_BASEPATH \
-    "https://$APIGEE_X_ENDPOINT/kvm-admin/v1/organizations/$APIGEE_X_ORG/environments/$APIGEE_X_ENV/keyvaluemaps/$KVM_NAME/entries"
- 
-
-# Undeploy kvm-admin-v1 from the environment
-# Get deployed revision
-KVM_PROXY_REV=$(apigeecli apis listdeploy --token $TOKEN --org $APIGEE_X_ORG  --name $KVM_ARTEFACT_NAME | grep -v 'WARNING' | jq -r ".deployments[] | select(.environment==\"$APIGEE_X_ENV\") | .revision")
-echo "---> Undeploying $KVM_ARTEFACT_NAME - Revision $KVM_PROXY_REV from Environment $APIGEE_X_ENV. You can deploy it again if you need to change KVM configuration values"
-apigeecli apis undeploy  --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name $KVM_ARTEFACT_NAME --rev $KVM_PROXY_REV
 echo "--->" Done
 
 

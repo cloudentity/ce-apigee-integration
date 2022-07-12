@@ -121,6 +121,10 @@ echo "========================================================================="
 ../../create_update_secret.sh ce-tpp-key ./data/tpp_key.pem 
 ../../create_update_secret.sh ce-cert-auth ./data/ca.pem
 
+# Re-read the environment file to get the latest values updated from the previous Apigee deployment step
+source $CONFIG_FILE_ABS_PATH
+
+
 # Deploy consent app page
 echo "========================================================================="
 echo "--> Deploying consent page app as a CloudRun function...."

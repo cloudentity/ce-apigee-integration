@@ -30,7 +30,7 @@ function undeploy_and_optionally_delete_artefact {
  else
     ARTEFACT_DESC="sharedflow"
  fi
- ARTEFACT_REV=$(apigeecli $ARTEFACT_TYPE listdeploy --token $TOKEN --org $APIGEE_X_ORG  --name $ARTEFACT_NAME | jq -r ".deployments[]? | select(.environment==\"$APIGEE_X_ENV\") | .revision")
+ ARTEFACT_REV=$(apigeecli $ARTEFACT_TYPE listdeploy --token $TOKEN --org $APIGEE_X_ORG  --name $ARTEFACT_NAME | grep -v 'WARNING' | jq -r ".deployments[]? | select(.environment==\"$APIGEE_X_ENV\") | .revision")
  if [[ -n "$ARTEFACT_REV" ]]; 
  then
    echo "--->"  Undeploying $ARTEFACT_NAME $ARTEFACT_DESC - Revision $ARTEFACT_REV 
@@ -44,10 +44,12 @@ function undeploy_and_optionally_delete_artefact {
 
 #### End Utility functions
 
+FORCE_ARTEFACT_DELETE=$1
+
 # Delete CloudEntity client app
 echo "--->"  Deleting client for CloudEntity 
 #Get developer id
-DEVELOPER_ID=$(apigeecli developers get --token $TOKEN --org $APIGEE_X_ORG --email "consent-test-developer@somefictitioustestcompany.com" | jq -r ".developerId")
+DEVELOPER_ID=$(apigeecli developers get --token $TOKEN --org $APIGEE_X_ORG --email "consent-test-developer@somefictitioustestcompany.com" | grep -v 'WARNING' | jq -r ".developerId")
 apigeecli apps delete --token $TOKEN --org $APIGEE_X_ORG --name "CloudEntityInternal" --id $DEVELOPER_ID
 
 # Delete developer who owned the CloudEntity client app
@@ -67,10 +69,6 @@ do
   undeploy_and_optionally_delete_artefact apis $ap $FORCE_ARTEFACT_DELETE
 done
 cd ../..
-
-# Undeploy KVM admin proxy 
-KVM_ARTEFACT_NAME=kvm-admin-v1
-undeploy_and_optionally_delete_artefact apis $KVM_ARTEFACT_NAME $FORCE_ARTEFACT_DELETE
 
 # Undeploy sharedflows
 # They need to be undeployed in order
