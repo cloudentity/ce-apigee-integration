@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <DefaultFaultRule name="DefaultFaultRule">
+        <Step>
+            <FaultRules/>
+            <Name>AM-Add-CORS-Headers</Name>
+        </Step>
+        <AlwaysEnforce>true</AlwaysEnforce>
+    </DefaultFaultRule>
+    <Description/>
+    <FaultRules>
+        <FaultRule name="Cannot issue access token">
+            <Condition>(fault.name = "invalid_request")</Condition>
+            <Step>
+                <FaultRules/>
+                <Name>AM-CannotIssueAccessToken</Name>
+            </Step>
+        </FaultRule>
+    </FaultRules>
+    <Flows>
+        <Flow name="Acquire Token - Client Cred">
+            <Description>Acquire Token Client Credentials Grant Type</Description>
+            <Request>
+                <Step>
+                    <Name>RF-InvalidScope</Name>
+                    <Condition>(request.formparam.scope != "bank:accounts.internal:read")</Condition>
+                </Step>
+                <Step>
+                    <Name>OA-IssueAccessTokenClientCreds</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>AM-SetAccessTokenResponse-ClientCred</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/token") and (request.verb = "POST") and (request.formparam.grant_type = "client_credentials")</Condition>
+        </Flow>
+        <Flow name="Not Found">
+            <Description>Not Found</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>RF-NotFound</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <PreFlow name="PreFlow">
+        <Request/>
+        <Response>
+            <Step>
+                <FaultRules/>
+                <Name>AM-Add-CORS-Headers</Name>
+            </Step>
+        </Response>
+    </PreFlow>
+    <HTTPProxyConnection>
+        <BasePath>/ce/</BasePath>
+        <Properties/>
+        <VirtualHost>secure</VirtualHost>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute"/>
+</ProxyEndpoint>

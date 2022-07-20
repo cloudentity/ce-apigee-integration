@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout continueOnError="false" enabled="true" name="FC-get-jwks">
+    <DisplayName>FC-get-jwks</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <SharedFlowBundle>CE-get-jwks-from-ACP</SharedFlowBundle>
+    <Parameters>
+        <Parameter name="jwksPathSuffix">/{private.ConsentManagement_BasePath}/.well-known/jwks.json</Parameter>
+    </Parameters>
+</FlowCallout>

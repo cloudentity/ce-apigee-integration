@@ -1,0 +1,60 @@
+steps:
+# Build and deploy consent page app
+# Build the container image 
+- name: 'gcr.io/cloud-builders/docker'
+  id: buildConsentApp
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/ce-consent-screen', '-f', 'consent/consent-page/Dockerfile', '.']
+  env:
+      - "DOCKER_BUILDKIT=1"
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/$PROJECT_ID/ce-consent-screen']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'ce-consent-page', 
+        '--region', '$LOCATION',
+        '--image', 'gcr.io/$PROJECT_ID/ce-consent-screen', 
+        '--set-env-vars','ISSUER_URL=${_CE_ACP_ISSUER_URL}',
+         # Consent app client registed in ACP
+        '--set-env-vars','CLIENT_ID=${_CE_ACP_CONSENT_SCREEN_CLIENT_ID}',
+        '--set-env-vars','CLIENT_SECRET=${_CE_ACP_CONSENT_SCREEN_CLIENT_SECRET}',
+        '--set-env-vars','LOG_LEVEL=debug',
+        '--set-env-vars','SPEC=cdr',
+        '--set-env-vars','GIN_MODE=release',
+        '--set-env-vars','OTP_MODE=mock', 
+        '--set-env-vars','MFA_CLAIM=sub',
+        '--set-env-vars','BANK_ID_CLAIM=customer_id',
+        '--set-env-vars','BANK_URL=https://${_APIGEE_X_ENDPOINT}',
+        '--set-env-vars','BANK_CLIENT_TOKEN_URL=https://${_APIGEE_X_ENDPOINT}/ce/token',
+        '--set-env-vars','BANK_ACCOUNTS_ENDPOINT=https://${_APIGEE_X_ENDPOINT}/ce/internal/accounts',
+        # Consent app client registered in Apigee
+        '--set-env-vars','BANK_CLIENT_ID=${_APIGEE_CE_CLIENT_ID}',  
+        '--set-env-vars','BANK_CLIENT_SECRET=${_APIGEE_CE_CLIENT_SECRET}',
+        # Use a different delimiter to prevent scopes being converted into an array
+        '--set-env-vars','^##^BANK_CLIENT_SCOPES=bank:accounts.internal:read',
+        '--set-env-vars','DB_FILE=/tmp/my.db',
+        '--set-env-vars','ENABLE_TLS_SERVER=false',
+        '--set-env-vars','CERT_FILE=/certs/tpp_cert.pem',
+        '--set-env-vars','KEY_FILE=/certs-keys/tpp_key.pem',
+        '--set-env-vars','BANK_CLIENT_CERT_FILE=/certs/tpp_cert.pem',
+        '--set-env-vars','BANK_CLIENT_KEY_FILE=/certs-keys/tpp_key.pem',
+        '--set-env-vars','ROOT_CA=/ca/ca.pem',
+        '--update-secrets','/certs/tpp_cert.pem=ce-tpp-cert:latest',
+        '--update-secrets','/certs-keys/tpp_key.pem=ce-tpp-key:latest',
+        '--update-secrets','/ca/ca.pem=ce-cert-auth:latest',
+        '--allow-unauthenticated']
+
+substitutions:
+    # The following substitution variables have a default dummy value - Correct values needs to be passed when launching this build script
+    _CE_ACP_ISSUER_URL: dummyValue 
+    _CE_ACP_CONSENT_SCREEN_CLIENT_ID: dummyValue
+    _CE_ACP_CONSENT_SCREEN_CLIENT_SECRET: dummyValue
+    _APIGEE_X_ENDPOINT: dummyValue 
+    _APIGEE_CE_CLIENT_ID: dummyValue 
+    _APIGEE_CE_CLIENT_SECRET: dummyValue 
+
+timeout: 1200s
+
+images:
+- gcr.io/$PROJECT_ID/ce-consent-screen

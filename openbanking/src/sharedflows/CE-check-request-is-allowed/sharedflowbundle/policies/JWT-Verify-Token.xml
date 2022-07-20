@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<VerifyJWT continueOnError="true" enabled="true" name="JWT-Verify-Token">
+    <DisplayName>JWT-Verify-Token</DisplayName>
+    <Algorithm>PS256</Algorithm>
+    <Source>theAccessToken</Source>
+    <PublicKey>
+        <JWKS ref="jwksVar"/>
+    </PublicKey>
+</VerifyJWT>

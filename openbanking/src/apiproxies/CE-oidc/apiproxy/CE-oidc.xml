@@ -1,0 +1,18 @@
+<APIProxy revision="4" name="CE-oidc">
+    <DisplayName>CE_oidc</DisplayName>
+    <Description>Issue token (Client_credential) for CloudEntity to access internal Banking APIs</Description>
+    <CreatedAt>1650410821377</CreatedAt>
+    <LastModifiedAt>1650410821377</LastModifiedAt>
+    <BasePaths>/ce/</BasePaths>
+    <Policies>
+        <Policy>RF-NotFound</Policy>
+        <Policy>AM-Add-CORS-Headers</Policy>
+        <Policy>RF-InvalidScope</Policy>
+        <Policy>AM-SetAccessTokenResponse-ClientCred</Policy>
+        <Policy>OA-IssueAccessTokenClientCreds</Policy>
+        <Policy>AM-CannotIssueAccessToken</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+</APIProxy>

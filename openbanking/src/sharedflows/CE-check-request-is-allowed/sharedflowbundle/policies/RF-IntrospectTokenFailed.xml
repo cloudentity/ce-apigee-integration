@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-IntrospectTokenFailed">
+    <DisplayName>RF-IntrospectTokenFailed</DisplayName>
+    <FaultResponse>
+        <Set>
+            <Payload contentType="application/json">{
+ "errors": [
+    {
+      "code": "{consentErrorInfo.code}",
+      "title": "{consentErrorInfo.title}",
+      "detail": "{consentErrorInfo.detail}",
+    }
+  ]
+}
+            </Payload>
+            <StatusCode>{introspectTokenCalloutResponse.status.code}</StatusCode>
+            <ReasonPhrase>{introspectTokenCalloutResponse.reason.phrase}</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</RaiseFault>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlow name="default">
+    <Step>
+        <FaultRules/>
+        <Name>AM-Set-Content-Type-And-Version1-Headers</Name>
+    </Step>
+    <Step>
+        <FaultRules/>
+        <Name>AM-Add-CORS-Headers</Name>
+    </Step>
+    <Step>
+        <Name>JS-Add-Links-Meta-To-Response</Name>
+    </Step>
+</SharedFlow>

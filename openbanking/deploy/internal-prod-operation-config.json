@@ -1,0 +1,29 @@
+{
+    "operationConfigs": [
+        {
+            "apiSource": "CE-oidc",
+            "operations": [
+                {
+                    "resource": "/token",
+                    "methods": [
+                        "POST"
+                    ]
+                }
+            ],
+            "quota": {}
+        },
+        {
+            "apiSource": "CE-banking-api-accounts",
+            "operations": [
+                {
+                    "resource": "/",
+                    "methods": [
+                        "POST"
+                    ]
+                }
+            ],
+            "quota": {}
+        }
+    ],
+    "operationConfigType": "proxy"
+}

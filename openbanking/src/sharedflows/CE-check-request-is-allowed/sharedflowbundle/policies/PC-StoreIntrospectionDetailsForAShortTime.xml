@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- To make this more efficient, we will store the result of introspection check for a short time -->
+<!-- The cache expiry value needs to be determined as a balance of efficiency as opposed to the chance -->
+<!-- of a consent changing during the time the details are stored -->
+<PopulateCache continueOnError="false" enabled="true" name="PC-StoreIntrospectionDetailsForAShortTime">
+    <DisplayName>PC-StoreIntrospectionDetailsForAShortTime</DisplayName>
+    <CacheKey>
+        <KeyFragment ref="theAccessToken"/>
+    </CacheKey>
+    <Scope>Global</Scope>
+    <ExpirySettings>
+        <TimeoutInSeconds>30</TimeoutInSeconds>
+    </ExpirySettings>
+    <Source>introspectionCacheVal</Source>
+</PopulateCache>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-ExtractTokenFromResponse">
+    <DisplayName>EV-ExtractTokenFromResponse</DisplayName>
+    <JSONPayload>
+        <Variable name="access_token">
+            <JSONPath>$.access_token</JSONPath>
+        </Variable>
+        <Variable name="expires_in" type="integer">
+            <JSONPath>$.expires_in</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <VariablePrefix>consentMgmtToken</VariablePrefix>
+    <Source clearPayload="false">acquireTokenCalloutResponse</Source>
+</ExtractVariables>

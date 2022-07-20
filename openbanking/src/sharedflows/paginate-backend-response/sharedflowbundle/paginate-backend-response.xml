@@ -1,0 +1,17 @@
+<SharedFlowBundle revision="1" name="paginate-backend-response">
+    <DisplayName>paginate-backend-response</DisplayName>
+    <Description>Paginates the response returned by the backend, so that only entries in the requested page are returned to the client. TO DO: Add caching for backend response</Description>
+    <CreatedAt>1651449411145</CreatedAt>
+    <LastModifiedAt>1651449438362</LastModifiedAt>
+    <Policies>
+        <Policy>RF-Pagination-Error</Policy>
+        <Policy>JS-Do-Pagination</Policy>
+    </Policies>
+    <Resources>
+        <Resource>jsc://DoPagination.js</Resource>
+    </Resources>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>

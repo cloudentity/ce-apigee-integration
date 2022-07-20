@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ServiceCallout async="false" continueOnError="true" enabled="true" name="SC-IntrospectToken">
+    <DisplayName>SC-IntrospectToken</DisplayName>
+    <Properties/>
+    <Request clearPayload="false" variable="calloutRequest">
+        <Set>
+            <Headers>
+                <Header name="Authorization">Bearer {consentMgmtToken.access_token}</Header>
+            </Headers>
+            <FormParams>
+                <FormParam name="token">{theAccessToken}</FormParam>
+            </FormParams>
+            <Verb>POST</Verb>
+        </Set>
+    </Request>
+    <Response>introspectTokenCalloutResponse</Response>
+    <HTTPTargetConnection>
+        <LoadBalancer>
+            <Server name="CE-ACP-Instance"/>
+        </LoadBalancer>
+        <Path>/{private.ConsentManagement_BasePath}/cdr/consents/introspect</Path>
+    </HTTPTargetConnection>
+</ServiceCallout>

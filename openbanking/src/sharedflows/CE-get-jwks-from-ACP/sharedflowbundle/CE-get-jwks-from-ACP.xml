@@ -1,0 +1,16 @@
+<SharedFlowBundle revision="2" name="CE-get-jwks-from-ACP">
+    <DisplayName>CE-get-jwks-from-ACP</DisplayName>
+    <Description>Retrieves (and caches) a JWKS from the ACP instance, using the provided path suffix</Description>
+    <CreatedAt>1649050036134</CreatedAt>
+    <LastModifiedAt>1649050036134</LastModifiedAt>
+    <Policies>
+        <Policy>SC-RetrieveJWKSFromURI</Policy>
+        <Policy>AM-ExtractJWKSFromResponse</Policy>
+        <Policy>LC-RetrieveJWKSFromCache</Policy>
+        <Policy>PC-StoreJWKS</Policy>
+    </Policies>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>

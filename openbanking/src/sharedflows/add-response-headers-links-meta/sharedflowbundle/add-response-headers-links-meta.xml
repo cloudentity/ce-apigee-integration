@@ -1,0 +1,18 @@
+<SharedFlowBundle revision="2" name="add-response-headers-links-meta">
+    <DisplayName>add-response-headers</DisplayName>
+    <Description>Add mandatory headers to response</Description>
+    <CreatedAt>1651449915448</CreatedAt>
+    <LastModifiedAt>1651449915448</LastModifiedAt>
+    <Policies>
+        <Policy>AM-Add-CORS-Headers</Policy>
+        <Policy>JS-Add-Links-Meta-To-Response</Policy>
+        <Policy>AM-Set-Content-Type-And-Version1-Headers</Policy>
+    </Policies>
+    <Resources>
+        <Resource>jsc://AddLinksMetaToResponse.js</Resource>
+    </Resources>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>
