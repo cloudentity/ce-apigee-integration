@@ -28,7 +28,7 @@ access tokens. There are two ways to prepare Cloudentity workspace.
  - Use provided script after creating a client app in Admin workspace and fill in environment variables for `ce_workspace.env`
  - Manually setup Cloudentity workspace
 
-### Create Cloudentity workspace using script
+#### Create Cloudentity workspace using script
 
 * Create a client in Admin workspace
    * Create a [client app in Cloudentity Admin workspace](https://developer.cloudentity.com/howtos/tenant_configuration/adding_workspaces/)
@@ -68,10 +68,8 @@ deploy/setup-ce.sh replace-urls <replace with financroo redirect URI> <replace c
 
 >Note: When finished with the demo you can remove the CDR workspace by running this from the `openbanking` directory ```bash
 deploy/setup-ce.sh delete-workspace
-```
 
-
-### Create Cloudentity workspace manually
+#### Create Cloudentity workspace manually
 
 Only perform these steps if not using the provided `setup-ce.sh` script to auto-generate the workspace and client applications.
 
