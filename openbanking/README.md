@@ -66,12 +66,11 @@ To update the URIs using the script do the following from the `openbanking` dire
 deploy/setup-ce.sh replace-urls <replace with financroo redirect URI> <replace consent url>
 ```
 
->Note: When finished with the demo you can remove the CDR workspace by running this from the `openbanking` directory ```bash
-deploy/setup-ce.sh delete-workspace
+>Note: When finished with the demo you can remove the CDR workspace by running this from the `openbanking` directory `deploy/setup-ce.sh delete-workspace`
 
 #### Create Cloudentity workspace manually
 
-Only perform these steps if not using the provided `setup-ce.sh` script to auto-generate the workspace and client applications.
+>Note: Only perform these steps if not using the provided `setup-ce.sh` script to auto-generate the workspace and client applications.
 
 * Create an open banking compliant workspace
     * Create [a new workspace within Cloudentity that represents the concept of an independent OAuth/OIDC authorization server within Cloudentity](https://developer.cloudentity.com/howtos/tenant_configuration/adding_workspaces/). Let's choose a [CDR compliant workspace](https://developer.cloudentity.com/howtos/cdr/cdr_workspace/) for this walkthrough.
