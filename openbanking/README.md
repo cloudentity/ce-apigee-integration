@@ -55,10 +55,10 @@ This creates a new workspace called `CDR ApigeeX & CE`. Switch to this workspace
  - apigeex-introspect-proxy
  - financroo-tpp
 
-The workspace and client applications are now configured. Next, complete the steps for [Deploying the solution components into GCP](##Deploying the solution components into GCP). Once those steps are completed return to this section to finish updating your consent URL and financroo redirect URI.
+The workspace and client applications are now configured. Next, complete the steps for [Deploying the solution components into GCP](##deploying-the-solution-components-into-gcp). Once those steps are completed return to this section to finish updating your consent URL and financroo redirect URI.
 
 
-The redirect URLs for the consent app and the financroo app now contain placeholder URIs. Once the steps for  [Deploying the solution components into GCP](##Deploying the solution components into GCP) are completed the script will output a consent URL and a financroo URI. There are two ways to add these to Cloudentity applications.
+The redirect URLs for the consent app and the financroo app now contain placeholder URIs. Once the steps for  [Deploying the solution components into GCP](##deploying-the-solution-components-into-gcp) are completed the script will output a consent URL and a financroo URI. There are two ways to add these to Cloudentity applications.
  - Manually copy the consent URL in OAuth Settings -> Consent -> Custom Consent -> Consent URL and copy the financroo redirect URI  to the financroo app in Applications -> Clients. Select `financroo-tpp` app then under the OAuth tab replace the redirect URI with the new one
  - Run the `setup-ce.sh` script to update the URIs
 To update the URIs using the script do the following from the `openbanking` directory
