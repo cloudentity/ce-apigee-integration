@@ -40,16 +40,16 @@ access tokens. There are two ways to prepare Cloudentity workspace.
       * Copy your tenant ID - this can be found in the top right under `Profile`
 * Update environment variables for CLoudentity setup script
    * In the repository under `deploy` locate the `ce_workspace.env` file and add the envrinment variables that were copied previously:
-      - CLIENT_ID=<admin client application id>
-      - CLIENT_SECRET=<admin client application secret>
-      - DOMAIN=<domain of your tenant domain - ie my-demo-tenant.us.authz.cloudentity.io>
-      - TENANT_ID=<tenant id, ie my-demo-tenant>
+      - CLIENT_ID="admin client application id"
+      - CLIENT_SECRET="admin client application secret"
+      - DOMAIN="domain of your tenant domain - ie my-demo-tenant.us.authz.cloudentity.io"
+      - TENANT_ID="tenant id, ie my-demo-tenant"
 * Run the setup script to create and configure workspace and client applications
-  * From the root of the repo run the following
-```bash
-cd openbanking
-deploy/setup-ce.sh create-workspace
-```
+  * From the root of the repo run the following:
+    ```bash
+    cd openbanking
+    deploy/setup-ce.sh create-workspace
+    ```
 
 This creates a new workspace called `CDR ApigeeX & CE`. Switch to this workspace and verify that there are two client applications under Applications -> Clients. The client should be
  - apigeex-introspect-proxy
