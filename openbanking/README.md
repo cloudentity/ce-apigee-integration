@@ -55,7 +55,7 @@ This creates a new workspace called `CDR ApigeeX & CE`. Switch to this workspace
  - apigeex-introspect-proxy
  - financroo-tpp
 
-The workspace and client applications are now configured. Next, complete the steps for [Deploying the solution components into GCP](#test). Once those steps are completed return to this section to finish updating your consent URL and financroo redirect URI.
+The workspace and client applications are now configured. Next, complete the steps for [Deploying the solution components into GCP](##Deploying-the-solution-components-into-GCP). Once those steps are completed return to this section to finish updating your consent URL and financroo redirect URI.
 
 
 Once the steps for [Deploying the solution components into GCP](##deploying-the-solution-components-into-gcp) are completed the script will output a consent URL and a financroo URI. There are two ways to add these to Cloudentity applications.
@@ -243,7 +243,6 @@ after obtaining customer consent.
    deploy/deploy_consent_mgmt_solution.sh <PATH_TO_YOUR_ENVIRONMENT_CONFIGURATION_FILE>
    ````
 
-# Test
 4. __Update CloudEntity workspace configuration__: Once the deployment script finish, you will need to go back to the CloudEntity workspace and update the configuration for the consent application and the Financroo client application. The deployment script will indicate the values to be updated:
    ````
    ===================================================================================================
