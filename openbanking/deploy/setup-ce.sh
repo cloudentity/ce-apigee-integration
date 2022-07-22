@@ -22,7 +22,7 @@ function create_oauth_server {
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
-    "tenant_id": "ce-apigeex-demo",
+    "tenant_id": '"\"$TENANT_ID\""',
     "id": "cdr-import-demo",
     "profile": "cdr_australia",
     "name": "CDR ApigeeX & CE",
@@ -433,7 +433,7 @@ function create_client_apigee_proxy {
   --header 'Content-Type: application/json' \
   --data '
     {
-        "tenant_id": "ce-apigeex-demo",
+        "tenant_id": '"\"$TENANT_ID\""',
         "client_name": "apigeex-introspect-proxy",
         "description": "apigeex-introspect-proxy",
         "client_uri": "",
@@ -520,7 +520,7 @@ function create_client_financroo {
   --header 'Content-Type: application/json' \
   --data '
 {
-    "tenant_id": "ce-apigeex-demo",
+    "tenant_id": '"\"$TENANT_ID\""',
     "client_name": "financroo-tpp",
     "description": "",
     "client_uri": "",
@@ -639,7 +639,7 @@ function create_static_idp {
   --header 'Content-Type: application/json' \
   --data '{
     "id": "cdr-import-demo-cah75ea1pkhkrv71kfvg",
-    "tenant_id": "ce-apigeex-demo",
+    "tenant_id": '"\"$TENANT_ID\""',
     "authorization_server_id": "cdr-import-demo",
     "name": "mock",
     "disabled": false,
@@ -794,7 +794,7 @@ function update_consent_app_url {
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
-    "tenant_id": "ce-apigeex-demo",
+    "tenant_id": '"\"$TENANT_ID\""',
     "server_id": "cdr-import-demo",
     "client_id": "cdr-import-demo-cah778mkor34hf1058s0",
     "type": "custom",
@@ -818,7 +818,7 @@ function update_financroo_redirect_url {
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
-    "tenant_id": "ce-apigeex-demo",
+    "tenant_id": '"\"$TENANT_ID\""',
     "client_name": "financroo-tpp",
     "description": "",
     "client_uri": "",

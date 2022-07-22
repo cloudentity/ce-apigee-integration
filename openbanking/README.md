@@ -23,9 +23,57 @@ regulations.
 ### Cloudentity
 
 Let's configure Cloudentity to facililate CDR flow and manage customer consents and issued CDR compliant
-access tokens
+access tokens. There are two ways to prepare Cloudentity workspace.
 
-### Create Cloudentity workspace
+ - Use provided script after creating a client app in Admin workspace and fill in environment variables for `ce_workspace.env`
+ - Manually setup Cloudentity workspace
+
+### Create Cloudentity workspace using script
+
+* Create a client in Admin workspace
+   * Create a [client app in Cloudentity Admin workspace](https://developer.cloudentity.com/howtos/tenant_configuration/adding_workspaces/)
+   * In newly created client app
+      * under the OAuth tab set Grant Types to `Client credentials`
+      * under the OAuth tab set Token Endpoint Authentication Method to `Client Secret Basic`
+      * Make note of the `CLIENT ID` and `CLIENT SECRET` which will be used to set environment variables
+      * Make note of your domain, ie `my-tenant-domain.us.authz.cloudentity.io`
+      * Copy your tenant ID - this can be found in the top right under `Profile`
+* Update environment variables for CLoudentity setup script
+   * In the repository under `deploy` locate the `ce_workspace.env` file and add the envrinment variables that were copied previously:
+      - CLIENT_ID=<admin client application id>
+      - CLIENT_SECRET=<admin client application secret>
+      - DOMAIN=<domain of your tenant domain - ie my-demo-tenant.us.authz.cloudentity.io>
+      - TENANT_ID=<tenant id, ie my-demo-tenant>
+* Run the setup script to create and configure workspace and client applications
+  * From the root of the repo run the following
+```bash
+cd openbanking
+deploy/setup-ce.sh create-workspace
+```
+
+This creates a new workspace called `CDR ApigeeX & CE`. Switch to this workspace and verify that there are two client applications under Applications -> Clients. The client should be
+ - apigeex-introspect-proxy
+ - financroo-tpp
+
+The workspace and client applications are now configured. Next, complete the steps for [Deploying the solution components into GCP](##Deploying the solution components into GCP). Once those steps are completed return to this section to finish updating your consent URL and financroo redirect URI.
+
+
+The redirect URLs for the consent app and the financroo app now contain placeholder URIs. Once the steps for  [Deploying the solution components into GCP](##Deploying the solution components into GCP) are completed the script will output a consent URL and a financroo URI. There are two ways to add these to Cloudentity applications.
+ - Manually copy the consent URL in OAuth Settings -> Consent -> Custom Consent -> Consent URL and copy the financroo redirect URI  to the financroo app in Applications -> Clients. Select `financroo-tpp` app then under the OAuth tab replace the redirect URI with the new one
+ - Run the `setup-ce.sh` script to update the URIs
+To update the URIs using the script do the following from the `openbanking` directory
+```bash
+deploy/setup-ce.sh replace-urls <replace with financroo redirect URI> <replace consent url>
+```
+
+>Note: When finished with the demo you can remove the CDR workspace by running this from the `openbanking` directory ```bash
+deploy/setup-ce.sh delete-workspace
+```
+
+
+### Create Cloudentity workspace manually
+
+Only perform these steps if not using the provided `setup-ce.sh` script to auto-generate the workspace and client applications.
 
 * Create an open banking compliant workspace
     * Create [a new workspace within Cloudentity that represents the concept of an independent OAuth/OIDC authorization server within Cloudentity](https://developer.cloudentity.com/howtos/tenant_configuration/adding_workspaces/). Let's choose a [CDR compliant workspace](https://developer.cloudentity.com/howtos/cdr/cdr_workspace/) for this walkthrough.
