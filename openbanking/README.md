@@ -39,7 +39,7 @@ access tokens. There are two ways to prepare Cloudentity workspace.
       * Make note of your domain, ie `my-tenant-domain.us.authz.cloudentity.io`
       * Copy your tenant ID - this can be found in the top right under `Profile`
 * Update environment variables for CLoudentity setup script
-   * In the repository under `deploy` locate the `ce_workspace.env` file and add the envrinment variables that were copied previously:
+   * In the repository under `deploy` locate the `ce_admin.env` file and add the envrinment variables that were copied previously:
       - CLIENT_ID="admin client application id"
       - CLIENT_SECRET="admin client application secret"
       - DOMAIN="domain of your tenant domain - ie my-demo-tenant.us.authz.cloudentity.io"
@@ -51,11 +51,13 @@ access tokens. There are two ways to prepare Cloudentity workspace.
     deploy/setup-ce.sh create-workspace
     ```
 
-This creates a new workspace called `CDR ApigeeX & CE`. Switch to this workspace and verify that there are two client applications under Applications -> Clients. The clients are:
+This creates a new workspace based on the workspace ID that was added to the `ce-admin.env` file.  Switch to the new workspace and verify that there are two client applications under Applications -> Clients. The clients are:
  - apigeex-introspect-proxy
  - financroo-tpp
 
-The workspace and client applications are now configured. Next, complete the steps for [Deploying the solution components into GCP](#Deploying-the-solution-components-into-GCP). Once those steps are completed return to this section to finish updating your consent URL and financroo redirect URI.
+The environment variables required for the next step are now located in `ce-workspace.env`.
+
+The workspace and client applications are now configured. Next, complete the steps for [Deploying the solution components into GCP](#Deploying-the-solution-components-into-GCP).
 
 
 Once the steps for [Deploying the solution components into GCP](#deploying-the-solution-components-into-gcp) are completed the script will output a consent URL and a financroo URI. There are two ways to add these to Cloudentity applications.
