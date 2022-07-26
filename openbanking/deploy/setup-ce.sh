@@ -1,31 +1,28 @@
 #!/bin/bash
 
 echo $(pwd)
-source deploy/ce_workspace.env
+source deploy/ce_admin.env
 
 function get_token {
   ACCESS_TOKEN=$(curl --request POST \
   --url https://$DOMAIN/$TENANT_ID/admin/oauth2/token \
   --header "Authorization: Basic `echo -n $CLIENT_ID:$CLIENT_SECRET | base64`" \
   --header 'Content-Type: application/x-www-form-urlencoded' \
-  --data grant_type=client_credentials | jq '.access_token')
-
-  ACCESS_TOKEN=`sed -e 's/^"//' -e 's/"$//' <<<"$ACCESS_TOKEN"`
-
+  --data grant_type=client_credentials | jq -r '.access_token')
 }
 
 function create_oauth_server {
-    echo "Creating workspace"
+    printf "Creating workspace\n"
 
-    curl --request POST \
+    CE_ACP_AUTH_SERVER=$(curl --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
     "tenant_id": '"\"$TENANT_ID\""',
-    "id": "cdr-import-demo",
+    "id": '"\"$WORKSPACE_ID\""',
     "profile": "cdr_australia",
-    "name": "CDR ApigeeX & CE",
+    "name": '"\"$WORKSPACE_ID\""',
     "type": "regular",
     "color": "#fabc3e",
     "secret": "mNowOQHqrRmh9yiEATEZ77gYuKWeBt16C3kgS411BPM",
@@ -421,13 +418,13 @@ function create_oauth_server {
         "mobile_desktop",
         "service"
     ]
-}'
+}'  | jq -r '.issuer_url')
 }
 
 function create_client_apigee_proxy {
-    echo "Creating client - apigee proxy"
+    printf "Creating client - apigee proxy\n"
 
-    curl --request POST \
+    read CE_ACP_APIGEE_CLIENT_ID CE_ACP_APIGEE_CLIENT_SECRET < <(echo $(curl --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/clients \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -441,8 +438,8 @@ function create_client_apigee_proxy {
         "policy_uri": "",
         "tos_uri": "",
         "organisation_id": "",
-        "authorization_server_id": "cdr-import-demo",
-        "client_id": "cdr-import-demo-cah78bukor34hf105is0",
+        "authorization_server_id": '"\"$WORKSPACE_ID\""',
+        "client_id": '"\"$WORKSPACE_ID"'-cah78bukor34hf105is0",
         "client_secret": "W1NXu5V670rsc6-PV-TQp60fYxakDVQhudtDtec5sHE",
         "hashed_secret": "e8ec84cc12d075cd392475b14783764f7456382aa7676be768d4e52baefddb3ae8d1b7e84e15f77973efa0f1c2054677de3ae00be228a835064728d5f845a5e05a7ad87444200587c38d0906e76a437ee7901757dea4409235f3136f05a826c37f3f80f6ea65b09d0a22982322dea77cdc03c78477be1d5dba81c48c70949e4a",
         "application_type": "web",
@@ -509,12 +506,13 @@ function create_client_apigee_proxy {
         "software_id": "",
         "software_version": "",
         "dynamically_registered": false
-    }'
+    }' | jq -r ' "\(.client_id) \(.client_secret)"'))
 }
 
 function create_client_financroo {
-    echo "Creating client - financroo"
-    curl --request POST \
+    printf "Creating client - financroo\n"
+
+    CE_ACP_TPP_CLIENT_ID=$(curl --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/clients \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -528,8 +526,8 @@ function create_client_financroo {
     "policy_uri": "",
     "tos_uri": "",
     "organisation_id": "",
-    "authorization_server_id": "cdr-import-demo",
-    "client_id": "cdr-import-demo-cah9d021pkhkrv729gg0",
+    "authorization_server_id": '"\"$WORKSPACE_ID\""',
+    "client_id": '"\"$WORKSPACE_ID"'-cah9d021pkhkrv729gg0",
     "client_secret": "LUdsbeG5ggDa4iC9KX9llnpg3ZRTe7dxMl_FIhj-HWg",
     "hashed_secret": "5e655e14c3da344cce0b7e54fb12ff58b878e4b6f13d71a736bbc9fc0cedbcb236f8ce89ae5acaf77fa4b9ff24b60c2ca8a0c6fd08901e85a57c20eae4f340d6fc491e89cdbe4a1b9f7ceb5ee1c6fa0b98f4806a8781a16e843d985711ec7cbce0ce5d32d3586e7a8d01e584895d142c67af910a5d40526df662b80d56df8cf0",
     "application_type": "web",
@@ -538,7 +536,7 @@ function create_client_financroo {
         "service"
     ],
     "redirect_uris": [
-        "https://ce-demo-client-ftz6uwntrq-ts.a.run.app/api/callback"
+        "https://$WORKSPACE_ID-ftz6uwntrq-ts.a.run.app/api/callback"
     ],
     "grant_types": [
         "authorization_code",
@@ -627,20 +625,20 @@ function create_client_financroo {
     "software_id": "",
     "software_version": "",
     "dynamically_registered": false
-}'
+}' | jq -r '.client_id')
 }
 
 function create_static_idp {
-     echo "Creating static idp"
+    printf "Creating static idp\n"
 
-    curl --request POST \
-  --url https://$DOMAIN/api/admin/$TENANT_ID/servers/cdr-import-demo/idps/static \
+    RES=$(curl --request POST \
+  --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID/idps/static \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
-    "id": "cdr-import-demo-cah75ea1pkhkrv71kfvg",
+    "id": '"\"$WORKSPACE_ID"'-cah75ea1pkhkrv71kfvg",
     "tenant_id": '"\"$TENANT_ID\""',
-    "authorization_server_id": "cdr-import-demo",
+    "authorization_server_id": '"\"$WORKSPACE_ID\""',
     "name": "mock",
     "disabled": false,
     "hidden": false,
@@ -783,20 +781,19 @@ function create_static_idp {
             }
         ]
     }
-}'
+}')
 }
 
 function update_consent_app_url {
-    echo "Updating consent app url with arg $1"
+    printf "Updating consent app url\n"
 
-    curl --request PUT \
-  --url https://$DOMAIN/api/admin/$TENANT_ID/servers/cdr-import-demo/server-consent \
+    CE_ACP_CONSENT_SCREEN_CLIENT_ID=$(curl --request PUT \
+  --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID/server-consent \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
     "tenant_id": '"\"$TENANT_ID\""',
-    "server_id": "cdr-import-demo",
-    "client_id": "cdr-import-demo-cah778mkor34hf1058s0",
+    "server_id": '"\"$WORKSPACE_ID\""',
     "type": "custom",
     "oidc": {},
     "custom": {
@@ -805,16 +802,22 @@ function update_consent_app_url {
     "openbanking": {
         "bank_url": ""
     }
-}'
+}' | jq  -r '.client_id')
+}
+
+function get_consent_details {
+  printf "Getting consent app details\n"
+
+  CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$(curl --request GET \
+   --url https://$DOMAIN/api/admin/$TENANT_ID/clients/$CE_ACP_CONSENT_SCREEN_CLIENT_ID \
+  --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.client_secret')
 }
 
 function update_financroo_redirect_url {
-    echo "Updating financroo app url with arg $1"
+    printf "Updating financroo redirect url\n"
 
-    echo "Updating financroo redirect url"
-
-    curl --request PUT \
-  --url https://$DOMAIN/api/admin/$TENANT_ID/clients/cdr-import-demo-cah9d021pkhkrv729gg0 \
+    RES=$(curl --request PUT \
+  --url https://$DOMAIN/api/admin/$TENANT_ID/clients/$WORKSPACE_ID-cah9d021pkhkrv729gg0 \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
   --data '{
@@ -826,8 +829,8 @@ function update_financroo_redirect_url {
     "policy_uri": "",
     "tos_uri": "",
     "organisation_id": "",
-    "authorization_server_id": "cdr-import-demo",
-    "client_id": "cdr-import-demo-cah9d021pkhkrv729gg0",
+    "authorization_server_id": '"\"$WORKSPACE_ID\""',
+    "client_id": '"\"$WORKSPACE_ID"'-cah9d021pkhkrv729gg0",
     "client_secret": "LUdsbeG5ggDa4iC9KX9llnpg3ZRTe7dxMl_FIhj-HWg",
     "hashed_secret": "5e655e14c3da344cce0b7e54fb12ff58b878e4b6f13d71a736bbc9fc0cedbcb236f8ce89ae5acaf77fa4b9ff24b60c2ca8a0c6fd08901e85a57c20eae4f340d6fc491e89cdbe4a1b9f7ceb5ee1c6fa0b98f4806a8781a16e843d985711ec7cbce0ce5d32d3586e7a8d01e584895d142c67af910a5d40526df662b80d56df8cf0",
     "application_type": "web",
@@ -998,43 +1001,60 @@ function update_financroo_redirect_url {
     "software_id": "",
     "software_version": "",
     "dynamically_registered": false
-}'
+}')
 }
-
 function delete_workspace {
-    echo "Deleting workspace"
+    printf "Deleting workspace\n"
 
-    curl --request DELETE \
-  --url https://$DOMAIN/api/admin/$TENANT_ID/servers/cdr-import-demo \
-  --header "Authorization: Bearer $ACCESS_TOKEN"
+    RES=$(curl --request DELETE \
+  --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID \
+  --header "Authorization: Bearer $ACCESS_TOKEN")
 }
 
 function replace_urls {
-    echo "updating urls"
+    printf "Updating urls\n"
     update_consent_app_url $2
     update_financroo_redirect_url $1
 }
 
 function setup_workspace {
+    printf "Preparing workspace\n"
     create_oauth_server
     create_client_apigee_proxy
+
     create_client_financroo
     create_static_idp
     update_consent_app_url "http://replace-this-url"
+    get_consent_details
     update_financroo_redirect_url "http://replace-this-url"
-}
 
-get_token
+    printf "CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER\nCE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET\nCE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET\nCE_ACP_ISSUER_URL=$CE_ACP_AUTH_SERVER
+    " > deploy/ce_workspace.env
+
+    printf '\n\n\n---workspace details---\n\n\n'
+
+    echo CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER
+    echo CE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID
+    echo CE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET
+    echo CE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID
+    echo CE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID
+    echo CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET
+    echo CE_ACP_ISSUER_URL=$CE_ACP_AUTH_SERVER
+}
 
 case $1 in
     "create-workspace")
+        get_token
         setup_workspace
     ;;
     "delete-workspace")
+        get_token
         delete_workspace
     ;;
     "replace-urls")
+        get_token
         replace_urls $2 $3
     ;;
+    *)
+        echo "unknown argument - requires one of: create-workspace, delete-workspace, replace-urls"
 esac
-# echo $ACCESS_TOKEN

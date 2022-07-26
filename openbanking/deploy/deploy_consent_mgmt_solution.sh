@@ -48,7 +48,7 @@ echo "========================================================================="
 echo "--> Enabling required GCP APIs..."
 echo "----> Enabling Cloud Build APIs ..."
 echo "========================================================================="
-gcloud services enable cloudbuild.googleapis.com 
+gcloud services enable cloudbuild.googleapis.com
 echo "========================================================================="
 echo "----> Enabling Cloud Run APIs ..."
 echo "========================================================================="
@@ -61,7 +61,7 @@ gcloud services enable secretmanager.googleapis.com
 # Grant required permissions to Cloud Build service account
 PROJECT_NUMBER=$(gcloud projects describe  $PROJECT_ID --format 'value(projectNumber)')
 CB_SVC_ACCOUNT="$PROJECT_NUMBER@cloudbuild.gserviceaccount.com"
-echo "==================================================================================================" 
+echo "=================================================================================================="
 echo "--> Granting required permissions to Cloud Build service account:"
 echo "      $CB_SVC_ACCOUNT"
 echo "=================================================================================================="
@@ -117,8 +117,8 @@ pushd deploy/tmp/openbanking-quickstart
 echo "========================================================================="
 echo "--> Creating Google Cloud secrets to store certificates used by apps"
 echo "========================================================================="
-../../create_update_secret.sh ce-tpp-cert ./data/tpp_cert.pem 
-../../create_update_secret.sh ce-tpp-key ./data/tpp_key.pem 
+../../create_update_secret.sh ce-tpp-cert ./data/tpp_cert.pem
+../../create_update_secret.sh ce-tpp-key ./data/tpp_key.pem
 ../../create_update_secret.sh ce-cert-auth ./data/ca.pem
 
 # Re-read the environment file to get the latest values updated from the previous Apigee deployment step
@@ -191,7 +191,7 @@ echo " demo client app at:                           "
 echo "   $DEMO_CLIENT_APP_URL                        "
 echo "================================================="
 
-popd 
+popd
 
 # Remove temporary artefacts
 echo Done
