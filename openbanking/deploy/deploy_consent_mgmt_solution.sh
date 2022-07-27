@@ -98,7 +98,7 @@ gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUse
 echo "========================================================================="
 echo "--> Deploying Apigee artefacts..."
 echo "========================================================================="
-deploy/apigee-artefacts-deploy.sh
+# deploy/apigee-artefacts-deploy.sh
 
 # Clone CloudEntity quickstart repo
 echo "==================================================================================================="
@@ -145,7 +145,7 @@ echo "==========================================================================
 
 # Deploy demo client app (Financroo)
 echo "========================================================================="
-echo "--> Deploying demo client app (Financroo) app as a CloudRun function...."
+echo "--> Deploying demo client (Financroo) app as a CloudRun function...."
 echo "========================================================================="
 export CE_ACP_HOSTNAME=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $3}')
 export CE_ACP_TENANT=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $4}')
@@ -154,6 +154,8 @@ export CE_ACP_MTLS_ISSUER=$(curl $CE_ACP_AUTH_SERVER/.well-known/openid-configur
 export CE_ACP_MTLS_HOSTNAME=$(echo $CE_ACP_MTLS_ISSUER  |  awk -F/ '{print $3}')
 gcloud builds submit --region=$REGION --config ../../cloudbuild-financroo-app.yaml --substitutions=_CE_ACP_HOSTNAME="$CE_ACP_HOSTNAME",_CE_ACP_MTLS_HOSTNAME="$CE_ACP_MTLS_HOSTNAME",_CE_ACP_TENANT="$CE_ACP_TENANT",_CE_ACP_WORKSPACE="$CE_ACP_WORKSPACE",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_CE_ACP_TPP_CLIENT_ID="$CE_ACP_TPP_CLIENT_ID" .
 
+# Let all users access the deployed cloud function
+gcloud beta run services add-iam-policy-binding --region=australia-southeast1 --member=allUsers --role=roles/run.invoker ce-demo-client
 
 # Get URL for consent page app
 DEMO_CLIENT_APP_URL=$(gcloud run services describe ce-demo-client --platform managed --region=$REGION --format 'value(status.url)')
