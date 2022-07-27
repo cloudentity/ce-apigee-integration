@@ -4,7 +4,7 @@ echo $(pwd)
 source deploy/ce_admin.env
 
 function get_token {
-  ACCESS_TOKEN=$(curl --request POST \
+  ACCESS_TOKEN=$(curl -k  --request POST \
   --url https://$DOMAIN/$TENANT_ID/admin/oauth2/token \
   --header "Authorization: Basic `echo -n $CLIENT_ID:$CLIENT_SECRET | base64`" \
   --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -14,7 +14,7 @@ function get_token {
 function create_oauth_server {
     printf "Creating workspace\n"
 
-    CE_ACP_AUTH_SERVER=$(curl --request POST \
+    CE_ACP_AUTH_SERVER=$(curl -k  --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -424,7 +424,7 @@ function create_oauth_server {
 function create_client_apigee_proxy {
     printf "Creating client - apigee proxy\n"
 
-    read CE_ACP_APIGEE_CLIENT_ID CE_ACP_APIGEE_CLIENT_SECRET < <(echo $(curl --request POST \
+    read CE_ACP_APIGEE_CLIENT_ID CE_ACP_APIGEE_CLIENT_SECRET < <(echo $(curl -k  --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/clients \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -512,7 +512,7 @@ function create_client_apigee_proxy {
 function create_client_financroo {
     printf "Creating client - financroo\n"
 
-    CE_ACP_TPP_CLIENT_ID=$(curl --request POST \
+    CE_ACP_TPP_CLIENT_ID=$(curl -k  --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/clients \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -536,7 +536,7 @@ function create_client_financroo {
         "service"
     ],
     "redirect_uris": [
-        "https://$WORKSPACE_ID-ftz6uwntrq-ts.a.run.app/api/callback"
+        '"\"https://$WORKSPACE_ID-ftz6uwntrq-ts.a.run.app/api/callback\""'
     ],
     "grant_types": [
         "authorization_code",
@@ -631,7 +631,7 @@ function create_client_financroo {
 function create_static_idp {
     printf "Creating static idp\n"
 
-    RES=$(curl --request POST \
+    RES=$(curl -k  --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID/idps/static \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -787,7 +787,7 @@ function create_static_idp {
 function update_consent_app_url {
     printf "Updating consent app url\n"
 
-    CE_ACP_CONSENT_SCREEN_CLIENT_ID=$(curl --request PUT \
+    CE_ACP_CONSENT_SCREEN_CLIENT_ID=$(curl -k  --request PUT \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID/server-consent \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -808,7 +808,7 @@ function update_consent_app_url {
 function get_consent_details {
   printf "Getting consent app details\n"
 
-  CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$(curl --request GET \
+  CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$(curl -k  --request GET \
    --url https://$DOMAIN/api/admin/$TENANT_ID/clients/$CE_ACP_CONSENT_SCREEN_CLIENT_ID \
   --header "Authorization: Bearer $ACCESS_TOKEN" | jq -r '.client_secret')
 }
@@ -816,7 +816,7 @@ function get_consent_details {
 function update_financroo_redirect_url {
     printf "Updating financroo redirect url\n"
 
-    RES=$(curl --request PUT \
+    RES=$(curl -k  --request PUT \
   --url https://$DOMAIN/api/admin/$TENANT_ID/clients/$WORKSPACE_ID-cah9d021pkhkrv729gg0 \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -1006,7 +1006,7 @@ function update_financroo_redirect_url {
 function delete_workspace {
     printf "Deleting workspace\n"
 
-    RES=$(curl --request DELETE \
+    RES=$(curl -k  --request DELETE \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID \
   --header "Authorization: Bearer $ACCESS_TOKEN")
 }
@@ -1028,7 +1028,7 @@ function setup_workspace {
     get_consent_details
     update_financroo_redirect_url "http://replace-this-url"
 
-    printf "CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER\nCE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET\nCE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET\nCE_ACP_ISSUER_URL=$CE_ACP_AUTH_SERVER
+    printf "CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER\nCE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID\nCE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET\nCE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET\nCE_ACP_ISSUER_URL=$(echo https://$DOMAIN/$TENANT_ID/system)
     " > deploy/ce_workspace.env
 
     printf '\n\n\n---workspace details---\n\n\n'

@@ -92,7 +92,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
         --role="roles/secretmanager.secretAccessor"
 
 # Let all users access the cloud run functions to be deployed
-gcloud beta run services add-iam-policy-binding --region=australia-southeast1 --member=allUsers --role=roles/run.invoker ce-demo-client
+gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
 
 # Deploy Apigee Artefacts
 echo "========================================================================="
@@ -129,10 +129,10 @@ source $CONFIG_FILE_ABS_PATH
 echo "========================================================================="
 echo "--> Deploying consent page app as a CloudRun function...."
 echo "========================================================================="
-gcloud builds submit --region $REGION --config ../../cloudbuild-consent-app.yaml --substitutions=_CE_ACP_ISSUER_URL="$CE_ACP_ISSUER_URL",_CE_ACP_CONSENT_SCREEN_CLIENT_ID="$CE_ACP_CONSENT_SCREEN_CLIENT_ID",_CE_ACP_CONSENT_SCREEN_CLIENT_SECRET="$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_APIGEE_CE_CLIENT_ID="$APIGEE_CE_CLIENT_ID",_APIGEE_CE_CLIENT_SECRET="$APIGEE_CE_CLIENT_SECRET" .
+gcloud builds submit --region=$REGION --config ../../cloudbuild-consent-app.yaml --substitutions=_CE_ACP_ISSUER_URL="$CE_ACP_ISSUER_URL",_CE_ACP_CONSENT_SCREEN_CLIENT_ID="$CE_ACP_CONSENT_SCREEN_CLIENT_ID",_CE_ACP_CONSENT_SCREEN_CLIENT_SECRET="$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_APIGEE_CE_CLIENT_ID="$APIGEE_CE_CLIENT_ID",_APIGEE_CE_CLIENT_SECRET="$APIGEE_CE_CLIENT_SECRET" .
 
 # Get URL for consent page app
-CONSENT_APP_URL=$(gcloud run services describe ce-consent-page --platform managed --region $REGION --format 'value(status.url)')
+CONSENT_APP_URL=$(gcloud run services describe ce-consent-page --platform managed --region=$REGION --format 'value(status.url)')
 echo "========================================================================="
 echo "--> Updating consent page app configuration...."
 echo "========================================================================="
@@ -152,16 +152,16 @@ export CE_ACP_TENANT=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $4}')
 export CE_ACP_WORKSPACE=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $5}')
 export CE_ACP_MTLS_ISSUER=$(curl $CE_ACP_AUTH_SERVER/.well-known/openid-configuration -s | jq -r '.mtls_issuer')
 export CE_ACP_MTLS_HOSTNAME=$(echo $CE_ACP_MTLS_ISSUER  |  awk -F/ '{print $3}')
-gcloud builds submit --region $REGION --config ../../cloudbuild-financroo-app.yaml --substitutions=_CE_ACP_HOSTNAME="$CE_ACP_HOSTNAME",_CE_ACP_MTLS_HOSTNAME="$CE_ACP_MTLS_HOSTNAME",_CE_ACP_TENANT="$CE_ACP_TENANT",_CE_ACP_WORKSPACE="$CE_ACP_WORKSPACE",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_CE_ACP_TPP_CLIENT_ID="$CE_ACP_TPP_CLIENT_ID" .
+gcloud builds submit --region=$REGION --config ../../cloudbuild-financroo-app.yaml --substitutions=_CE_ACP_HOSTNAME="$CE_ACP_HOSTNAME",_CE_ACP_MTLS_HOSTNAME="$CE_ACP_MTLS_HOSTNAME",_CE_ACP_TENANT="$CE_ACP_TENANT",_CE_ACP_WORKSPACE="$CE_ACP_WORKSPACE",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_CE_ACP_TPP_CLIENT_ID="$CE_ACP_TPP_CLIENT_ID" .
 
 
 # Get URL for consent page app
-DEMO_CLIENT_APP_URL=$(gcloud run services describe ce-demo-client --platform managed --region $REGION --format 'value(status.url)')
+DEMO_CLIENT_APP_URL=$(gcloud run services describe ce-demo-client --platform managed --region=$REGION --format 'value(status.url)')
 # Update config of deployed client app
 echo "========================================================================="
 echo "--> Updating demo client configuration...."
 echo "========================================================================="
-gcloud run services update ce-demo-client --region $REGION --update-env-vars=UI_URL=$DEMO_CLIENT_APP_URL
+gcloud run services update ce-demo-client --region=$REGION --update-env-vars=UI_URL=$DEMO_CLIENT_APP_URL
 gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
 
 echo "==================================================================================================="
