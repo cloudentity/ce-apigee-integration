@@ -874,8 +874,8 @@ function update_financroo_redirect_url {
     "audience": [
         "cah9d021pkhkrv729gg0"
     ],
-    "token_endpoint_auth_method": "tls_client_auth",
-    "token_endpoint_auth_signing_alg": "none",
+    "token_endpoint_auth_method": "private_key_jwt",
+    "token_endpoint_auth_signing_alg": "RS256",
     "jwks": {
         "keys": [
             {
