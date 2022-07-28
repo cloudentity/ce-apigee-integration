@@ -16,9 +16,9 @@
 # limitations under the License.
 #
 
-## Deploys example Apigee X artefacts that interact with Cloud Entity ACP for Consent Management
+# Deploys example Apigee X artefacts that interact with Cloud Entity ACP for Consent Management
 
-#### Utility functions
+### Utility functions
 
 function upload_and_deploy_artefact {
  ARTEFACT_TYPE=$1
@@ -90,9 +90,14 @@ echo "--->"  Creating test developer consent-test-developer@somefictitioustestco
 apigeecli developers create --token $TOKEN --org $APIGEE_X_ORG --first "Consent Test" --last "Developer" --email "consent-test-developer@somefictitioustestcompany.com" --user "consent-test-developer@somefictitioustestcompany.com" 
 
 
-# Create CloudEntity client app
-echo "--->"  Creating client for CloudEntity 
-APP_CREDENTIALS=$(apigeecli apps create --token $TOKEN --org $APIGEE_X_ORG --name "CloudEntityInternal" --email consent-test-developer@somefictitioustestcompany.com --prods CloudEntity-InternalAccess --attrs="DisplayName=CloudEntity - Internal" --attrs "Notes=App for CloudEntity to access internal banking APIs" | grep -v 'WARNING' | jq .credentials[0])
+# Check if there is already a CloudEntity client app
+APP_CREDENTIALS=$(apigeecli developers getapps --token $TOKEN --org $APIGEE_X_ORG getapps --name consent-test-developer@somefictitioustestcompany.com --expand | grep -v 'WARNING' | jq -r '.app[] | select(.name=="CloudEntityInternal").credentials[0]')
+if [[ -z "$APP_CREDENTIALS" ]];
+then
+    # Not found. Create CloudEntity client app
+    echo "--->"  Creating client for CloudEntity 
+    APP_CREDENTIALS=$(apigeecli apps create --token $TOKEN --org $APIGEE_X_ORG --name "CloudEntityInternal" --email consent-test-developer@somefictitioustestcompany.com --prods CloudEntity-InternalAccess --attrs="DisplayName=CloudEntity - Internal" --attrs "Notes=App for CloudEntity to access internal banking APIs" | grep -v 'WARNING' | jq .credentials[0])
+fi
 export APIGEE_CE_CLIENT_ID=$(echo $APP_CREDENTIALS | jq -r .consumerKey)
 export APIGEE_CE_CLIENT_SECRET=$(echo $APP_CREDENTIALS | jq -r .consumerSecret)
 echo "--->"  Client created with the following credentials: 
@@ -100,24 +105,25 @@ echo "--->"  Client Key = $APIGEE_CE_CLIENT_ID
 echo "--->"  Client Secret = $APIGEE_CE_CLIENT_SECRET
 echo "--->" These values will be used to configure the consent screen demo app 
 
-
 # Update the environment configuration file with these values
 sed -i '' "s/.*APIGEE_CE_CLIENT_ID.*/export APIGEE_CE_CLIENT_ID=$APIGEE_CE_CLIENT_ID # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
 sed -i '' "s/.*APIGEE_CE_CLIENT_SECRET.*/export APIGEE_CE_CLIENT_SECRET=$APIGEE_CE_CLIENT_SECRET # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
 
-
-# Create Config KVM
+Create Config KVM
+If KVM already exists, delete it, to make sure that values can indeed be updated
+KVM_EXISTS=$(apigeecli kvms list -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV | grep -v 'WARNING' | grep '"Config"')
+if [[ -n "$KVM_EXISTS" ]];
+then
+    echo "Deleting existing Config Key Value Map..."
+    apigeecli kvms delete --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name Config
+fi
 echo "--->" Creating Config Key Value Map
-KVM_NAME=Config
-apigeecli kvms create --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name $KVM_NAME
+apigeecli kvms create --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name Config
 
 # Configure KVM values 
-# TODO - Use apigeecli
 echo "--->" Adding Client Id and Secret defined in ACP for Apigee use - Adding ACP base path
 apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_ClientId --value $CE_ACP_APIGEE_CLIENT_ID
 apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_ClientSecret --value $CE_ACP_APIGEE_CLIENT_SECRET
 apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_BasePath --value $CE_ACP_BASEPATH
 
 echo "--->" Done
-
-
