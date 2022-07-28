@@ -48,7 +48,7 @@ echo "========================================================================="
 echo "--> Enabling required GCP APIs..."
 echo "----> Enabling Cloud Build APIs ..."
 echo "========================================================================="
-gcloud services enable cloudbuild.googleapis.com 
+gcloud services enable cloudbuild.googleapis.com
 echo "========================================================================="
 echo "----> Enabling Cloud Run APIs ..."
 echo "========================================================================="
@@ -61,7 +61,7 @@ gcloud services enable secretmanager.googleapis.com
 # Grant required permissions to Cloud Build service account
 PROJECT_NUMBER=$(gcloud projects describe  $PROJECT_ID --format 'value(projectNumber)')
 CB_SVC_ACCOUNT="$PROJECT_NUMBER@cloudbuild.gserviceaccount.com"
-echo "==================================================================================================" 
+echo "=================================================================================================="
 echo "--> Granting required permissions to Cloud Build service account:"
 echo "      $CB_SVC_ACCOUNT"
 echo "=================================================================================================="
@@ -91,9 +91,6 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
         --member="serviceAccount:$CR_SVC_ACCOUNT" \
         --role="roles/secretmanager.secretAccessor"
 
-# Let all users access the cloud run functions to be deployed
-gcloud beta run services add-iam-policy-binding --region=australia-southeast1 --member=allUsers --role=roles/run.invoker ce-demo-client
-
 # Deploy Apigee Artefacts
 echo "========================================================================="
 echo "--> Deploying Apigee artefacts..."
@@ -117,8 +114,8 @@ pushd deploy/tmp/openbanking-quickstart
 echo "========================================================================="
 echo "--> Creating Google Cloud secrets to store certificates used by apps"
 echo "========================================================================="
-../../create_update_secret.sh ce-tpp-cert ./data/tpp_cert.pem 
-../../create_update_secret.sh ce-tpp-key ./data/tpp_key.pem 
+../../create_update_secret.sh ce-tpp-cert ./data/tpp_cert.pem
+../../create_update_secret.sh ce-tpp-key ./data/tpp_key.pem
 ../../create_update_secret.sh ce-cert-auth ./data/ca.pem
 
 # Re-read the environment file to get the latest values updated from the previous Apigee deployment step
@@ -129,10 +126,10 @@ source $CONFIG_FILE_ABS_PATH
 echo "========================================================================="
 echo "--> Deploying consent page app as a CloudRun function...."
 echo "========================================================================="
-gcloud builds submit --region $REGION --config ../../cloudbuild-consent-app.yaml --substitutions=_CE_ACP_ISSUER_URL="$CE_ACP_ISSUER_URL",_CE_ACP_CONSENT_SCREEN_CLIENT_ID="$CE_ACP_CONSENT_SCREEN_CLIENT_ID",_CE_ACP_CONSENT_SCREEN_CLIENT_SECRET="$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_APIGEE_CE_CLIENT_ID="$APIGEE_CE_CLIENT_ID",_APIGEE_CE_CLIENT_SECRET="$APIGEE_CE_CLIENT_SECRET" .
+gcloud builds submit --region=$REGION --config ../../cloudbuild-consent-app.yaml --substitutions=_CE_ACP_ISSUER_URL="$CE_ACP_ISSUER_URL",_CE_ACP_CONSENT_SCREEN_CLIENT_ID="$CE_ACP_CONSENT_SCREEN_CLIENT_ID",_CE_ACP_CONSENT_SCREEN_CLIENT_SECRET="$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_APIGEE_CE_CLIENT_ID="$APIGEE_CE_CLIENT_ID",_APIGEE_CE_CLIENT_SECRET="$APIGEE_CE_CLIENT_SECRET" .
 
 # Get URL for consent page app
-CONSENT_APP_URL=$(gcloud run services describe ce-consent-page --platform managed --region $REGION --format 'value(status.url)')
+CONSENT_APP_URL=$(gcloud run services describe ce-consent-page --platform managed --region=$REGION --format 'value(status.url)')
 echo "========================================================================="
 echo "--> Updating consent page app configuration...."
 echo "========================================================================="
@@ -145,23 +142,25 @@ echo "==========================================================================
 
 # Deploy demo client app (Financroo)
 echo "========================================================================="
-echo "--> Deploying demo client app (Financroo) app as a CloudRun function...."
+echo "--> Deploying demo client (Financroo) app as a CloudRun function...."
 echo "========================================================================="
 export CE_ACP_HOSTNAME=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $3}')
 export CE_ACP_TENANT=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $4}')
 export CE_ACP_WORKSPACE=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $5}')
 export CE_ACP_MTLS_ISSUER=$(curl $CE_ACP_AUTH_SERVER/.well-known/openid-configuration -s | jq -r '.mtls_issuer')
 export CE_ACP_MTLS_HOSTNAME=$(echo $CE_ACP_MTLS_ISSUER  |  awk -F/ '{print $3}')
-gcloud builds submit --region $REGION --config ../../cloudbuild-financroo-app.yaml --substitutions=_CE_ACP_HOSTNAME="$CE_ACP_HOSTNAME",_CE_ACP_MTLS_HOSTNAME="$CE_ACP_MTLS_HOSTNAME",_CE_ACP_TENANT="$CE_ACP_TENANT",_CE_ACP_WORKSPACE="$CE_ACP_WORKSPACE",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_CE_ACP_TPP_CLIENT_ID="$CE_ACP_TPP_CLIENT_ID" .
+gcloud builds submit --region=$REGION --config ../../cloudbuild-financroo-app.yaml --substitutions=_CE_ACP_HOSTNAME="$CE_ACP_HOSTNAME",_CE_ACP_MTLS_HOSTNAME="$CE_ACP_MTLS_HOSTNAME",_CE_ACP_TENANT="$CE_ACP_TENANT",_CE_ACP_WORKSPACE="$CE_ACP_WORKSPACE",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_CE_ACP_TPP_CLIENT_ID="$CE_ACP_TPP_CLIENT_ID" .
 
+# Let all users access the deployed cloud function
+gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
 
 # Get URL for consent page app
-DEMO_CLIENT_APP_URL=$(gcloud run services describe ce-demo-client --platform managed --region $REGION --format 'value(status.url)')
+DEMO_CLIENT_APP_URL=$(gcloud run services describe ce-demo-client --platform managed --region=$REGION --format 'value(status.url)')
 # Update config of deployed client app
 echo "========================================================================="
 echo "--> Updating demo client configuration...."
 echo "========================================================================="
-gcloud run services update ce-demo-client --region $REGION --update-env-vars=UI_URL=$DEMO_CLIENT_APP_URL
+gcloud run services update ce-demo-client --region=$REGION --update-env-vars=UI_URL=$DEMO_CLIENT_APP_URL
 gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
 
 echo "==================================================================================================="
@@ -191,7 +190,7 @@ echo " demo client app at:                           "
 echo "   $DEMO_CLIENT_APP_URL                        "
 echo "================================================="
 
-popd 
+popd
 
 # Remove temporary artefacts
 echo Done
