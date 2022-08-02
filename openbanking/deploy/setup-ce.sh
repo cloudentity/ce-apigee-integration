@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo $(pwd)
 source deploy/ce_admin.env
 
 function get_token {
@@ -874,8 +873,8 @@ function update_financroo_redirect_url {
     "audience": [
         "cah9d021pkhkrv729gg0"
     ],
-    "token_endpoint_auth_method": "tls_client_auth",
-    "token_endpoint_auth_signing_alg": "none",
+    "token_endpoint_auth_method": "private_key_jwt",
+    "token_endpoint_auth_signing_alg": "RS256",
     "jwks": {
         "keys": [
             {
@@ -1003,6 +1002,21 @@ function update_financroo_redirect_url {
     "dynamically_registered": false
 }')
 }
+
+function update_customer_id_mapping {
+    RES=$(curl --request POST \
+        --url https://$DOMAIN/api/admin/$TENANT_ID/claims \
+        --header "Authorization: Bearer $ACCESS_TOKEN" \
+        --header 'Content-Type: application/json' \
+        --data "{
+        \"authorization_server_id\":\"$WORKSPACE_ID\",
+        \"name\":\"customer_id\",
+        \"source_path\":\"customer_id\",
+        \"source_type\":\"authnCtx\",
+        \"type\":\"access_token\"
+    }")
+}
+
 function delete_workspace {
     printf "Deleting workspace\n"
 
@@ -1027,6 +1041,7 @@ function setup_workspace {
     update_consent_app_url "http://replace-this-url"
     get_consent_details
     update_financroo_redirect_url "http://replace-this-url"
+    update_customer_id_mapping
 
     printf "CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER\nCE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID\nCE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET\nCE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET\nCE_ACP_ISSUER_URL=$(echo https://$DOMAIN/$TENANT_ID/system)
     " > deploy/ce_workspace.env

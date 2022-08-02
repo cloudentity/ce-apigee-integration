@@ -44,6 +44,7 @@ access tokens. There are two ways to prepare Cloudentity workspace.
       - CLIENT_SECRET="admin client application secret"
       - DOMAIN="domain of your tenant domain - ie my-demo-tenant.us.authz.cloudentity.io"
       - TENANT_ID="tenant id, ie my-demo-tenant"
+      - WORKSPACE_ID="your desired workspace id without spaces"
 * Run the setup script to create and configure workspace and client applications
   * From the root of the repo run the following:
     ```bash
@@ -68,7 +69,7 @@ To update the URIs using the script do the following from the `openbanking` dire
 deploy/setup-ce.sh replace-urls <replace with financroo redirect URI> <replace consent url>
 ```
 
->Note: When finished with the demo you can remove the CDR workspace by running this from the `openbanking` directory `deploy/setup-ce.sh delete-workspace`
+>Note: When finished with the demo you can remove the CDR workspace by running the following from the `openbanking` directory `deploy/setup-ce.sh delete-workspace`
 
 #### Create Cloudentity workspace manually
 

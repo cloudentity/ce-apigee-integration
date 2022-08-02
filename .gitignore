@@ -2,3 +2,4 @@ openbanking/deploy/consent_mgmt_solution_config_*.env
 openbanking/deploy/ce_admin_*.env
 **/.DS_Store
 **/tmp/
+openbanking/deploy/ce_admin_*.env
