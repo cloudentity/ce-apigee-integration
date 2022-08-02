@@ -98,7 +98,7 @@ gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUse
 echo "========================================================================="
 echo "--> Deploying Apigee artefacts..."
 echo "========================================================================="
-# deploy/apigee-artefacts-deploy.sh
+deploy/apigee-artefacts-deploy.sh
 
 # Clone CloudEntity quickstart repo
 echo "==================================================================================================="
@@ -177,11 +177,14 @@ echo "==========================================================================
 echo "==================================================================================================="
 echo "==================================================================================================="
 echo "== IMPORTANT!                                                                                    =="
-echo "== Remember to update the Cloud Entity ACP Workspace as follows:                                 =="
-echo "== 1) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  =="
-echo "      $CONSENT_APP_URL                                                         "
-echo "== 2) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: =="
+echo "== Remember to update the Cloud Entity ACP Workspace.                                            =="
+echo "== You can run the following script to update it:                                                =="
+echo "== deploy/setup-ce.sh replace-urls $DEMO_CLIENT_APP_URL/api/callback $CONSENT_APP_URL"
+echo "== Or you can do it manually by updating:                                                        =="
+echo "== 1) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: =="
 echo "      $DEMO_CLIENT_APP_URL/api/callback                                        "
+echo "== 2) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  =="
+echo "      $CONSENT_APP_URL                                                         "
 echo "==================================================================================================="
 echo "==================================================================================================="
 echo "==================================================================================================="
@@ -196,6 +199,7 @@ echo "================================================="
 popd
 
 # Remove temporary artefacts
+rm -rf deploy/tmp/
 echo Done
 
 

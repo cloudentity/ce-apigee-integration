@@ -246,30 +246,32 @@ after obtaining customer consent.
    deploy/deploy_consent_mgmt_solution.sh <PATH_TO_YOUR_ENVIRONMENT_CONFIGURATION_FILE>
    ````
 
-4. __Update CloudEntity workspace configuration__: Once the deployment script finish, you will need to go back to the CloudEntity workspace and update the configuration for the consent application and the Financroo client application. The deployment script will indicate the values to be updated:
+4. __Update CloudEntity workspace configuration__: Once the deployment script finish, you will need to go back to the CloudEntity workspace and update the configuration for the consent application and the Financroo client application. This can be done by running a script or manually. The deployment script will indicate the values to be updated:
    ````
    ===================================================================================================
    == IMPORTANT!                                                                                    ==
-   == Remember to update the Cloud Entity ACP Workspace as follows:                                 ==
-   == 1) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  ==
-      https://<hostnameForConsentApp>
-   == 2) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: ==
-      https://<hostnameForDemoClientApp>/api/callback
+   == Remember to update the Cloud Entity ACP Workspace.                                            ==
+   == You can run the following script to update it:                                                ==
+   == deploy/setup-ce.sh replace-urls https://<hostnameForDemoClientApp>/api/callback https://<hostnameForConsentApp>
+   == Or you can do it manually by updating:                                                        ==
+   == 1) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: ==
+         https://<hostnameForDemoClientApp>/api/callback                                        
+   == 2) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  ==
+         https://<hostnameForConsentApp>                                                         
    ===================================================================================================
    ````
 
 
 ## Verify the application.
 
-* Launch financroo URL obtained from above deployment. For using the default demo sandbox use
-    `https://ce-demo-client-ftz6uwntrq-ts.a.run.app/`
+* Launch financroo URL obtained from above deployment. 
 
 * Use test user to login to Financroo. This login is served by Financroo itself with an inbuilt auth
     `test/p@ssw0rd!`
 
 * Connect to "Go Bank"
 
-* User will be redirect to "Go Bank" Identity provider which is the mock idp we configured
+* User will be redirected to "Go Bank" Identity provider which is the mock idp we configured
 
 * Login with `user/p@ssw0rd!`
 
@@ -286,6 +288,3 @@ and redirects user back to financroo  app
 * Go Bank APIs are exposed & protected by ApigeeX and the user consent and CDR accessToken is issued by Cloudentity. ApigeeX checks with Cloudentity to ensure customer consent is in place before returning data to Financroo
 
 ![Cloudentity-ApigeeX](./images/ce-cdr-quickstart-financroo-app.png)
-
-
-
