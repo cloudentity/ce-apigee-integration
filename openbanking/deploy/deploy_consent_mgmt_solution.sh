@@ -91,6 +91,9 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
         --member="serviceAccount:$CR_SVC_ACCOUNT" \
         --role="roles/secretmanager.secretAccessor"
 
+# Let all users access the cloud run functions to be deployed
+gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
+
 # Deploy Apigee Artefacts
 echo "========================================================================="
 echo "--> Deploying Apigee artefacts..."
@@ -152,7 +155,7 @@ export CE_ACP_MTLS_HOSTNAME=$(echo $CE_ACP_MTLS_ISSUER  |  awk -F/ '{print $3}')
 gcloud builds submit --region=$REGION --config ../../cloudbuild-financroo-app.yaml --substitutions=_CE_ACP_HOSTNAME="$CE_ACP_HOSTNAME",_CE_ACP_MTLS_HOSTNAME="$CE_ACP_MTLS_HOSTNAME",_CE_ACP_TENANT="$CE_ACP_TENANT",_CE_ACP_WORKSPACE="$CE_ACP_WORKSPACE",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_CE_ACP_TPP_CLIENT_ID="$CE_ACP_TPP_CLIENT_ID" .
 
 # Let all users access the deployed cloud function
-gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
+gcloud beta run services add-iam-policy-binding --region=australia-southeast1 --member=allUsers --role=roles/run.invoker ce-demo-client
 
 # Get URL for consent page app
 DEMO_CLIENT_APP_URL=$(gcloud run services describe ce-demo-client --platform managed --region=$REGION --format 'value(status.url)')
@@ -174,11 +177,14 @@ echo "==========================================================================
 echo "==================================================================================================="
 echo "==================================================================================================="
 echo "== IMPORTANT!                                                                                    =="
-echo "== Remember to update the Cloud Entity ACP Workspace as follows:                                 =="
-echo "== 1) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  =="
-echo "      $CONSENT_APP_URL                                                         "
-echo "== 2) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: =="
+echo "== Remember to update the Cloud Entity ACP Workspace.                                            =="
+echo "== You can run the following script to update it:                                                =="
+echo "== deploy/setup-ce.sh replace-urls $DEMO_CLIENT_APP_URL/api/callback $CONSENT_APP_URL"
+echo "== Or you can do it manually by updating:                                                        =="
+echo "== 1) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: =="
 echo "      $DEMO_CLIENT_APP_URL/api/callback                                        "
+echo "== 2) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  =="
+echo "      $CONSENT_APP_URL                                                         "
 echo "==================================================================================================="
 echo "==================================================================================================="
 echo "==================================================================================================="
@@ -193,6 +199,7 @@ echo "================================================="
 popd
 
 # Remove temporary artefacts
+rm -rf deploy/tmp/
 echo Done
 
 

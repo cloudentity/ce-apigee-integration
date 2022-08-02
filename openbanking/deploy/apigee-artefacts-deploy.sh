@@ -109,8 +109,8 @@ echo "--->" These values will be used to configure the consent screen demo app
 sed -i '' "s/.*APIGEE_CE_CLIENT_ID.*/export APIGEE_CE_CLIENT_ID=$APIGEE_CE_CLIENT_ID # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
 sed -i '' "s/.*APIGEE_CE_CLIENT_SECRET.*/export APIGEE_CE_CLIENT_SECRET=$APIGEE_CE_CLIENT_SECRET # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
 
-Create Config KVM
-If KVM already exists, delete it, to make sure that values can indeed be updated
+#Create Config KVM
+# If KVM already exists, delete it, to make sure that values can indeed be updated
 KVM_EXISTS=$(apigeecli kvms list -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV | grep -v 'WARNING' | grep '"Config"')
 if [[ -n "$KVM_EXISTS" ]];
 then
