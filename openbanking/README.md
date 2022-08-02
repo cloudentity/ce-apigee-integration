@@ -6,7 +6,7 @@ regulations.
 
 ![Cloudentity-ApigeeX](./images/ce-apigeex-openbanking-overview.png)
 
- Cloudentity platform provides the capability for consumer consent management, registration and management of third parties, communication with registry etc while ApigeeX exposes the data APIs and enforces secure access of consumer data APIs as per regulations and compliance.  Cloudentity provides the open banking security profile implementation for data holder ecosystem and Apigeex works in tandem with Cloudentity to ensure data is released only to authorized entities and enforce active consumer consent checks on requested data as per open banking regulations. 
+ Cloudentity platform provides the capability for consumer consent management, registration and management of third parties, communication with registry etc while ApigeeX exposes the data APIs and enforces secure access of consumer data APIs as per regulations and compliance.  Cloudentity provides the open banking security profile implementation for data holder ecosystem and Apigeex works in tandem with Cloudentity to ensure data is released only to authorized entities and enforce active consumer consent checks on requested data as per open banking regulations.
 
 ![Cloudentity-ApigeeX](./images/ce-apigeex-overview.jpeg)
 
@@ -23,9 +23,57 @@ regulations.
 ### Cloudentity
 
 Let's configure Cloudentity to facililate CDR flow and manage customer consents and issued CDR compliant
-access tokens
+access tokens. There are two ways to prepare Cloudentity workspace.
 
-### Create Cloudentity workspace
+ - Use provided script after creating a client app in Admin workspace and fill in environment variables for `ce_workspace.env`
+ - Manually setup Cloudentity workspace
+
+#### Create Cloudentity workspace using script
+
+* Create a client in Admin workspace
+   * Create a [client app in Cloudentity Admin workspace](https://developer.cloudentity.com/howtos/tenant_configuration/adding_workspaces/)
+   * In newly created client app
+      * under the OAuth tab set Grant Types to `Client credentials`
+      * under the OAuth tab set Token Endpoint Authentication Method to `Client Secret Basic`
+      * Make note of the `CLIENT ID` and `CLIENT SECRET` which will be used to set environment variables
+      * Make note of your domain, ie `my-tenant-domain.us.authz.cloudentity.io`
+      * Copy your tenant ID - this can be found in the top right under `Profile`
+* Update environment variables for CLoudentity setup script
+   * In the repository under `deploy` locate the `ce_admin.env` file and add the envrinment variables that were copied previously:
+      - CLIENT_ID="admin client application id"
+      - CLIENT_SECRET="admin client application secret"
+      - DOMAIN="domain of your tenant domain - ie my-demo-tenant.us.authz.cloudentity.io"
+      - TENANT_ID="tenant id, ie my-demo-tenant"
+      - WORKSPACE_ID="your desired workspace id without spaces"
+* Run the setup script to create and configure workspace and client applications
+  * From the root of the repo run the following:
+    ```bash
+    cd openbanking
+    deploy/setup-ce.sh create-workspace
+    ```
+
+This creates a new workspace based on the workspace ID that was added to the `ce-admin.env` file.  Switch to the new workspace and verify that there are two client applications under Applications -> Clients. The clients are:
+ - apigeex-introspect-proxy
+ - financroo-tpp
+
+The environment variables required for the next step are now located in `ce-workspace.env`.
+
+The workspace and client applications are now configured. Next, complete the steps for [Deploying the solution components into GCP](#Deploying-the-solution-components-into-GCP).
+
+
+Once the steps for [Deploying the solution components into GCP](#deploying-the-solution-components-into-gcp) are completed the script will output a consent URL and a financroo URI. There are two ways to add these to Cloudentity applications.
+ - Manually copy the consent URL in OAuth Settings -> Consent -> Custom Consent -> Consent URL and copy the financroo redirect URI  to the financroo app in Applications -> Clients. Select `financroo-tpp` app then under the OAuth tab replace the redirect URI with the new one
+ - Run the `setup-ce.sh` script to update the URIs
+To update the URIs using the script do the following from the `openbanking` directory
+```bash
+deploy/setup-ce.sh replace-urls <replace with financroo redirect URI> <replace consent url>
+```
+
+>Note: When finished with the demo you can remove the CDR workspace by running the following from the `openbanking` directory `deploy/setup-ce.sh delete-workspace`
+
+#### Create Cloudentity workspace manually
+
+>Note: Only perform these steps if not using the provided `setup-ce.sh` script to auto-generate the workspace and client applications.
 
 * Create an open banking compliant workspace
     * Create [a new workspace within Cloudentity that represents the concept of an independent OAuth/OIDC authorization server within Cloudentity](https://developer.cloudentity.com/howtos/tenant_configuration/adding_workspaces/). Let's choose a [CDR compliant workspace](https://developer.cloudentity.com/howtos/cdr/cdr_workspace/) for this walkthrough.
@@ -42,13 +90,13 @@ access tokens
 
     * Skip developer portal
 
-### Configure Cloudentity workspace   
+### Configure Cloudentity workspace
 
 Now that we have created a CDR compliant workspace, let's go ahead and apply some settings
 
 * Set token type to `JWT` instead of opaque
 
-For the sake of simplicity, let's swith the token type to `JWT` instead of opaque.
+For the sake of simplicity, let's switch the token type to `JWT` instead of opaque.
 
 ![Cloudentity-ApigeeX](./images/ce-cdr-token-settings-jwt.png)
 
@@ -107,9 +155,9 @@ ZD/0ro2b2KVvgg==
 
 ### Register a consent application
 
-CDR requires a good and informed CX for collecting customer consents to share data with third party providers. In this demonstration, we will be handing off the consent collection responsibility to a demo consent application running in GCP which will interact with Cloudentity APIs & ApigeeX APIs to display, collect and store customer consents for their bank accounts to be shared with third party app(Financroo).
+CDR requires a clear and informed CX for collecting customer consents to share data with third party providers. In this demonstration, we will be handing off the consent collection responsibility to a demo consent application running in GCP which will interact with Cloudentity APIs & ApigeeX APIs to display, collect and store customer consents for their bank accounts to be shared with third party app(Financroo).
 
-[Register a custom CDR compliant consent app within Cloudentity](https://developer.cloudentity.com/howtos/cdr/build_cdr_consent_apps/#configure-consent-application-in-cloudentity). For now let's provide a dummy url for 
+[Register a custom CDR compliant consent app within Cloudentity](https://developer.cloudentity.com/howtos/cdr/build_cdr_consent_apps/#configure-consent-application-in-cloudentity). For now let's provide a dummy url for
 the custom consent page(in case you don't have one already) to get the communication credentials for the custom consent app to interact with Cloudentity. Note that we have a demo consent app that we will deploy later onto GCP and once
 that is deployed, the URL can be updated here.
 
@@ -130,13 +178,13 @@ introspect and verify CDR compliant access tokens issued by Cloudentity.
 
 ![Cloudentity-ApigeeX](./images/ce-cdr-apigeex-proxy-oauth-scopes.png)
 
-### Register an OAuth client application for Financroo 
+### Register an OAuth client application for Financroo
 
 To demonstrate an end to end CDR flow, we need a data recipient app. In this exercise we will utilize the Financroo
-app as the ADR. For sake of simplicity, we will not do the DCR, ADR validation etc rather create and application
+app as the ADR. For the sake of simplicity, we will not do the DCR, ADR validation etc., but rather create an application
 that represents a data recipient app.
 
-* Create an [OAuth client application in Cloudentity](https://developer.cloudentity.com/howtos/applications/connecting_and_configuring_client_apps/) for ApigeeX to act as the ADR application. Ideally this needs to be done using a DCR flow but it this tutorial skips the registration mechanism.
+* Create an [OAuth client application in Cloudentity](https://developer.cloudentity.com/howtos/applications/connecting_and_configuring_client_apps/) for ApigeeX to act as the ADR application. Ideally this needs to be done using a DCR flow but this tutorial skips the registration mechanism.
 * Client name as `financroo-tpp`
 * Choose Grant type as `Authorization code` , `Refresh Token` & `Client Credentials`
 * Under Client Authentication
@@ -175,7 +223,7 @@ that represents a data recipient app.
 We are now ready to deploy the required components into GCP. These are:
 
 - ApigeeX artefacts that implement the Banking data APIs. They return mock data
-- Demo consent application: This application talks to Bank APIs exposed by ApigeeX & Cloudentity APIs to gather and store consent within Cloudentity 
+- Demo consent application: This application talks to Bank APIs exposed by ApigeeX & Cloudentity APIs to gather and store consent within Cloudentity
 - Demo client to test this solution: We will use the Financroo data recipient app. This is a Data Recipient app that can interact with Bank APIs to use customer data
 after obtaining customer consent.
 
@@ -192,43 +240,45 @@ after obtaining customer consent.
    - Make a copy of the [environment file](./deploy/consent_mgmt_solution_config.env)
    - Edit the file. Set the variables values to reflect your own instances
 
-3. __Run the deployment script__: Run the following commands from the root folder of the cloned repo: 
+3. __Run the deployment script__: Run the following commands from the root folder of the cloned repo:
    ````
    cd openbanking
    deploy/deploy_consent_mgmt_solution.sh <PATH_TO_YOUR_ENVIRONMENT_CONFIGURATION_FILE>
    ````
 
-4. __Update CloudEntity workspace configuration__: Once the deployment script finish, you will need to go back to the CloudEntity workspace and update the configuration for the consent application and the Financroo client application. The deployment script will indicate the values to be updated:
-   ```` 
+4. __Update CloudEntity workspace configuration__: Once the deployment script finish, you will need to go back to the CloudEntity workspace and update the configuration for the consent application and the Financroo client application. This can be done by running a script or manually. The deployment script will indicate the values to be updated:
+   ````
    ===================================================================================================
-   == IMPORTANT!                                                                                    == 
-   == Remember to update the Cloud Entity ACP Workspace as follows:                                 ==
-   == 1) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  ==
-      https://<hostnameForConsentApp>                                                         
-   == 2) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: ==
-      https://<hostnameForDemoClientApp>/api/callback                                        
+   == IMPORTANT!                                                                                    ==
+   == Remember to update the Cloud Entity ACP Workspace.                                            ==
+   == You can run the following script to update it:                                                ==
+   == deploy/setup-ce.sh replace-urls https://<hostnameForDemoClientApp>/api/callback https://<hostnameForConsentApp>
+   == Or you can do it manually by updating:                                                        ==
+   == 1) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: ==
+         https://<hostnameForDemoClientApp>/api/callback                                        
+   == 2) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  ==
+         https://<hostnameForConsentApp>                                                         
    ===================================================================================================
    ````
 
 
 ## Verify the application.
 
-* Launch financroo URL obtained from above deployment. For using the default demo sandbox use
-    `https://ce-demo-client-ftz6uwntrq-ts.a.run.app/`
+* Launch financroo URL obtained from above deployment. 
 
 * Use test user to login to Financroo. This login is served by Financroo itself with an inbuilt auth
     `test/p@ssw0rd!`
 
 * Connect to "Go Bank"
 
-* User will be redirect to "Go Bank" Identity provider which is the mock idp we configured
+* User will be redirected to "Go Bank" Identity provider which is the mock idp we configured
 
 * Login with `user/p@ssw0rd!`
 
 * User will be redirected to consent app hosted in GCP to provide consent
     * Select accounts and provide consent. Consent app reaches out to ApigeeX exposed Bank APIs to fetch accounts for this user identified with `customer_id`
 
-   ![Cloudentity-ApigeeX](./images/ce-cdr-quickstart-consent-page.png) 
+   ![Cloudentity-ApigeeX](./images/ce-cdr-quickstart-consent-page.png)
 
 * Once consent is collected, and submitted to Cloudentity, Cloudentity mints CDR compliant tokens
 and redirects user back to financroo  app
@@ -238,6 +288,3 @@ and redirects user back to financroo  app
 * Go Bank APIs are exposed & protected by ApigeeX and the user consent and CDR accessToken is issued by Cloudentity. ApigeeX checks with Cloudentity to ensure customer consent is in place before returning data to Financroo
 
 ![Cloudentity-ApigeeX](./images/ce-cdr-quickstart-financroo-app.png)
-
-
-
