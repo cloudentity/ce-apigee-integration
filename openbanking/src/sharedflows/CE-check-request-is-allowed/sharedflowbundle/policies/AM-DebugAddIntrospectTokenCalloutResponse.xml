@@ -5,7 +5,6 @@
         <Headers>
             <Header name="x-debug-token-introspect-response">{introspectTokenCalloutResponse.content}</Header>
             <Header name="x-debug-token-introspect-status-code">{introspectTokenCalloutResponse.status.code}</Header>
-            <Header name="x-debug-token-introspect-sc-url">{servicecallout.SC-IntrospectToken.target.url}</Header>
         </Headers>
     </Set>
     <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>

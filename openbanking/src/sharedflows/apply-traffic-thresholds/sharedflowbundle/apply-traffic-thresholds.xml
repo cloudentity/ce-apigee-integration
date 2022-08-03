@@ -1,0 +1,20 @@
+<SharedFlowBundle revision="2" name="apply-traffic-thresholds">
+    <DisplayName>apply-traffic-thresholds</DisplayName>
+    <Description>Apply the traffic thresholds specified by CDS non functional requirements</Description>
+    <CreatedAt>1659490543398</CreatedAt>
+    <LastModifiedAt>1659490543398</LastModifiedAt>
+    <Policies>
+        <Policy>Q-RequestsPerSessionForUnattendedTraffic</Policy>
+        <Policy>SA-ThresholdForCustomerPresentSecureTrafficPerClientId</Policy>
+        <Policy>SA-ThresholdForSecureTrafficPerClientId</Policy>
+        <Policy>RF-QuotaExceededForSessionWithUnattendedTraffic</Policy>
+        <Policy>RF-TooManyRequests</Policy>
+        <Policy>AM-SetQuotaBucketForCustomerPresentSession</Policy>
+        <Policy>SA-GlobalTrafficThreshold</Policy>
+        <Policy>SA-ThresholdForUnattendedSecureTrafficPerSession</Policy>
+    </Policies>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>

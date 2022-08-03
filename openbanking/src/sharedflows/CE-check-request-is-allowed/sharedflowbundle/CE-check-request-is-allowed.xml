@@ -1,8 +1,8 @@
-<SharedFlowBundle revision="45" name="CE-check-request-is-allowed">
+<SharedFlowBundle revision="2" name="CE-check-request-is-allowed">
     <DisplayName>CE-check-request-is-allowed</DisplayName>
     <Description>Check whether an access token has sufficient permissions to execute a request, based on token validity and consent associated to the token</Description>
-    <CreatedAt>1653284043831</CreatedAt>
-    <LastModifiedAt>1653284043831</LastModifiedAt>
+    <CreatedAt>1659497700723</CreatedAt>
+    <LastModifiedAt>1659497773031</LastModifiedAt>
     <Policies>
         <Policy>EV-ExtractTokenFromResponse</Policy>
         <Policy>PC-StoreConsentMangementToken</Policy>

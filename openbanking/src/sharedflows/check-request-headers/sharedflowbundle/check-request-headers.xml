@@ -1,0 +1,29 @@
+<SharedFlowBundle revision="2" name="check-request-headers">
+    <DisplayName>check-request-headers</DisplayName>
+    <Description>Check headers and their values required in every request. Stores headers that may need to be included in the response</Description>
+    <CreatedAt>1659490589831</CreatedAt>
+    <LastModifiedAt>1659490589831</LastModifiedAt>
+    <Policies>
+        <Policy>RF-Invalid-Accept-Header</Policy>
+        <Policy>RF-Invalid-Content-Type-Header</Policy>
+        <Policy>FC-DecideIfCustomerIsPresent</Policy>
+        <Policy>AM-SetEndpointVersionTo3</Policy>
+        <Policy>RF-Missing-Authdate-Header</Policy>
+        <Policy>RF-Missing-Invalid-cdsClientHeaders-Header</Policy>
+        <Policy>AM-SetEndpointVersionTo2</Policy>
+        <Policy>AM-SetEndpointVersionTo1</Policy>
+        <Policy>JS-CheckVersionHeaders</Policy>
+        <Policy>RF-Invalid-Version</Policy>
+        <Policy>AM-ExtractContentTypeAndAcceptHeaders</Policy>
+        <Policy>EV-Preserve-Request-Headers</Policy>
+        <Policy>AM-Extract-Pagination-Params</Policy>
+        <Policy>RF-Return-CORS-Headers</Policy>
+    </Policies>
+    <Resources>
+        <Resource>jsc://checkVersionHeaders.js</Resource>
+    </Resources>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>

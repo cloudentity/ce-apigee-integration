@@ -1,0 +1,25 @@
+<SharedFlowBundle revision="2" name="collect-performance-slo">
+    <DisplayName>collect-performance-slo</DisplayName>
+    <Description>Stores custom analytics metric that indicates whether a request meets its performance objective (based on tiers specified by CDS)</Description>
+    <CreatedAt>1659490439848</CreatedAt>
+    <LastModifiedAt>1659490439848</LastModifiedAt>
+    <Policies>
+        <Policy>AM-ResetTokenOpIfNA</Policy>
+        <Policy>AM-SetPerformanceTierToLowPriority</Policy>
+        <Policy>AM-SetPerformanceTierToUnattended</Policy>
+        <Policy>AM-SetMessageSLO</Policy>
+        <Policy>AM-SetPerformanceTierToLargePayload</Policy>
+        <Policy>DC-AddPerformanceTierDimension</Policy>
+        <Policy>JS-CheckIfRequestMeetsPerformanceSLO</Policy>
+        <Policy>AM-SetPerformanceTierToHighPriority</Policy>
+        <Policy>AM-ResetCustomerPPIDIfNA</Policy>
+        <Policy>AM-SetPerformanceTierToUnauthenticated</Policy>
+    </Policies>
+    <Resources>
+        <Resource>jsc://checkIfRequestMeetsPerformanceSLO.js</Resource>
+    </Resources>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>

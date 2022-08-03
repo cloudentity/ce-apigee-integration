@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <DefaultFaultRule name="DefaultFaultRule">
+        <Step>
+            <Condition>message.status.code != "200"</Condition>
+            <FaultRules/>
+            <Name>AM-Add-CORS-Headers</Name>
+        </Step>
+        <Step>
+            <Name>FC-AddFAPIInteractionId</Name>
+        </Step>
+        <Step>
+            <FaultRules/>
+            <Name>FC-CollectPerformanceSLO</Name>
+        </Step>
+        <AlwaysEnforce>true</AlwaysEnforce>
+    </DefaultFaultRule>
+    <Description/>
+    <Flows>
+        <Flow name="listTransactions">
+            <Description>Get Transactions for Account</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-TrafficThresholds</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-ValidateRequestParams</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-GetTransactionsFilterCriteria</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>AM-Set-Pagination-Settings</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <FaultRules/>
+                    <Name>JS-FilterTransactionsListBasedOnRequestFilters</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>JS-RemoveTransactionDetails</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-PaginateResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="getTransactionDetail">
+            <Description>Get Transaction Detail</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-TrafficThresholds</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-TxIdFromURIParam</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Name>EV-TxDetailsForTxId</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>JS-BuildTransactionDetailsResponse</Name>
+                </Step>
+                <Step>
+                    <Name>RF-InvalidTxIdInURI</Name>
+                    <Condition>trxIsValid = "false"</Condition>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/{theTransactionId}") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="unsupportedMethod">
+            <Description>Method Not Allowed</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>RF-UnsupportedMethod</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "/")  or (proxy.pathsuffix MatchesPath "/{theTransactionId}")</Condition>
+        </Flow>
+        <Flow name="notFound">
+            <Description>Not Found</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>RF-NotFound</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response>
+            <Step>
+                <FaultRules/>
+                <Name>FC-AddResponseHeaders-Link-Meta</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>FC-CollectPerformanceSLO</Name>
+            </Step>
+        </Response>
+    </PostFlow>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>CORS-Add-CORS-Headers</Name>
+            </Step>
+            <!--<Step>-->
+            <!--    <FaultRules/>-->
+            <!--    <Name>FC-CheckRequestHeaders</Name>-->
+            <!--</Step>-->
+            <Step>
+                <Name>FC-DecideIfCustomerIsPresent</Name>
+            </Step>
+            <Step>
+                <Condition>request.verb = "OPTIONS"</Condition>
+                <Name>RF-Return-CORS-Headers</Name>
+            </Step>
+            <Step>
+                <Name>EV-Preserve-Request-Headers-SelfLink</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>EV-AccountIdFromBasePath</Name>
+            </Step>
+            <Step>
+                <Name>FC-CheckOperationIsAllowedForGetTransactions</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>AM-SetCustomerId</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>AM-MockFullListOfTransactionsAndValidAccounts</Name>
+            </Step>
+            <Step>
+                <Name>EV-GetAllAccountsForCustomer</Name>
+            </Step>
+            <Step>
+                <Name>JS-CheckAccountIsValid</Name>
+            </Step>
+            <Step>
+                <Name>RF-InvalidAccountInURI</Name>
+                <Condition>accountIsValid = "false"</Condition>
+            </Step>
+            <Step>
+                <Name>AM-Extract-Pagination-Params</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>EV-GetAllTransactionsForCustomer</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>JS-ModifyDatesInMockTransactions</Name>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <HTTPProxyConnection>
+        <BasePath>/ce/banking/accounts/*/transactions</BasePath>
+        <Properties/>
+        <VirtualHost>secure</VirtualHost>
+        <!-- Important: Uncomment the following VirtualHost entry to enable mTLS with HoK verification.
+             The secure-mtls virtual host must already be configured to support mTLS with propagateTLSInformation
+             In a production environment the secure virtual host should be removed from this proxy configuration -->
+        <!-- <VirtualHost>secure-mtls</VirtualHost> -->
+    </HTTPProxyConnection>
+    <RouteRule name="noroute"/>
+</ProxyEndpoint>

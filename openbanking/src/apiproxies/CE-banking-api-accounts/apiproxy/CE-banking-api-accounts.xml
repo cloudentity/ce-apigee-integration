@@ -1,15 +1,17 @@
-<APIProxy revision="32" name="CE-banking-api-accounts">
+<APIProxy revision="12" name="CE-banking-api-accounts">
     <DisplayName>CE-banking-api-accounts</DisplayName>
     <Description>Mock Banking API that returns list of accounts or details about a particular account. Also provides an internal endpoint to retrieve all accounts associated with a given customerId, to be used for displaying in consent screen</Description>
-    <CreatedAt>1651454932863</CreatedAt>
-    <LastModifiedAt>1651454932863</LastModifiedAt>
+    <CreatedAt>1659504913085</CreatedAt>
+    <LastModifiedAt>1659504913085</LastModifiedAt>
     <BasePaths>/ce/internal/accounts</BasePaths>
     <BasePaths>/ce/banking/accounts</BasePaths>
     <Policies>
         <Policy>RF-NotFound</Policy>
         <Policy>JS-BuildDetailsResponse</Policy>
+        <Policy>FC-PaginateResponse</Policy>
         <Policy>JS-BuildListAccountsResponseExternal</Policy>
         <Policy>RF-InvalidAccountInURI</Policy>
+        <Policy>AM-Set-Pagination-Settings</Policy>
         <Policy>FC-CheckOperationIsAllowedForGetAccountsBasic</Policy>
         <Policy>JS-BuildListAccountsResponseInternal</Policy>
         <Policy>CORS-Add-CORS-Headers</Policy>
@@ -18,6 +20,7 @@
         <Policy>AM-MockFullListOfAccounts</Policy>
         <Policy>AM-TokenNotVerified</Policy>
         <Policy>EV-ResultsForAccountId</Policy>
+        <Policy>FC-AddResponseHeaders-Link-Meta</Policy>
         <Policy>AM-SetCustomerId</Policy>
         <Policy>EV-AccountIdFromURL</Policy>
         <Policy>AM-CopyListOfAllAccountsToAllResults</Policy>
@@ -27,18 +30,33 @@
         <Policy>AM-SetCustomerIdFromParam</Policy>
         <Policy>AM-MockFullListOfBalances</Policy>
         <Policy>AM-InvalidScope</Policy>
-        <Policy>AM-Set-Pagination-Settings</Policy>
-        <Policy>FC-PaginateResponse</Policy>
-        <Policy>FC-AddResponseHeaders-Link-Meta</Policy>
         <Policy>AM-Extract-Pagination-Params</Policy>
+        <Policy>EV-GetAllBalancesForCustomer</Policy>
+        <Policy>EV-GetAccountsFilterCriteria</Policy>
+        <Policy>JS-FilterResults</Policy>
+        <Policy>JS-FilterAccountsListBasedOnRequestFilters</Policy>
+        <Policy>FC-ValidateRequestParams</Policy>
+        <Policy>JS-BuildFilteredAccountListFromRequestBody</Policy>
+        <Policy>JS-CheckAccountsFilterInAllAccounts</Policy>
+        <Policy>RF-InvalidAccountInFilter</Policy>
+        <Policy>FC-CheckRequestHeaders</Policy>
+        <Policy>FC-TrafficThresholds</Policy>
+        <Policy>FC-CollectPerformanceSLO</Policy>
+        <Policy>FC-DecideIfCustomerIsPresent</Policy>
         <Policy>EV-Preserve-Request-Headers</Policy>
+        <Policy>RF-Return-CORS-Headers</Policy>
+        <Policy>FC-AddFAPIInteractionId</Policy>
     </Policies>
     <ProxyEndpoints>
         <ProxyEndpoint>internal</ProxyEndpoint>
         <ProxyEndpoint>default</ProxyEndpoint>
     </ProxyEndpoints>
     <Resources>
-        <Resource>jsc://buildDetailsResponse.js</Resource>
         <Resource>jsc://buildListAccountsResponse.js</Resource>
+        <Resource>jsc://buildDetailsResponse.js</Resource>
+        <Resource>jsc://filterResults.js</Resource>
+        <Resource>jsc://filterAccountsListBasedOnRequestFilters.js</Resource>
+        <Resource>jsc://buildFilteredAccountListFromRequestBody.js</Resource>
+        <Resource>jsc://checkAccountsFilterInAllAccounts.js</Resource>
     </Resources>
 </APIProxy>

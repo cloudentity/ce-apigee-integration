@@ -38,10 +38,10 @@
         <Name>SC-AcquireConsentManagementAccessToken</Name>
         <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>
     </Step>
-    <Step>
-        <Name>AM-DebugAddAcquireTokenCalloutResponse</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>
-    </Step>
+    <!--<Step>-->
+    <!--    <Name>AM-DebugAddAcquireTokenCalloutResponse</Name>-->
+    <!--    <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>-->
+    <!--</Step>-->
     <Step>
         <Name>EV-ExtractTokenFromResponse</Name>
         <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>

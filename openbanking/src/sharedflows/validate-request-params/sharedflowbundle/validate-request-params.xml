@@ -1,0 +1,17 @@
+<SharedFlowBundle revision="2" name="validate-request-params">
+    <DisplayName>validate-request-params</DisplayName>
+    <Description>Execute a configurable set of request parameter validations (eg: type, list of allowed values)</Description>
+    <CreatedAt>1659490632303</CreatedAt>
+    <LastModifiedAt>1659490632303</LastModifiedAt>
+    <Policies>
+        <Policy>RF-InvalidRequestParams</Policy>
+        <Policy>JS-validateRequestParams</Policy>
+    </Policies>
+    <Resources>
+        <Resource>jsc://validateRequestParams.js</Resource>
+    </Resources>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>

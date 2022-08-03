@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RaiseFault async="false" continueOnError="false" enabled="true" name="RF-Invalid-Accept-Header">
+    <DisplayName>RF-Invalid-Accept-Header</DisplayName>
+    <FaultRules/>
+    <Properties/>
+    <FaultResponse>
+        <Set>
+            <Headers/>
+            <Payload contentType="application/json">{
+  "errors": [
+    {
+       "code": "urn:au-cds:error:cds-all:Header/Invalid",
+       "title": "Invalid Header",
+       "detail": "Accept Header must be application/json"
+    }
+  ]
+}</Payload>
+            <StatusCode>400</StatusCode>
+            <ReasonPhrase>Bad Request</ReasonPhrase>
+        </Set>
+    </FaultResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <ShortFaultReason>false</ShortFaultReason>
+</RaiseFault>

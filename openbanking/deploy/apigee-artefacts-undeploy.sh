@@ -73,12 +73,17 @@ cd ../..
 # Undeploy sharedflows
 # They need to be undeployed in order
 echo "--->"  Undeploying shared flows....
-SHAREDFLOW_LIST=("CE-check-request-is-allowed" "CE-get-jwks-from-ACP" "paginate-backend-response" "add-response-headers-links-meta")
+SHAREDFLOW_LIST=("CE-check-request-is-allowed" "CE-get-jwks-from-ACP" "paginate-backend-response" "add-response-headers-links-meta" "add-response-fapi-interaction-id" "apply-traffic-thresholds" "check-request-headers" "collect-performance-slo" "decide-if-customer-present" "validate-request-params")
+
 for sf in "${SHAREDFLOW_LIST[@]}"
 do 
     undeploy_and_optionally_delete_artefact sharedflows $sf $FORCE_ARTEFACT_DELETE
 done
 
+# Delete Data Collectors
+for dc in dc_PerformanceTier dc_MeetsPerformanceSLO dc_CustomerPPId dc_TokenOp; do
+    apigeecli datacollectors delete --token $TOKEN --org $APIGEE_X_ORG --name $dc
+done
 
 # Delete Target Server
 echo "--->" Deleting target server

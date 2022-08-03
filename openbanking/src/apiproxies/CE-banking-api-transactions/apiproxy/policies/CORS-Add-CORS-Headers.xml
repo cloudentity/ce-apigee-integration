@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CORS continueOnError="false" enabled="true" name="CORS-Add-CORS-Headers">
+    <DisplayName>CORS-Add-CORS-Headers</DisplayName>
+    <AllowOrigins>*</AllowOrigins>
+    <AllowMethods>GET,POST</AllowMethods>
+    <AllowHeaders>origin, x-requested-with, accept, content-type, Authorization,  x-v, x-min-v, x-fapi-customer-last-logged-time, x-fapi-customer-ip-address, x-fapi-interaction-id, x-fapi-correlation-id, x-fapi-auth-date,x-cds-client-headers,x-api-key</AllowHeaders>
+    <ExposeHeaders>*</ExposeHeaders>
+    <MaxAge>3628800</MaxAge>
+    <AllowCredentials>false</AllowCredentials>
+    <GeneratePreflightResponse>true</GeneratePreflightResponse>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+</CORS>
