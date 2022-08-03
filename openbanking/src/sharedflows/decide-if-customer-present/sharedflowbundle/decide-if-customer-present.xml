@@ -1,0 +1,18 @@
+<SharedFlowBundle revision="2" name="decide-if-customer-present">
+    <DisplayName>decide-if-customer-present</DisplayName>
+    <Description>Sets isCustomerPresent variable, based on inspection of x-fapi-customer-ip-address header</Description>
+    <CreatedAt>1659490663599</CreatedAt>
+    <LastModifiedAt>1659490663599</LastModifiedAt>
+    <Policies>
+        <Policy>RF-Invalid-X-Fapi-Customer-IP-Address</Policy>
+        <Policy>AM-SetIsCustomerPresentToFalse</Policy>
+        <Policy>JS-ValidateX-Fapi-Customer-IP-AdddressAndSetIsCustomerPresent</Policy>
+    </Policies>
+    <Resources>
+        <Resource>jsc://validateX-Fapi-Customer-IP-AdddressAndSetIsCustomerPresent</Resource>
+    </Resources>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>

@@ -28,7 +28,7 @@ var listOfAccountDetails = JSON.parse(context.getVariable("listOfAllAccountDetai
 
 if (isInternalResponse != "true") {
     var accountsInConsent = JSON.parse(context.getVariable("consentInfo.accounts"));
-    print("Only include accounts in " + JSON.stringify(accountsInConsent));
+    // print("Only include accounts in " + JSON.stringify(accountsInConsent));
 
 }
 

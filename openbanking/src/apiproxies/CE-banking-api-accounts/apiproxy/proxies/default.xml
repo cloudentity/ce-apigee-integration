@@ -1,36 +1,89 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ProxyEndpoint name="default">
     <Description/>
-    <FaultRules>
-        <FaultRule name="Invalid Scope">
-            <Condition>(fault.name = "InsufficientScope")</Condition>
-            <Step>
-                <FaultRules/>
-                <Name>AM-InvalidScope</Name>
-            </Step>
-        </FaultRule>
-        <FaultRule name="Invalid Access Token">
-            <Condition>(fault.name Matches "*access_token*") or (fault.name = "apiresource_doesnot_exist") or (fault.name = "InvalidAccessToken") or (fault.name = "InvalidAPICallAsNoApiProductMatchFound")</Condition>
-            <Step>
-                <FaultRules/>
-                <Name>EV-GetErrorDetail</Name>
-            </Step>
-            <Step>
-                <FaultRules/>
-                <Name>AM-TokenNotVerified</Name>
-            </Step>
-        </FaultRule>
-    </FaultRules>
+    <FaultRules/>
+    <DefaultFaultRule name="DefaultFaultRule">
+        <Step>
+            <Condition>message.status.code != "200"</Condition>
+            <FaultRules/>
+            <Name>CORS-Add-CORS-Headers</Name>
+        </Step>
+        <Step>
+            <Name>FC-AddFAPIInteractionId</Name>
+        </Step>
+        <Step>
+            <FaultRules/>
+            <Name>FC-CollectPerformanceSLO</Name>
+        </Step>
+        <AlwaysEnforce>true</AlwaysEnforce>
+    </DefaultFaultRule>
     <Flows>
         <Flow name="listAccounts">
             <Description>Get Accounts</Description>
-            <Request/>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-ValidateRequestParams</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-GetAccountsFilterCriteria</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>AM-Set-Pagination-Settings</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>AM-CopyListOfAllAccountsToAllResults</Name>
+                </Step>
+            </Request>
             <Response>
                 <Step>
                     <Name>JS-BuildListAccountsResponseExternal</Name>
                 </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-PaginateResponse</Name>
+                </Step>
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/") and (request.verb = "GET")</Condition>
+        </Flow>
+        <Flow name="listBalancesBulk">
+            <Description>Get Bulk Balances</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-ValidateRequestParams</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-GetAccountsFilterCriteria</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>AM-Set-Pagination-Settings</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-GetAllBalancesForCustomer</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <FaultRules/>
+                    <Name>JS-FilterAccountsListBasedOnRequestFilters</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>JS-FilterResults</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-PaginateResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/balances") and (request.verb = "GET")</Condition>
         </Flow>
         <Flow name="getAccountDetail">
             <Description>Get Accounts Detail</Description>
@@ -60,6 +113,73 @@
             </Response>
             <Condition>(proxy.pathsuffix MatchesPath "/{theAccountId}") and (request.verb = "GET")</Condition>
         </Flow>
+        <Flow name="listBalancesSpecificAccounts">
+            <Description>Get Balances For Specific Accounts</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-ValidateRequestParams</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>JS-BuildFilteredAccountListFromRequestBody</Name>
+                </Step>
+                <Step>
+                    <Name>JS-CheckAccountsFilterInAllAccounts</Name>
+                </Step>
+                <Step>
+                    <Name>RF-InvalidAccountInFilter</Name>
+                    <Condition>accountFilterOK == "false"</Condition>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>AM-Set-Pagination-Settings</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-GetAllBalancesForCustomer</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <FaultRules/>
+                    <Name>JS-FilterResults</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>FC-PaginateResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/balances") and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="listBalance">
+            <Description>Get Account Balance</Description>
+            <Request>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-AccountIdFromURL</Name>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-GetAllBalancesForCustomer</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <FaultRules/>
+                    <Name>EV-ResultsForAccountId</Name>
+                </Step>
+                <Step>
+                    <Name>RF-InvalidAccountInURI</Name>
+                    <Condition>theResultsForAccountId = "[]"</Condition>
+                </Step>
+                <Step>
+                    <FaultRules/>
+                    <Name>JS-BuildDetailsResponse</Name>
+                </Step>
+            </Response>
+            <Condition>(proxy.pathsuffix MatchesPath "/{theAccountId}/balance") and (request.verb = "GET")</Condition>
+        </Flow>
         <Flow name="unsupportedMethod">
             <Description>Method Not Allowed</Description>
             <Request>
@@ -86,10 +206,11 @@
         <Request/>
         <Response>
             <Step>
-                <Name>FC-PaginateResponse</Name>
+                <Name>FC-AddResponseHeaders-Link-Meta</Name>
             </Step>
             <Step>
-                <Name>FC-AddResponseHeaders-Link-Meta</Name>
+                <FaultRules/>
+                <Name>FC-CollectPerformanceSLO</Name>
             </Step>
         </Response>
     </PostFlow>
@@ -98,14 +219,21 @@
             <Step>
                 <Name>CORS-Add-CORS-Headers</Name>
             </Step>
+            <!--<Step>-->
+            <!--    <Name>FC-CheckRequestHeaders</Name>-->
+            <!--</Step>-->
+            <Step>
+                <Name>FC-DecideIfCustomerIsPresent</Name>
+            </Step>
+            <Step>
+                <Condition>request.verb = "OPTIONS"</Condition>
+                <Name>RF-Return-CORS-Headers</Name>
+            </Step>
             <Step>
                 <Name>EV-Preserve-Request-Headers</Name>
             </Step>
             <Step>
                 <Name>AM-Extract-Pagination-Params</Name>
-            </Step>
-            <Step>
-                <Name>AM-Set-Pagination-Settings</Name>
             </Step>
             <Step>
                 <FaultRules/>
@@ -117,20 +245,24 @@
                 <Name>AM-MockFullListOfBalances</Name>
             </Step>
             <Step>
-                <Condition>(proxy.pathsuffix MatchesPath "/{theAccountId}") and (request.verb = "GET")</Condition>
+                <Condition>( (proxy.pathsuffix MatchesPath "/{theAccountId}") or (proxy.pathsuffix MatchesPath "/{theAccountId}/balance") ) and (request.verb = "GET")</Condition>
                 <Name>EV-AccountIdFromURL</Name>
             </Step>
             <Step>
-                <Condition>(not (proxy.pathsuffix MatchesPath "/{theAccountId}"))  or (request.verb != "GET")</Condition>
+                <Condition>(proxy.pathsuffix MatchesPath "/balances") or ( (not (proxy.pathsuffix MatchesPath "/{theAccountId}")) and (not (proxy.pathsuffix MatchesPath "/{theAccountId}/balance")) )  or (request.verb != "GET")</Condition>
                 <Name>FC-CheckOperationIsAllowedForGetAccountsBasic</Name>
             </Step>
             <Step>
-                <Condition>(proxy.pathsuffix MatchesPath "/{theAccountId}") and (request.verb = "GET")</Condition>
+                <Condition>( not (proxy.pathsuffix MatchesPath "/balances")) and ( (proxy.pathsuffix MatchesPath "/{theAccountId}") or (proxy.pathsuffix MatchesPath "/{theAccountId}/balance") ) and (request.verb = "GET")</Condition>
                 <Name>FC-CheckOperationIsAllowedForGetAccountDetails</Name>
             </Step>
             <Step>
                 <FaultRules/>
                 <Name>AM-SetCustomerId</Name>
+            </Step>
+            <Step>
+                <FaultRules/>
+                <Name>FC-TrafficThresholds</Name>
             </Step>
             <Step>
                 <FaultRules/>

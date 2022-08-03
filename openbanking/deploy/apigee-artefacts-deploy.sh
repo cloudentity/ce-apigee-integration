@@ -55,11 +55,17 @@ CE_ACP_BASEPATH=$(echo $CE_ACP_AUTH_SERVER  |  cut -d/ -f4-)
 echo "--->" Creating target server
 apigeecli targetservers create --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name CE-ACP-Instance --host $CE_ACP_HOSTNAME --sslinfo --tls --port 443
 
+# Create Data Collectors
+for dc in dc_PerformanceTier dc_MeetsPerformanceSLO dc_CustomerPPId dc_TokenOp; do
+    apigeecli datacollectors create --token $TOKEN --org $APIGEE_X_ORG --name $dc --type STRING
+done
+
+
 # Deploy sharedflows
 # They need to be deployed in order
 echo "--->"  Deploying shared flows....
 cd src/sharedflows
-SHAREDFLOW_LIST=("add-response-headers-links-meta" "paginate-backend-response" "CE-get-jwks-from-ACP" "CE-check-request-is-allowed")
+SHAREDFLOW_LIST=("add-response-headers-links-meta" "paginate-backend-response" "CE-get-jwks-from-ACP" "CE-check-request-is-allowed" "add-response-fapi-interaction-id" "apply-traffic-thresholds" "decide-if-customer-present" "check-request-headers" "collect-performance-slo" "validate-request-params")
 for sf in "${SHAREDFLOW_LIST[@]}"
 do 
     cd $sf
@@ -109,7 +115,7 @@ echo "--->" These values will be used to configure the consent screen demo app
 sed -i '' "s/.*APIGEE_CE_CLIENT_ID.*/export APIGEE_CE_CLIENT_ID=$APIGEE_CE_CLIENT_ID # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
 sed -i '' "s/.*APIGEE_CE_CLIENT_SECRET.*/export APIGEE_CE_CLIENT_SECRET=$APIGEE_CE_CLIENT_SECRET # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
 
-#Create Config KVM
+# Create Config KVM
 # If KVM already exists, delete it, to make sure that values can indeed be updated
 KVM_EXISTS=$(apigeecli kvms list -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV | grep -v 'WARNING' | grep '"Config"')
 if [[ -n "$KVM_EXISTS" ]];

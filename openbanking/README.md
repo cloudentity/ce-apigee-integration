@@ -246,8 +246,8 @@ after obtaining customer consent.
    deploy/deploy_consent_mgmt_solution.sh <PATH_TO_YOUR_ENVIRONMENT_CONFIGURATION_FILE>
    ````
 
-4. __Update CloudEntity workspace configuration__: Once the deployment script finish, you will need to go back to the CloudEntity workspace and update the configuration for the consent application and the Financroo client application. This can be done by running a script or manually. The deployment script will indicate the values to be updated:
-   ````
+4. __Update CloudEntity workspace configuration__: Once the deployment script finishes, you will need to go back to the CloudEntity workspace and update the configuration for the consent application and the Financroo client application. The deployment script will indicate the values to be updated:
+   ```` 
    ===================================================================================================
    == IMPORTANT!                                                                                    ==
    == Remember to update the Cloud Entity ACP Workspace.                                            ==
