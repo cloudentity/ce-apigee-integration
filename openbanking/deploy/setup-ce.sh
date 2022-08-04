@@ -1046,15 +1046,29 @@ function setup_workspace {
     printf "CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER\nCE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID\nCE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET\nCE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET\nCE_ACP_ISSUER_URL=$(echo https://$DOMAIN/$TENANT_ID/system)
     " > deploy/ce_workspace.env
 
-    printf '\n\n\n---workspace details---\n\n\n'
+    printf '\n\n---workspace details---\n'
 
-    echo CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER
     echo CE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID
     echo CE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET
     echo CE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID
     echo CE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID
     echo CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET
     echo CE_ACP_ISSUER_URL=$(echo https://$DOMAIN/$TENANT_ID/system)
+
+    sed -i "" "s|CE_ACP_AUTH_SERVER=.*|CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_APIGEE_CLIENT_ID=.*|CE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_APIGEE_CLIENT_SECRET=.*|CE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_TPP_CLIENT_ID=.*|CE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_CONSENT_SCREEN_CLIENT_ID=.*|CE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=.*|CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_ISSUER_URL=.*|CE_ACP_ISSUER_URL=$CE_ACP_ISSUER_URL|" deploy/consent_mgmt_solution_config.env
+}
+
+function full_deploy {
+    setup_workspace
+    sh deploy/deploy_consent_mgmt_solution.sh deploy/consent_mgmt_solution_config.env
+    source deploy/ce_workspace.env
+    source deploy/setup-ce.sh replace-urls $DEMO_CLIENT_APP_URL/api/callback $CONSENT_APP_URL
 }
 
 case $1 in
@@ -1069,6 +1083,10 @@ case $1 in
     "replace-urls")
         get_token
         replace_urls $2 $3
+    ;;
+    "full-deploy")
+       get_token
+       full_deploy
     ;;
     *)
         echo "unknown argument - requires one of: create-workspace, delete-workspace, replace-urls"
