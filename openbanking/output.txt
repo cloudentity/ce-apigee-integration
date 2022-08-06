@@ -1,0 +1,1431 @@
+Preparing workspace
+Creating workspace
+Creating client - apigee proxy
+Creating client - financroo
+Creating static idp
+Updating consent app url
+Getting consent app details
+Updating financroo redirect url
+
+
+---workspace details---
+CE_ACP_APIGEE_CLIENT_ID=cdr-test-last2-cah78bukor34hf105is0
+CE_ACP_APIGEE_CLIENT_SECRET=W1NXu5V670rsc6-PV-TQp60fYxakDVQhudtDtec5sHE
+CE_ACP_TPP_CLIENT_ID=cdr-test-last2-cah9d021pkhkrv729gg0
+CE_ACP_CONSENT_SCREEN_CLIENT_ID=255d41e9c73f4ba8a7fbc218aff91d15
+CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=dEYkqFnmWw-ceAZEC7vVh4QUm7L1SoOciwTqL4MkQ9w
+CE_ACP_ISSUER_URL=https://cloudentity-bbray.us.authz.cloudentity.io/cloudentity-bbray/system
+=========================================================================
+--> Setting up environment using file 
+    /Users/billybray/cloudentity/ce-apigee-integration/openbanking/deploy/consent_mgmt_solution_config.env
+=========================================================================
+=========================================================================
+--> Enabling required GCP APIs...
+----> Enabling Cloud Build APIs ...
+=========================================================================
+=========================================================================
+----> Enabling Cloud Run APIs ...
+=========================================================================
+=========================================================================
+----> Enabling Secret Manager APIs ...
+=========================================================================
+==================================================================================================
+--> Granting required permissions to Cloud Build service account:
+      855609148856@cloudbuild.gserviceaccount.com
+==================================================================================================
+bindings:
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-apigee.iam.gserviceaccount.com
+  role: roles/apigee.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/cloudbuild.builds.builder
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/cloudbuild.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  - serviceAccount:855609148856@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - user:braybilly@gmail.com
+  role: roles/owner
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:service-855609148856@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/secretmanager.admin
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  role: roles/secretmanager.secretAccessor
+- members:
+  - serviceAccount:service-855609148856@service-networking.iam.gserviceaccount.com
+  role: roles/servicenetworking.serviceAgent
+etag: BwXlh9r14pM=
+version: 1
+bindings:
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-apigee.iam.gserviceaccount.com
+  role: roles/apigee.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/cloudbuild.builds.builder
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/cloudbuild.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  - serviceAccount:855609148856@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - user:braybilly@gmail.com
+  role: roles/owner
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:service-855609148856@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/secretmanager.admin
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  role: roles/secretmanager.secretAccessor
+- members:
+  - serviceAccount:service-855609148856@service-networking.iam.gserviceaccount.com
+  role: roles/servicenetworking.serviceAgent
+etag: BwXlh9sXivg=
+version: 1
+bindings:
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-apigee.iam.gserviceaccount.com
+  role: roles/apigee.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/cloudbuild.builds.builder
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/cloudbuild.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  - serviceAccount:855609148856@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - user:braybilly@gmail.com
+  role: roles/owner
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:service-855609148856@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/secretmanager.admin
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  role: roles/secretmanager.secretAccessor
+- members:
+  - serviceAccount:service-855609148856@service-networking.iam.gserviceaccount.com
+  role: roles/servicenetworking.serviceAgent
+etag: BwXlh9s1iS0=
+version: 1
+bindings:
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-apigee.iam.gserviceaccount.com
+  role: roles/apigee.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/cloudbuild.builds.builder
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/cloudbuild.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  - serviceAccount:855609148856@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - user:braybilly@gmail.com
+  role: roles/owner
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:service-855609148856@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/secretmanager.admin
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  role: roles/secretmanager.secretAccessor
+- members:
+  - serviceAccount:service-855609148856@service-networking.iam.gserviceaccount.com
+  role: roles/servicenetworking.serviceAgent
+etag: BwXlh9tTG2o=
+version: 1
+==================================================================================================
+--> Granting required permissions to Cloud Run service account: 
+      855609148856-compute@developer.gserviceaccount.com
+==================================================================================================
+bindings:
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-apigee.iam.gserviceaccount.com
+  role: roles/apigee.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/cloudbuild.builds.builder
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-cloudbuild.iam.gserviceaccount.com
+  role: roles/cloudbuild.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-855609148856@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  - serviceAccount:855609148856@cloudservices.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - user:braybilly@gmail.com
+  role: roles/owner
+- members:
+  - serviceAccount:service-855609148856@gcp-sa-pubsub.iam.gserviceaccount.com
+  role: roles/pubsub.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/run.developer
+- members:
+  - serviceAccount:service-855609148856@serverless-robot-prod.iam.gserviceaccount.com
+  role: roles/run.serviceAgent
+- members:
+  - serviceAccount:855609148856@cloudbuild.gserviceaccount.com
+  role: roles/secretmanager.admin
+- members:
+  - serviceAccount:855609148856-compute@developer.gserviceaccount.com
+  role: roles/secretmanager.secretAccessor
+- members:
+  - serviceAccount:service-855609148856@service-networking.iam.gserviceaccount.com
+  role: roles/servicenetworking.serviceAgent
+etag: BwXlh9twG6U=
+version: 1
+bindings:
+- members:
+  - allUsers
+  role: roles/run.invoker
+etag: BwXlh9uMwMM=
+version: 1
+=========================================================================
+--> Deploying Apigee artefacts...
+=========================================================================
+---> Creating target server
+{
+	"name": "CE-ACP-Instance",
+	"host": "cloudentity-bbray.authz.cloudentity.io",
+	"port": 443,
+	"isEnabled": true,
+	"sSLInfo": {
+		"enabled": true
+	},
+	"protocol": "HTTP"
+}
+
+{
+	"name": "dc_PerformanceTier",
+	"type": "STRING",
+	"createdAt": "1659746551433",
+	"lastModifiedAt": "1659746551433"
+}
+
+{
+	"name": "dc_MeetsPerformanceSLO",
+	"type": "STRING",
+	"createdAt": "1659746551771",
+	"lastModifiedAt": "1659746551771"
+}
+
+{
+	"name": "dc_CustomerPPId",
+	"type": "STRING",
+	"createdAt": "1659746552176",
+	"lastModifiedAt": "1659746552176"
+}
+
+{
+	"name": "dc_TokenOp",
+	"type": "STRING",
+	"createdAt": "1659746552587",
+	"lastModifiedAt": "1659746552587"
+}
+
+---> Deploying shared flows....
+---> Uploading add-response-headers-links-meta sharedflow
+---> Deploying add-response-headers-links-meta sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "add-response-headers-links-meta",
+	"revision": "2",
+	"deployStartTime": "1659746554153"
+}
+
+---> Uploading paginate-backend-response sharedflow
+---> Deploying paginate-backend-response sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "paginate-backend-response",
+	"revision": "2",
+	"deployStartTime": "1659746555705"
+}
+
+---> Uploading CE-get-jwks-from-ACP sharedflow
+---> Deploying CE-get-jwks-from-ACP sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "CE-get-jwks-from-ACP",
+	"revision": "2",
+	"deployStartTime": "1659746557265"
+}
+
+---> Uploading CE-check-request-is-allowed sharedflow
+---> Deploying CE-check-request-is-allowed sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "CE-check-request-is-allowed",
+	"revision": "2",
+	"deployStartTime": "1659746558877"
+}
+
+---> Uploading add-response-fapi-interaction-id sharedflow
+---> Deploying add-response-fapi-interaction-id sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "add-response-fapi-interaction-id",
+	"revision": "2",
+	"deployStartTime": "1659746560389"
+}
+
+---> Uploading apply-traffic-thresholds sharedflow
+---> Deploying apply-traffic-thresholds sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "apply-traffic-thresholds",
+	"revision": "2",
+	"deployStartTime": "1659746561967"
+}
+
+---> Uploading decide-if-customer-present sharedflow
+---> Deploying decide-if-customer-present sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "decide-if-customer-present",
+	"revision": "2",
+	"deployStartTime": "1659746563438"
+}
+
+---> Uploading check-request-headers sharedflow
+---> Deploying check-request-headers sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "check-request-headers",
+	"revision": "2",
+	"deployStartTime": "1659746565095"
+}
+
+---> Uploading collect-performance-slo sharedflow
+---> Deploying collect-performance-slo sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "collect-performance-slo",
+	"revision": "2",
+	"deployStartTime": "1659746566700"
+}
+
+---> Uploading validate-request-params sharedflow
+---> Deploying validate-request-params sharedflow - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "validate-request-params",
+	"revision": "2",
+	"deployStartTime": "1659746568655"
+}
+
+---> Deploying proxies....
+---> Uploading CE-banking-api-accounts apiproxy
+---> Deploying CE-banking-api-accounts apiproxy - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "CE-banking-api-accounts",
+	"revision": "2",
+	"deployStartTime": "1659746570308"
+}
+
+---> Uploading CE-banking-api-transactions apiproxy
+---> Deploying CE-banking-api-transactions apiproxy - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "CE-banking-api-transactions",
+	"revision": "2",
+	"deployStartTime": "1659746571851"
+}
+
+---> Uploading CE-oidc apiproxy
+---> Deploying CE-oidc apiproxy - Revision 2
+{
+	"environment": "eval",
+	"apiProxy": "CE-oidc",
+	"revision": "2",
+	"deployStartTime": "1659746573415"
+}
+
+---> Creating product for internal access...
+{
+	"name": "CloudEntity-InternalAccess",
+	"displayName": "CloudEntity-InternalAccess",
+	"approvalType": "auto",
+	"attributes": [
+		{
+			"name": "access",
+			"value": "private"
+		}
+	],
+	"description": "Access to internal operations required by CloudEntity Consent Management Solution",
+	"environments": [
+		"eval"
+	],
+	"scopes": [
+		"bank:accounts.internal:read"
+	],
+	"createdAt": "1659746574209",
+	"lastModifiedAt": "1659746574209",
+	"operationGroup": {
+		"operationConfigs": [
+			{
+				"apiSource": "CE-oidc",
+				"operations": [
+					{
+						"resource": "/token",
+						"methods": [
+							"POST"
+						]
+					}
+				],
+				"quota": {}
+			},
+			{
+				"apiSource": "CE-banking-api-accounts",
+				"operations": [
+					{
+						"resource": "/",
+						"methods": [
+							"POST"
+						]
+					}
+				],
+				"quota": {}
+			}
+		],
+		"operationConfigType": "proxy"
+	}
+}
+
+---> Creating test developer consent-test-developer@somefictitioustestcompany.com ...
+{
+	"email": "consent-test-developer@somefictitioustestcompany.com",
+	"firstName": "Consent Test",
+	"lastName": "Developer",
+	"userName": "consent-test-developer@somefictitioustestcompany.com",
+	"developerId": "b543b012-e7ab-414f-8781-74f85c23b4ce",
+	"organizationName": "cdr-bbray-step",
+	"status": "active",
+	"createdAt": "1659746574745",
+	"lastModifiedAt": "1659746574745"
+}
+
+---> Creating client for CloudEntity
+---> Client created with the following credentials:
+---> Client Key = 9sVC1oqBy2BldC5VAGWNpcmFXWcBC8UqNyaVN5aezCrF00uH
+---> Client Secret = 9m8g4W2lkqaKgEDtgTjxcre6GUJsBHIGCanKKLh9A4cxYPoezHS0hqFmkAuGIXkb
+---> These values will be used to configure the consent screen demo app
+---> Creating Config Key Value Map
+{
+	"name": "Config",
+	"encrypted": true
+}
+
+---> Adding Client Id and Secret defined in ACP for Apigee use - Adding ACP base path
+{
+	"name": "ApigeeConsentManagement_ClientId",
+	"value": "cdr-test-last2-cah78bukor34hf105is0"
+}
+
+{
+	"name": "ApigeeConsentManagement_ClientSecret",
+	"value": "W1NXu5V670rsc6-PV-TQp60fYxakDVQhudtDtec5sHE"
+}
+
+{
+	"name": "ApigeeConsentManagement_BasePath",
+	"value": "cloudentity-bbray/cdr-test-last2"
+}
+
+---> Done
+===================================================================================================
+--> Cloning Cloud Entity openbanking-quickstart repo from
+        https://github.com/cloudentity/openbanking-quickstart
+===================================================================================================
+~/cloudentity/ce-apigee-integration/openbanking/deploy ~/cloudentity/ce-apigee-integration/openbanking
+~/cloudentity/ce-apigee-integration/openbanking
+~/cloudentity/ce-apigee-integration/openbanking/deploy/tmp/openbanking-quickstart ~/cloudentity/ce-apigee-integration/openbanking
+=========================================================================
+--> Creating Google Cloud secrets to store certificates used by apps
+=========================================================================
+Adding new version to secret ce-tpp-cert....
+Done
+Adding new version to secret ce-tpp-key....
+Done
+Adding new version to secret ce-cert-auth....
+Done
+=========================================================================
+--> Deploying consent page app as a CloudRun function....
+=========================================================================
+---------------------------------------------------------------------------------------- REMOTE BUILD OUTPUT ----------------------------------------------------------------------------------------
+starting build "afb0ed2e-ae92-4af0-badb-d9912d766e19"
+
+FETCHSOURCE
+Fetching storage object: gs://cdr-bbray-step_cloudbuild/source/1659746599.52042-28c623ed441c4f0e828a582f59239627.tgz#1659746612028284
+Copying gs://cdr-bbray-step_cloudbuild/source/1659746599.52042-28c623ed441c4f0e828a582f59239627.tgz#1659746612028284...
+/ [0 files][    0.0 B/ 12.5 MiB]                                                / [1 files][ 12.5 MiB/ 12.5 MiB]                                                
+Operation completed over 1 objects/12.5 MiB.
+BUILD
+Starting Step #0 - "buildConsentApp"
+Step #0 - "buildConsentApp": Already have image (with digest): gcr.io/cloud-builders/docker
+Step #0 - "buildConsentApp": #1 [internal] load build definition from Dockerfile
+Step #0 - "buildConsentApp": #1 sha256:450d4c0be63df353c9039cdfa2bdf5afb0cf5a47be629141d0c7c16599974623
+Step #0 - "buildConsentApp": #1 transferring dockerfile: 608B done
+Step #0 - "buildConsentApp": #1 DONE 0.1s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #2 [internal] load .dockerignore
+Step #0 - "buildConsentApp": #2 sha256:4329648be97a288f8977552a2a2fcc07c241f6af9842fc9edb0b60e1341509a4
+Step #0 - "buildConsentApp": #2 transferring context: 2B done
+Step #0 - "buildConsentApp": #2 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #3 resolve image config for docker.io/docker/dockerfile:1.1.3-experimental
+Step #0 - "buildConsentApp": #3 sha256:91634ee2000a6b16774475f8fdb3b59615257c0080c8e3925f32b6477446bb90
+Step #0 - "buildConsentApp": #3 DONE 1.1s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #4 docker-image://docker.io/docker/dockerfile:1.1.3-experimental@sha256:888f21826273409b5ef5ff9ceb90c64a8f8ec7760da30d1ffbe6c3e2d323a7bd
+Step #0 - "buildConsentApp": #4 sha256:1f51976d2b67aa92e53dad8b3a95e627248a6c0c18cf455abc52de46848fec61
+Step #0 - "buildConsentApp": #4 resolve docker.io/docker/dockerfile:1.1.3-experimental@sha256:888f21826273409b5ef5ff9ceb90c64a8f8ec7760da30d1ffbe6c3e2d323a7bd done
+Step #0 - "buildConsentApp": #4 sha256:888f21826273409b5ef5ff9ceb90c64a8f8ec7760da30d1ffbe6c3e2d323a7bd 2.03kB / 2.03kB done
+Step #0 - "buildConsentApp": #4 sha256:ee85655c57140bd20a5ebc3bb802e7410ee9ac47ca92b193ed0ab17485024fe5 527B / 527B done
+Step #0 - "buildConsentApp": #4 sha256:80b5f664ac0c5f6b89608f7b0afd9548ac5b2d4cd631b7b723d9f2edca8676d9 897B / 897B done
+Step #0 - "buildConsentApp": #4 sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 3.15MB / 8.82MB 0.2s
+Step #0 - "buildConsentApp": #4 sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 8.39MB / 8.82MB 0.3s
+Step #0 - "buildConsentApp": #4 sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 8.82MB / 8.82MB 0.4s done
+Step #0 - "buildConsentApp": #4 extracting sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003
+Step #0 - "buildConsentApp": #4 extracting sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 0.3s done
+Step #0 - "buildConsentApp": #4 DONE 0.8s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #5 [internal] load build definition from Dockerfile
+Step #0 - "buildConsentApp": #5 sha256:4374daca1cf55be71523b4e8139dc712261b49392388478865e63aa1aa69794a
+Step #0 - "buildConsentApp": #5 transferring dockerfile: 608B done
+Step #0 - "buildConsentApp": #5 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #7 [internal] load metadata for docker.io/library/golang:1.18
+Step #0 - "buildConsentApp": #7 sha256:f4e19f57653cc0a228a51c5d1fec5bdbe88100edb970ccdd95e88e0dfac945b1
+Step #0 - "buildConsentApp": #7 DONE 0.2s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #6 [internal] load metadata for docker.io/library/alpine:latest
+Step #0 - "buildConsentApp": #6 sha256:d4fb25f5b5c00defc20ce26f2efc4e288de8834ed5aa59dff877b495ba88fda6
+Step #0 - "buildConsentApp": #6 DONE 0.2s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #13 [internal] load build context
+Step #0 - "buildConsentApp": #13 sha256:6a6e891c0db5e59b1abe31d205cf8efbe51e77bf0a8bdc05e30f46ba2ec96894
+Step #0 - "buildConsentApp": #13 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #8 [stage-1 1/7] FROM docker.io/library/alpine:latest@sha256:7580ece7963bfa863801466c0a488f11c86f85d9988051a9f9c68cb27f6b7872
+Step #0 - "buildConsentApp": #8 sha256:429b0e8be96f34a32761c3e68bdf7bef0c0d2899b9af040de38511e1021f4f46
+Step #0 - "buildConsentApp": #8 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #19 [internal] settings cache mount permissions
+Step #0 - "buildConsentApp": #19 sha256:54bdddb3573894f2eccd87c2683ddcfc9b538b5ebe574b812379862a4733850d
+Step #0 - "buildConsentApp": #19 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #11 [builder 1/8] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildConsentApp": #11 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildConsentApp": #11 resolve docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1 0.0s done
+Step #0 - "buildConsentApp": #11 sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 0B / 5.16MB 0.1s
+Step #0 - "buildConsentApp": #11 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 0B / 10.88MB 0.1s
+Step #0 - "buildConsentApp": #11 sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1 2.35kB / 2.35kB done
+Step #0 - "buildConsentApp": #11 sha256:a4081692fa3015104d84b125cbf623c566a0c9e2a39b9a29f6d939225d5687a4 1.80kB / 1.80kB done
+Step #0 - "buildConsentApp": #11 sha256:2d952adaec1e94a7d3920f0f848dfd9037244f2491e499152918f30956c942b0 7.10kB / 7.10kB done
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 1.05MB / 55.00MB 0.1s
+Step #0 - "buildConsentApp": #11 sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 3.15MB / 5.16MB 0.2s
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 6.29MB / 55.00MB 0.2s
+Step #0 - "buildConsentApp": #11 sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 5.16MB / 5.16MB 0.3s done
+Step #0 - "buildConsentApp": #11 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 3.15MB / 10.88MB 0.4s
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 11.53MB / 55.00MB 0.4s
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 0B / 54.58MB 0.4s
+Step #0 - "buildConsentApp": #11 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 5.27MB / 10.88MB 0.5s
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 14.68MB / 55.00MB 0.5s
+Step #0 - "buildConsentApp": #11 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 10.88MB / 10.88MB 0.7s
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 26.21MB / 55.00MB 0.7s
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 7.34MB / 54.58MB 0.7s
+Step #0 - "buildConsentApp": #11 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 10.88MB / 10.88MB 0.7s done
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 33.55MB / 55.00MB 0.8s
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 14.68MB / 54.58MB 0.8s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 0B / 85.90MB 0.8s
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 42.99MB / 55.00MB 0.9s
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 21.23MB / 54.58MB 0.9s
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 48.23MB / 55.00MB 1.0s
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 28.31MB / 54.58MB 1.0s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 8.39MB / 85.90MB 1.0s
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 55.00MB / 55.00MB 1.2s
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 41.94MB / 54.58MB 1.2s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 23.07MB / 85.90MB 1.2s
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 46.14MB / 54.58MB 1.3s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 29.36MB / 85.90MB 1.3s
+Step #0 - "buildConsentApp": #11 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 55.00MB / 55.00MB 1.5s done
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 54.58MB / 54.58MB 1.5s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 39.85MB / 85.90MB 1.5s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 45.52MB / 85.90MB 1.6s
+Step #0 - "buildConsentApp": #11 ...
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #13 [internal] load build context
+Step #0 - "buildConsentApp": #13 sha256:6a6e891c0db5e59b1abe31d205cf8efbe51e77bf0a8bdc05e30f46ba2ec96894
+Step #0 - "buildConsentApp": #13 transferring context: 10.18MB 1.4s done
+Step #0 - "buildConsentApp": #13 DONE 1.7s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #11 [builder 1/8] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildConsentApp": #11 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 50.33MB / 85.90MB 1.7s
+Step #0 - "buildConsentApp": #11 extracting sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452
+Step #0 - "buildConsentApp": #11 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 54.58MB / 54.58MB 1.7s done
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 0B / 141.86MB 1.8s
+Step #0 - "buildConsentApp": #11 sha256:f3efab82b0e6781916704657c07fcd27f758c051a79c51966805759586275493 156B / 156B 1.8s done
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 70.79MB / 85.90MB 2.0s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 77.59MB / 85.90MB 2.1s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 10.49MB / 141.86MB 2.1s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 83.89MB / 85.90MB 2.2s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 21.24MB / 141.86MB 2.3s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 37.75MB / 141.86MB 2.5s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 46.75MB / 141.86MB 2.6s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 54.53MB / 141.86MB 2.7s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 62.91MB / 141.86MB 2.8s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 73.40MB / 141.86MB 3.0s
+Step #0 - "buildConsentApp": #11 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 85.90MB / 85.90MB 2.9s done
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 84.52MB / 141.86MB 3.1s
+Step #0 - "buildConsentApp": #11 ...
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #9 [stage-1 2/7] RUN apk --no-cache add ca-certificates
+Step #0 - "buildConsentApp": #9 sha256:5338b6677a53a82672e0ed18b168aebada347f6b85f8f2e9b9fc7f8787a157e5
+Step #0 - "buildConsentApp": #9 0.777 fetch https://dl-cdn.alpinelinux.org/alpine/v3.16/main/x86_64/APKINDEX.tar.gz
+Step #0 - "buildConsentApp": #9 1.289 fetch https://dl-cdn.alpinelinux.org/alpine/v3.16/community/x86_64/APKINDEX.tar.gz
+Step #0 - "buildConsentApp": #9 1.729 (1/1) Installing ca-certificates (20220614-r0)
+Step #0 - "buildConsentApp": #9 1.800 Executing busybox-1.35.0-r15.trigger
+Step #0 - "buildConsentApp": #9 1.808 Executing ca-certificates-20220614-r0.trigger
+Step #0 - "buildConsentApp": #9 1.930 OK: 6 MiB in 15 packages
+Step #0 - "buildConsentApp": #9 DONE 3.1s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #11 [builder 1/8] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildConsentApp": #11 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 100.66MB / 141.86MB 3.4s
+Step #0 - "buildConsentApp": #11 ...
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #10 [stage-1 3/7] WORKDIR /app
+Step #0 - "buildConsentApp": #10 sha256:c376753c0dae3d174ab8f96ac4b280d210e3355083e915383e58fa3f603249cf
+Step #0 - "buildConsentApp": #10 DONE 0.3s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #11 [builder 1/8] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildConsentApp": #11 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 110.10MB / 141.86MB 3.5s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 118.49MB / 141.86MB 3.6s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 135.27MB / 141.86MB 3.8s
+Step #0 - "buildConsentApp": #11 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 141.86MB / 141.86MB 4.1s done
+Step #0 - "buildConsentApp": #11 extracting sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 3.8s done
+Step #0 - "buildConsentApp": #11 extracting sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165
+Step #0 - "buildConsentApp": #11 extracting sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 0.3s done
+Step #0 - "buildConsentApp": #11 extracting sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 0.1s
+Step #0 - "buildConsentApp": #11 extracting sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 0.3s done
+Step #0 - "buildConsentApp": #11 extracting sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 0.1s
+Step #0 - "buildConsentApp": #11 extracting sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 2.9s done
+Step #0 - "buildConsentApp": #11 extracting sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702
+Step #0 - "buildConsentApp": #11 extracting sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 3.3s done
+Step #0 - "buildConsentApp": #11 extracting sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6
+Step #0 - "buildConsentApp": #11 extracting sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 5.0s
+Step #0 - "buildConsentApp": #11 extracting sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 7.0s done
+Step #0 - "buildConsentApp": #11 extracting sha256:f3efab82b0e6781916704657c07fcd27f758c051a79c51966805759586275493 done
+Step #0 - "buildConsentApp": #11 DONE 20.6s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #12 [builder 2/8] WORKDIR /app
+Step #0 - "buildConsentApp": #12 sha256:d90a2c9c5eae24f2e4ac5cecf1a2185832ab118aca1df6ce4751cbf0e743bdec
+Step #0 - "buildConsentApp": #12 DONE 1.6s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #14 [builder 3/8] COPY go.mod .
+Step #0 - "buildConsentApp": #14 sha256:e3927e5f0305f6532bfcea124fe064150a1e8257d6aa87497f958f5204d2d900
+Step #0 - "buildConsentApp": #14 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #15 [builder 4/8] COPY go.sum .
+Step #0 - "buildConsentApp": #15 sha256:904c5a8d02dd3b4cef609a956529374ad894328e240c5aefa37547c1031dff15
+Step #0 - "buildConsentApp": #15 DONE 0.1s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #16 [builder 5/8] COPY openbanking openbanking
+Step #0 - "buildConsentApp": #16 sha256:9ad1e6a5aa29170e495eba42d3c4bc27b2c9948450247ec4a3f4efab3b017070
+Step #0 - "buildConsentApp": #16 DONE 0.1s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #17 [builder 6/8] RUN go mod download
+Step #0 - "buildConsentApp": #17 sha256:190347adc1f65aae1e35fedb71d519aaeda50732874c8f0eebc1a8922fe1fca9
+Step #0 - "buildConsentApp": #17 DONE 6.8s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #18 [builder 7/8] COPY consent/consent-page .
+Step #0 - "buildConsentApp": #18 sha256:b93db9d600e70d53528d90d8bc5a9e37d063ace71fc6c1bb71f4ab01f0ce0ceb
+Step #0 - "buildConsentApp": #18 DONE 0.1s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #20 [builder 8/8] RUN --mount=type=cache,target=/root/.cache/go-build,mode=777     CGO_ENABLED=0 go build -tags static_all -o main .
+Step #0 - "buildConsentApp": #20 sha256:83b7c98738d1012e6d6fdb8f8b5c207930b08dddb8bbff176100a9799df3967c
+Step #0 - "buildConsentApp": #20 DONE 80.6s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #21 [stage-1 4/7] COPY --from=builder /app/templates templates
+Step #0 - "buildConsentApp": #21 sha256:463c760a649f46aa38f439321f3b60a7299d225f61f393c1cfba98974435d61c
+Step #0 - "buildConsentApp": #21 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #22 [stage-1 5/7] COPY --from=builder /app/translations translations
+Step #0 - "buildConsentApp": #22 sha256:296e448f25c66ab9c54baff580c589c8a10a41d499efbb3b958950c4ff8e4a7d
+Step #0 - "buildConsentApp": #22 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #23 [stage-1 6/7] COPY --from=builder /app/assets assets
+Step #0 - "buildConsentApp": #23 sha256:25bb2cdf1c2abd42cda09ac0000d4361b18473a2276f6814f5e133b62d1f5d8f
+Step #0 - "buildConsentApp": #23 DONE 0.0s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #24 [stage-1 7/7] COPY --from=builder /app/main .
+Step #0 - "buildConsentApp": #24 sha256:a432c048c68c029f78419afc179571d4af5571955b08a148cab780bf6f2d6e0a
+Step #0 - "buildConsentApp": #24 DONE 0.3s
+Step #0 - "buildConsentApp": 
+Step #0 - "buildConsentApp": #25 exporting to image
+Step #0 - "buildConsentApp": #25 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+Step #0 - "buildConsentApp": #25 exporting layers
+Step #0 - "buildConsentApp": #25 exporting layers 0.3s done
+Step #0 - "buildConsentApp": #25 writing image sha256:cc7e3a0878b1c9378eb8859bd7479d9449353e3fd54c2e855ed73c3f6b8c3869 done
+Step #0 - "buildConsentApp": #25 naming to gcr.io/cdr-bbray-step/ce-consent-screen done
+Step #0 - "buildConsentApp": #25 DONE 0.3s
+Finished Step #0 - "buildConsentApp"
+Starting Step #1
+Step #1: Already have image (with digest): gcr.io/cloud-builders/docker
+Step #1: Using default tag: latest
+Step #1: The push refers to repository [gcr.io/cdr-bbray-step/ce-consent-screen]
+Step #1: 17b29654ca4c: Preparing
+Step #1: 743056138dc3: Preparing
+Step #1: cd2742eb303a: Preparing
+Step #1: ad3971665f6d: Preparing
+Step #1: 6275499cb808: Preparing
+Step #1: 10eb2730579d: Preparing
+Step #1: ec34fcc1d526: Preparing
+Step #1: 10eb2730579d: Waiting
+Step #1: ec34fcc1d526: Waiting
+Step #1: ad3971665f6d: Pushed
+Step #1: cd2742eb303a: Pushed
+Step #1: ec34fcc1d526: Layer already exists
+Step #1: 743056138dc3: Pushed
+Step #1: 6275499cb808: Pushed
+Step #1: 10eb2730579d: Pushed
+Step #1: 17b29654ca4c: Pushed
+Step #1: latest: digest: sha256:bcd3f6b7bc60b0f0c0a798a436c535b6e12a10ca1ff840e033dbd12eea1a1a57 size: 1783
+Finished Step #1
+Starting Step #2
+Step #2: Pulling image: gcr.io/google.com/cloudsdktool/cloud-sdk
+Step #2: Using default tag: latest
+Step #2: latest: Pulling from google.com/cloudsdktool/cloud-sdk
+Step #2: 7e6a53d1988f: Pulling fs layer
+Step #2: dcfc2909732b: Pulling fs layer
+Step #2: 0154dcaa9df2: Pulling fs layer
+Step #2: 6af475bb0825: Pulling fs layer
+Step #2: e6d4d02026e7: Pulling fs layer
+Step #2: bd43fa87af1e: Pulling fs layer
+Step #2: b65e1b0ae3d0: Pulling fs layer
+Step #2: 7cc9a508b3cf: Pulling fs layer
+Step #2: 6af475bb0825: Waiting
+Step #2: e6d4d02026e7: Waiting
+Step #2: bd43fa87af1e: Waiting
+Step #2: b65e1b0ae3d0: Waiting
+Step #2: 7cc9a508b3cf: Waiting
+Step #2: 0154dcaa9df2: Verifying Checksum
+Step #2: 0154dcaa9df2: Download complete
+Step #2: dcfc2909732b: Verifying Checksum
+Step #2: dcfc2909732b: Download complete
+Step #2: 7e6a53d1988f: Verifying Checksum
+Step #2: 7e6a53d1988f: Download complete
+Step #2: bd43fa87af1e: Verifying Checksum
+Step #2: bd43fa87af1e: Download complete
+Step #2: e6d4d02026e7: Download complete
+Step #2: b65e1b0ae3d0: Verifying Checksum
+Step #2: b65e1b0ae3d0: Download complete
+Step #2: 7cc9a508b3cf: Verifying Checksum
+Step #2: 7cc9a508b3cf: Download complete
+Step #2: 7e6a53d1988f: Pull complete
+Step #2: dcfc2909732b: Pull complete
+Step #2: 0154dcaa9df2: Pull complete
+Step #2: 6af475bb0825: Verifying Checksum
+Step #2: 6af475bb0825: Download complete
+Step #2: 6af475bb0825: Pull complete
+Step #2: e6d4d02026e7: Pull complete
+Step #2: bd43fa87af1e: Pull complete
+Step #2: b65e1b0ae3d0: Pull complete
+Step #2: 7cc9a508b3cf: Pull complete
+Step #2: Digest: sha256:38ebf555774912ded5c4a141c9a2c1c1662c407b89c26e356249aa4b8b18fbaa
+Step #2: Status: Downloaded newer image for gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+Step #2: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+Step #2: Deploying container to Cloud Run service [ce-consent-page] in project [cdr-bbray-step] region [us-central1]
+Step #2: Deploying...
+Step #2: Setting IAM Policy.........warning
+Step #2: Creating Revision.......................................................................................................done
+Step #2: Routing traffic......done
+Step #2: Completed with warnings:
+Step #2:   Setting IAM policy failed, try "gcloud beta run services add-iam-policy-binding --region=us-central1 --member=allUsers --role=roles/run.invoker ce-consent-page"
+Step #2: Service [ce-consent-page] revision [ce-consent-page-00002-vob] has been deployed and is serving 100 percent of traffic.
+Step #2: Service URL: https://ce-consent-page-4dx6lnllwq-uc.a.run.app
+Finished Step #2
+PUSH
+Pushing gcr.io/cdr-bbray-step/ce-consent-screen
+The push refers to repository [gcr.io/cdr-bbray-step/ce-consent-screen]
+17b29654ca4c: Preparing
+743056138dc3: Preparing
+cd2742eb303a: Preparing
+ad3971665f6d: Preparing
+6275499cb808: Preparing
+10eb2730579d: Preparing
+ec34fcc1d526: Preparing
+10eb2730579d: Waiting
+ec34fcc1d526: Waiting
+ad3971665f6d: Layer already exists
+cd2742eb303a: Layer already exists
+743056138dc3: Layer already exists
+6275499cb808: Layer already exists
+17b29654ca4c: Layer already exists
+ec34fcc1d526: Layer already exists
+10eb2730579d: Layer already exists
+latest: digest: sha256:bcd3f6b7bc60b0f0c0a798a436c535b6e12a10ca1ff840e033dbd12eea1a1a57 size: 1783
+DONE
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ID                                    CREATE_TIME                DURATION  SOURCE                                                                                       IMAGES                                             STATUS
+afb0ed2e-ae92-4af0-badb-d9912d766e19  2022-08-06T00:43:32+00:00  4M15S     gs://cdr-bbray-step_cloudbuild/source/1659746599.52042-28c623ed441c4f0e828a582f59239627.tgz  gcr.io/cdr-bbray-step/ce-consent-screen (+1 more)  SUCCESS
+=========================================================================
+--> Updating consent page app configuration....
+=========================================================================
+bindings:
+- members:
+  - allUsers
+  role: roles/run.invoker
+etag: BwXlh-7SELo=
+version: 1
+===================================================================================================
+The consent page app has been deployed at https://ce-consent-page-4dx6lnllwq-uc.a.run.app 
+Please update ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value
+===================================================================================================
+=========================================================================
+--> Deploying demo client (Financroo) app as a CloudRun function....
+=========================================================================
+---------------------------------------------------------------------------------------- REMOTE BUILD OUTPUT ----------------------------------------------------------------------------------------
+starting build "6810f220-aa80-4479-9abd-ee1fd2f0832a"
+
+FETCHSOURCE
+Fetching storage object: gs://cdr-bbray-step_cloudbuild/source/1659746875.251879-b5c2f5fdc19848b2873ca18a5d797043.tgz#1659746882183654
+Copying gs://cdr-bbray-step_cloudbuild/source/1659746875.251879-b5c2f5fdc19848b2873ca18a5d797043.tgz#1659746882183654...
+/ [0 files][    0.0 B/ 12.5 MiB]                                                / [1 files][ 12.5 MiB/ 12.5 MiB]                                                
+Operation completed over 1 objects/12.5 MiB.
+BUILD
+Starting Step #0 - "buildDemoClientApp"
+Step #0 - "buildDemoClientApp": Already have image (with digest): gcr.io/cloud-builders/docker
+Step #0 - "buildDemoClientApp": #1 [internal] load build definition from Dockerfile
+Step #0 - "buildDemoClientApp": #1 sha256:b8b50933a13df6681eb1de9f993c27fee33fbb2fb25a6f6e88027a7d83f81ea8
+Step #0 - "buildDemoClientApp": #1 transferring dockerfile: 946B done
+Step #0 - "buildDemoClientApp": #1 DONE 0.0s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #2 [internal] load .dockerignore
+Step #0 - "buildDemoClientApp": #2 sha256:2dc24a1fb6cd4419abda302d246528b80a846fc11a52bf2344d8fbfb24828c79
+Step #0 - "buildDemoClientApp": #2 transferring context: 2B done
+Step #0 - "buildDemoClientApp": #2 DONE 0.0s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #3 resolve image config for docker.io/docker/dockerfile:1.1.3-experimental
+Step #0 - "buildDemoClientApp": #3 sha256:91634ee2000a6b16774475f8fdb3b59615257c0080c8e3925f32b6477446bb90
+Step #0 - "buildDemoClientApp": #3 DONE 1.2s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #4 docker-image://docker.io/docker/dockerfile:1.1.3-experimental@sha256:888f21826273409b5ef5ff9ceb90c64a8f8ec7760da30d1ffbe6c3e2d323a7bd
+Step #0 - "buildDemoClientApp": #4 sha256:1f51976d2b67aa92e53dad8b3a95e627248a6c0c18cf455abc52de46848fec61
+Step #0 - "buildDemoClientApp": #4 resolve docker.io/docker/dockerfile:1.1.3-experimental@sha256:888f21826273409b5ef5ff9ceb90c64a8f8ec7760da30d1ffbe6c3e2d323a7bd done
+Step #0 - "buildDemoClientApp": #4 sha256:888f21826273409b5ef5ff9ceb90c64a8f8ec7760da30d1ffbe6c3e2d323a7bd 2.03kB / 2.03kB done
+Step #0 - "buildDemoClientApp": #4 sha256:ee85655c57140bd20a5ebc3bb802e7410ee9ac47ca92b193ed0ab17485024fe5 527B / 527B done
+Step #0 - "buildDemoClientApp": #4 sha256:80b5f664ac0c5f6b89608f7b0afd9548ac5b2d4cd631b7b723d9f2edca8676d9 897B / 897B done
+Step #0 - "buildDemoClientApp": #4 sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 0B / 8.82MB 0.1s
+Step #0 - "buildDemoClientApp": #4 sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 3.15MB / 8.82MB 0.2s
+Step #0 - "buildDemoClientApp": #4 sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 8.82MB / 8.82MB 0.3s
+Step #0 - "buildDemoClientApp": #4 sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 8.82MB / 8.82MB 0.4s done
+Step #0 - "buildDemoClientApp": #4 extracting sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 0.1s
+Step #0 - "buildDemoClientApp": #4 extracting sha256:73e11b97eeae87ce062a224a9ff2d7f8a919d3b50e014a3f33a79b0c219a7003 0.3s done
+Step #0 - "buildDemoClientApp": #4 DONE 0.7s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #5 [internal] load build definition from Dockerfile
+Step #0 - "buildDemoClientApp": #5 sha256:9f31dd11ee8cfb00c5190158999fd29662daa158669b974320960b5af69eded5
+Step #0 - "buildDemoClientApp": #5 transferring dockerfile: 946B done
+Step #0 - "buildDemoClientApp": #5 DONE 0.0s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #8 [internal] load metadata for docker.io/library/golang:1.18
+Step #0 - "buildDemoClientApp": #8 sha256:f4e19f57653cc0a228a51c5d1fec5bdbe88100edb970ccdd95e88e0dfac945b1
+Step #0 - "buildDemoClientApp": #8 DONE 0.2s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #6 [internal] load metadata for docker.io/library/alpine:latest
+Step #0 - "buildDemoClientApp": #6 sha256:d4fb25f5b5c00defc20ce26f2efc4e288de8834ed5aa59dff877b495ba88fda6
+Step #0 - "buildDemoClientApp": #6 DONE 0.2s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #7 [internal] load metadata for docker.io/library/node:14.15.1
+Step #0 - "buildDemoClientApp": #7 sha256:04a54d53b2a1ae8484a7db102d7c42479e9e5f60097d1729d5c544dce6d9ba10
+Step #0 - "buildDemoClientApp": #7 DONE 0.2s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #9 [stage-2 1/5] FROM docker.io/library/alpine:latest@sha256:7580ece7963bfa863801466c0a488f11c86f85d9988051a9f9c68cb27f6b7872
+Step #0 - "buildDemoClientApp": #9 sha256:429b0e8be96f34a32761c3e68bdf7bef0c0d2899b9af040de38511e1021f4f46
+Step #0 - "buildDemoClientApp": #9 DONE 0.0s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #21 [internal] settings cache mount permissions
+Step #0 - "buildDemoClientApp": #21 sha256:54bdddb3573894f2eccd87c2683ddcfc9b538b5ebe574b812379862a4733850d
+Step #0 - "buildDemoClientApp": #21 DONE 0.0s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #12 [go-builder 1/9] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildDemoClientApp": #12 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildDemoClientApp": #12 resolve docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1 0.0s done
+Step #0 - "buildDemoClientApp": #12 sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1 2.35kB / 2.35kB done
+Step #0 - "buildDemoClientApp": #12 sha256:2d952adaec1e94a7d3920f0f848dfd9037244f2491e499152918f30956c942b0 7.10kB / 7.10kB done
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 0B / 55.00MB 0.1s
+Step #0 - "buildDemoClientApp": #12 sha256:a4081692fa3015104d84b125cbf623c566a0c9e2a39b9a29f6d939225d5687a4 1.80kB / 1.80kB done
+Step #0 - "buildDemoClientApp": #12 sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 0B / 5.16MB 0.1s
+Step #0 - "buildDemoClientApp": #12 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 0B / 10.88MB 0.1s
+Step #0 - "buildDemoClientApp": #12 sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 2.10MB / 5.16MB 0.2s
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 4.19MB / 55.00MB 0.3s
+Step #0 - "buildDemoClientApp": #12 sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 3.15MB / 5.16MB 0.3s
+Step #0 - "buildDemoClientApp": #12 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 4.19MB / 10.88MB 0.3s
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 6.95MB / 55.00MB 0.4s
+Step #0 - "buildDemoClientApp": #12 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 7.42MB / 10.88MB 0.4s
+Step #0 - "buildDemoClientApp": #12 sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 5.16MB / 5.16MB 0.4s done
+Step #0 - "buildDemoClientApp": #12 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 10.49MB / 10.88MB 0.5s
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 0B / 54.58MB 0.5s
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 20.97MB / 55.00MB 0.7s
+Step #0 - "buildDemoClientApp": #12 sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 10.88MB / 10.88MB 0.6s done
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 10.49MB / 54.58MB 0.7s
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 0B / 85.90MB 0.7s
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 27.26MB / 55.00MB 0.8s
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 15.73MB / 54.58MB 0.8s
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 35.65MB / 55.00MB 0.9s
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 23.07MB / 54.58MB 0.9s
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 9.44MB / 85.90MB 0.9s
+Step #0 - "buildDemoClientApp": #12 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #14 [internal] load build context
+Step #0 - "buildDemoClientApp": #14 sha256:d5bc8d6fc2075c3a70efe1bd807b8ae645fa1d1970e5dd876c07db8bb9a0062e
+Step #0 - "buildDemoClientApp": #14 transferring context: 10.32MB 1.1s done
+Step #0 - "buildDemoClientApp": #14 DONE 1.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #12 [go-builder 1/9] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildDemoClientApp": #12 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 46.19MB / 55.00MB 1.2s
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 36.70MB / 54.58MB 1.2s
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 22.02MB / 85.90MB 1.2s
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 54.53MB / 55.00MB 1.3s
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 40.89MB / 54.58MB 1.3s
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 28.31MB / 85.90MB 1.3s
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 45.85MB / 54.58MB 1.4s
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 54.58MB / 54.58MB 1.6s
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 44.04MB / 85.90MB 1.6s
+Step #0 - "buildDemoClientApp": #12 sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 55.00MB / 55.00MB 1.6s done
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 54.53MB / 85.90MB 1.7s
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 63.96MB / 85.90MB 1.8s
+Step #0 - "buildDemoClientApp": #12 extracting sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452
+Step #0 - "buildDemoClientApp": #12 sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 54.58MB / 54.58MB 1.9s done
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 72.35MB / 85.90MB 1.9s
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 77.59MB / 85.90MB 2.0s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 0B / 141.86MB 2.0s
+Step #0 - "buildDemoClientApp": #12 sha256:f3efab82b0e6781916704657c07fcd27f758c051a79c51966805759586275493 156B / 156B 1.9s done
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 85.90MB / 85.90MB 2.2s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 15.73MB / 141.86MB 2.2s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 23.07MB / 141.86MB 2.3s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 33.55MB / 141.86MB 2.4s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 48.23MB / 141.86MB 2.7s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 62.91MB / 141.86MB 2.9s
+Step #0 - "buildDemoClientApp": #12 sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 85.90MB / 85.90MB 2.9s done
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 72.35MB / 141.86MB 3.0s
+Step #0 - "buildDemoClientApp": #12 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #10 [stage-2 2/5] RUN apk --no-cache add ca-certificates
+Step #0 - "buildDemoClientApp": #10 sha256:5338b6677a53a82672e0ed18b168aebada347f6b85f8f2e9b9fc7f8787a157e5
+Step #0 - "buildDemoClientApp": #10 0.745 fetch https://dl-cdn.alpinelinux.org/alpine/v3.16/main/x86_64/APKINDEX.tar.gz
+Step #0 - "buildDemoClientApp": #10 1.008 fetch https://dl-cdn.alpinelinux.org/alpine/v3.16/community/x86_64/APKINDEX.tar.gz
+Step #0 - "buildDemoClientApp": #10 1.598 (1/1) Installing ca-certificates (20220614-r0)
+Step #0 - "buildDemoClientApp": #10 1.646 Executing busybox-1.35.0-r15.trigger
+Step #0 - "buildDemoClientApp": #10 1.807 Executing ca-certificates-20220614-r0.trigger
+Step #0 - "buildDemoClientApp": #10 1.949 OK: 6 MiB in 15 packages
+Step #0 - "buildDemoClientApp": #10 DONE 3.0s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #12 [go-builder 1/9] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildDemoClientApp": #12 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 84.93MB / 141.86MB 3.3s
+Step #0 - "buildDemoClientApp": #12 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #11 [stage-2 3/5] WORKDIR /app
+Step #0 - "buildDemoClientApp": #11 sha256:c376753c0dae3d174ab8f96ac4b280d210e3355083e915383e58fa3f603249cf
+Step #0 - "buildDemoClientApp": #11 DONE 0.5s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #12 [go-builder 1/9] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildDemoClientApp": #12 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 96.47MB / 141.86MB 3.5s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 105.19MB / 141.86MB 3.6s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 125.06MB / 141.86MB 3.9s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 136.31MB / 141.86MB 4.1s
+Step #0 - "buildDemoClientApp": #12 sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 141.86MB / 141.86MB 4.5s done
+Step #0 - "buildDemoClientApp": #12 extracting sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 5.1s
+Step #0 - "buildDemoClientApp": #12 extracting sha256:001c52e26ad57e3b25b439ee0052f6692e5c0f2d5d982a00a8819ace5e521452 7.7s done
+Step #0 - "buildDemoClientApp": #12 extracting sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165
+Step #0 - "buildDemoClientApp": #12 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #24 [js-builder 1/9] FROM docker.io/library/node:14.15.1@sha256:9201f75428d698da44d4d988ba20be75a1ecc2fa7084ae34e879c87bec89b1dd
+Step #0 - "buildDemoClientApp": #24 sha256:175e40612e48dec0ef1b251e5aa0bc9f543b33b7de0382bbde5f0098d6484af4
+Step #0 - "buildDemoClientApp": #24 resolve docker.io/library/node:14.15.1@sha256:9201f75428d698da44d4d988ba20be75a1ecc2fa7084ae34e879c87bec89b1dd 0.0s done
+Step #0 - "buildDemoClientApp": #24 sha256:5d3b556415e22b59ff1160ff69f0e6f902eeada327fdc682c0df66b589a5bd07 7.82kB / 7.82kB done
+Step #0 - "buildDemoClientApp": #24 sha256:e4f5095aeca472b3c10dc27bb40e33a3d4ec2c12162f1ad390d894b1a53ffdee 2.21kB / 2.21kB done
+Step #0 - "buildDemoClientApp": #24 sha256:9201f75428d698da44d4d988ba20be75a1ecc2fa7084ae34e879c87bec89b1dd 776B / 776B done
+Step #0 - "buildDemoClientApp": #24 sha256:22f9b9782fc328ea8192a309b7517c33b1c786697804153ed52a03005919f659 45.38MB / 45.38MB 2.9s done
+Step #0 - "buildDemoClientApp": #24 sha256:2c75c9e56a8a6e63c485833c91ac3df1d2a9ef0e467971466d7bec9cf88990c8 10.75MB / 10.75MB 3.4s done
+Step #0 - "buildDemoClientApp": #24 sha256:b31d19b99daaa41c283a63436fb7d49eeb1ee5d47314d9786274bf93edb95050 4.34MB / 4.34MB 3.4s done
+Step #0 - "buildDemoClientApp": #24 extracting sha256:22f9b9782fc328ea8192a309b7517c33b1c786697804153ed52a03005919f659 6.2s done
+Step #0 - "buildDemoClientApp": #24 sha256:e000cbf49b08c6f2538b371f5343011525002d32fd2fe3de07162fab67d59389 50.11MB / 50.11MB 4.7s done
+Step #0 - "buildDemoClientApp": #24 sha256:892def1a6f88c9c733b6d55d7f8980ca9e8ac0438a10a7219462b92fb6a7f673 214.31MB / 214.31MB 8.0s done
+Step #0 - "buildDemoClientApp": #24 sha256:0581e893c9eba6d97b197d62ce619812a518ccd18de1e3b4e8b93bc9abc07815 4.17kB / 4.17kB 4.5s done
+Step #0 - "buildDemoClientApp": #24 sha256:5926ccc2100ba7fd3e07534705db5f180400765faad9ef868f5d48b02c94976b 34.82MB / 34.82MB 5.5s done
+Step #0 - "buildDemoClientApp": #24 sha256:a1d95bffd5dadef63e7dfc27ebf3491e71177d6999d3f063c5e80fe8e98ff640 2.38MB / 2.38MB 4.9s done
+Step #0 - "buildDemoClientApp": #24 sha256:e96158763d801b515db51125112b90555c414043f9c507406d8b52e31721bf5c 293B / 293B 5.0s done
+Step #0 - "buildDemoClientApp": #24 extracting sha256:2c75c9e56a8a6e63c485833c91ac3df1d2a9ef0e467971466d7bec9cf88990c8 0.2s
+Step #0 - "buildDemoClientApp": #24 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #12 [go-builder 1/9] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildDemoClientApp": #12 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildDemoClientApp": #12 extracting sha256:d9d4b9b6e964657da49910b495173d6c4f0d9bc47b3b44273cf82fd32723d165 0.4s done
+Step #0 - "buildDemoClientApp": #12 extracting sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a
+Step #0 - "buildDemoClientApp": #12 extracting sha256:2068746827ec1b043b571e4788693eab7e9b2a95301176512791f8c317a2816a 0.7s done
+Step #0 - "buildDemoClientApp": #12 extracting sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6
+Step #0 - "buildDemoClientApp": #12 extracting sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 5.0s
+Step #0 - "buildDemoClientApp": #12 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #24 [js-builder 1/9] FROM docker.io/library/node:14.15.1@sha256:9201f75428d698da44d4d988ba20be75a1ecc2fa7084ae34e879c87bec89b1dd
+Step #0 - "buildDemoClientApp": #24 sha256:175e40612e48dec0ef1b251e5aa0bc9f543b33b7de0382bbde5f0098d6484af4
+Step #0 - "buildDemoClientApp": #24 extracting sha256:2c75c9e56a8a6e63c485833c91ac3df1d2a9ef0e467971466d7bec9cf88990c8 0.9s done
+Step #0 - "buildDemoClientApp": #24 extracting sha256:b31d19b99daaa41c283a63436fb7d49eeb1ee5d47314d9786274bf93edb95050 0.3s done
+Step #0 - "buildDemoClientApp": #24 extracting sha256:e000cbf49b08c6f2538b371f5343011525002d32fd2fe3de07162fab67d59389 8.9s
+Step #0 - "buildDemoClientApp": #24 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #12 [go-builder 1/9] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildDemoClientApp": #12 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildDemoClientApp": #12 extracting sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 10.0s
+Step #0 - "buildDemoClientApp": #12 extracting sha256:9daef329d35093868ef75ac8b7c6eb407fa53abbcb3a264c218c2ec7bca716e6 11.0s done
+Step #0 - "buildDemoClientApp": #12 extracting sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702
+Step #0 - "buildDemoClientApp": #12 extracting sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 5.0s
+Step #0 - "buildDemoClientApp": #12 extracting sha256:1c28274a8e7c4c48dd6843a6c33a0192271cfc7ef94f059ef7d70c4b60da6702 7.2s done
+Step #0 - "buildDemoClientApp": #12 extracting sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6
+Step #0 - "buildDemoClientApp": #12 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #24 [js-builder 1/9] FROM docker.io/library/node:14.15.1@sha256:9201f75428d698da44d4d988ba20be75a1ecc2fa7084ae34e879c87bec89b1dd
+Step #0 - "buildDemoClientApp": #24 sha256:175e40612e48dec0ef1b251e5aa0bc9f543b33b7de0382bbde5f0098d6484af4
+Step #0 - "buildDemoClientApp": #24 extracting sha256:e000cbf49b08c6f2538b371f5343011525002d32fd2fe3de07162fab67d59389 10.8s done
+Step #0 - "buildDemoClientApp": #24 extracting sha256:892def1a6f88c9c733b6d55d7f8980ca9e8ac0438a10a7219462b92fb6a7f673 8.1s
+Step #0 - "buildDemoClientApp": #24 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #12 [go-builder 1/9] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildDemoClientApp": #12 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildDemoClientApp": #12 extracting sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 5.0s
+Step #0 - "buildDemoClientApp": #12 extracting sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 10.2s
+Step #0 - "buildDemoClientApp": #12 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #24 [js-builder 1/9] FROM docker.io/library/node:14.15.1@sha256:9201f75428d698da44d4d988ba20be75a1ecc2fa7084ae34e879c87bec89b1dd
+Step #0 - "buildDemoClientApp": #24 sha256:175e40612e48dec0ef1b251e5aa0bc9f543b33b7de0382bbde5f0098d6484af4
+Step #0 - "buildDemoClientApp": #24 extracting sha256:892def1a6f88c9c733b6d55d7f8980ca9e8ac0438a10a7219462b92fb6a7f673 18.0s
+Step #0 - "buildDemoClientApp": #24 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #12 [go-builder 1/9] FROM docker.io/library/golang:1.18@sha256:1bbb02af44e5324a6eabe502b6a928d368977225c0255bc9aca4a734145f86e1
+Step #0 - "buildDemoClientApp": #12 sha256:ae02f8bbd7bfb78fcf64d6298476e3198b6f537e0d00a720e1190a1e9d38daf5
+Step #0 - "buildDemoClientApp": #12 extracting sha256:6b3e8fc138ed24bdd28760005afdd15c34a7a0967fa0e1c3fe472bb3de29f2c6 13.8s done
+Step #0 - "buildDemoClientApp": #12 extracting sha256:f3efab82b0e6781916704657c07fcd27f758c051a79c51966805759586275493 done
+Step #0 - "buildDemoClientApp": #12 DONE 44.6s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #24 [js-builder 1/9] FROM docker.io/library/node:14.15.1@sha256:9201f75428d698da44d4d988ba20be75a1ecc2fa7084ae34e879c87bec89b1dd
+Step #0 - "buildDemoClientApp": #24 sha256:175e40612e48dec0ef1b251e5aa0bc9f543b33b7de0382bbde5f0098d6484af4
+Step #0 - "buildDemoClientApp": #24 extracting sha256:892def1a6f88c9c733b6d55d7f8980ca9e8ac0438a10a7219462b92fb6a7f673 19.4s done
+Step #0 - "buildDemoClientApp": #24 extracting sha256:0581e893c9eba6d97b197d62ce619812a518ccd18de1e3b4e8b93bc9abc07815 done
+Step #0 - "buildDemoClientApp": #24 extracting sha256:5926ccc2100ba7fd3e07534705db5f180400765faad9ef868f5d48b02c94976b 2.1s
+Step #0 - "buildDemoClientApp": #24 extracting sha256:5926ccc2100ba7fd3e07534705db5f180400765faad9ef868f5d48b02c94976b 3.5s done
+Step #0 - "buildDemoClientApp": #24 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #13 [go-builder 2/9] WORKDIR /app
+Step #0 - "buildDemoClientApp": #13 sha256:d90a2c9c5eae24f2e4ac5cecf1a2185832ab118aca1df6ce4751cbf0e743bdec
+Step #0 - "buildDemoClientApp": #13 DONE 1.5s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #15 [go-builder 3/9] COPY go.mod .
+Step #0 - "buildDemoClientApp": #15 sha256:6b966072f06de77827f43c87c6ddc2902d4c7f912f58570ef16edfa7925747fd
+Step #0 - "buildDemoClientApp": #15 DONE 0.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #16 [go-builder 4/9] COPY go.sum .
+Step #0 - "buildDemoClientApp": #16 sha256:9d80c580ef3de0992cc160d2d5fbd3767164f918269190f8e29a8b0610555dff
+Step #0 - "buildDemoClientApp": #16 DONE 0.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #17 [go-builder 5/9] RUN go mod download
+Step #0 - "buildDemoClientApp": #17 sha256:6c74da485bc4871aa55ba56e17f37081032c930e2538327dd3357acfd9e8c61b
+Step #0 - "buildDemoClientApp": #17 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #24 [js-builder 1/9] FROM docker.io/library/node:14.15.1@sha256:9201f75428d698da44d4d988ba20be75a1ecc2fa7084ae34e879c87bec89b1dd
+Step #0 - "buildDemoClientApp": #24 sha256:175e40612e48dec0ef1b251e5aa0bc9f543b33b7de0382bbde5f0098d6484af4
+Step #0 - "buildDemoClientApp": #24 extracting sha256:a1d95bffd5dadef63e7dfc27ebf3491e71177d6999d3f063c5e80fe8e98ff640 0.3s done
+Step #0 - "buildDemoClientApp": #24 extracting sha256:e96158763d801b515db51125112b90555c414043f9c507406d8b52e31721bf5c done
+Step #0 - "buildDemoClientApp": #24 DONE 46.8s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #25 [js-builder 2/9] WORKDIR /app/web/app
+Step #0 - "buildDemoClientApp": #25 sha256:a34f168f7bf38c8fc0f630dfece0907b84ee6eae11a98f190b16fcfe99c1a5f8
+Step #0 - "buildDemoClientApp": #25 DONE 0.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #26 [js-builder 3/9] COPY apps/financroo-tpp/web/app/package.json package.json
+Step #0 - "buildDemoClientApp": #26 sha256:3249a1b6200342fbebe94f3f65e78b431d4ec7bc7239b4d8d457d6a234651493
+Step #0 - "buildDemoClientApp": #26 DONE 0.0s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #27 [js-builder 4/9] COPY apps/financroo-tpp/web/app/package-lock.json package-lock.json
+Step #0 - "buildDemoClientApp": #27 sha256:fba47bba0f556b8e3ad33f14ec78b87d3a9b9d5100c68f29a559fa6c6d3a88a3
+Step #0 - "buildDemoClientApp": #27 DONE 0.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #17 [go-builder 5/9] RUN go mod download
+Step #0 - "buildDemoClientApp": #17 sha256:6c74da485bc4871aa55ba56e17f37081032c930e2538327dd3357acfd9e8c61b
+Step #0 - "buildDemoClientApp": #17 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #28 [js-builder 5/9] RUN npm install --no-audit --prefer-offline
+Step #0 - "buildDemoClientApp": #28 sha256:4d109a3d01e0b577865744c945b633f23439bfebcabfec9b939835b769f39a25
+Step #0 - "buildDemoClientApp": #28 1.256 npm WARN read-shrinkwrap This version of npm is compatible with lockfileVersion@1, but package-lock.json was generated for lockfileVersion@2. I'll try to do my best with it!
+Step #0 - "buildDemoClientApp": #28 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #17 [go-builder 5/9] RUN go mod download
+Step #0 - "buildDemoClientApp": #17 sha256:6c74da485bc4871aa55ba56e17f37081032c930e2538327dd3357acfd9e8c61b
+Step #0 - "buildDemoClientApp": #17 DONE 10.7s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #18 [go-builder 6/9] COPY openbanking openbanking
+Step #0 - "buildDemoClientApp": #18 sha256:7ade900feb864eab811a1a9564b939c32507ec55136815d1ddaf6570fe4b80f2
+Step #0 - "buildDemoClientApp": #18 DONE 0.9s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #19 [go-builder 7/9] COPY utils utils
+Step #0 - "buildDemoClientApp": #19 sha256:4da310029ee24b9ed1f405b8a03d9a8bde7625a3dba34a0839bef222f0af1c95
+Step #0 - "buildDemoClientApp": #19 DONE 0.0s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #20 [go-builder 8/9] COPY apps/financroo-tpp .
+Step #0 - "buildDemoClientApp": #20 sha256:13781bb941718d1d7a4f2cb67356100810a8465396bbb63620632f1c48d7fe0d
+Step #0 - "buildDemoClientApp": #20 DONE 0.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #22 [go-builder 9/9] RUN --mount=type=cache,target=/root/.cache/go-build,mode=777     CGO_ENABLED=0 go build -tags static_all -o main .
+Step #0 - "buildDemoClientApp": #22 sha256:15146244c2c2da1fd03d7043958c2fe6dc8798dc9adb3d6031687892aafed8b1
+Step #0 - "buildDemoClientApp": #22 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #28 [js-builder 5/9] RUN npm install --no-audit --prefer-offline
+Step #0 - "buildDemoClientApp": #28 sha256:4d109a3d01e0b577865744c945b633f23439bfebcabfec9b939835b769f39a25
+Step #0 - "buildDemoClientApp": #28 71.46 
+Step #0 - "buildDemoClientApp": #28 71.46 > core-js@3.21.1 postinstall /app/web/app/node_modules/core-js
+Step #0 - "buildDemoClientApp": #28 71.46 > node -e "try{require('./postinstall')}catch(e){}"
+Step #0 - "buildDemoClientApp": #28 71.46 
+Step #0 - "buildDemoClientApp": #28 71.60 [96mThank you for using core-js ([94m https://github.com/zloirock/core-js [96m) for polyfilling JavaScript standard library![0m
+Step #0 - "buildDemoClientApp": #28 71.60 
+Step #0 - "buildDemoClientApp": #28 71.60 [96mThe project needs your help! Please consider supporting of core-js:[0m
+Step #0 - "buildDemoClientApp": #28 71.60 [96m>[94m https://opencollective.com/core-js [0m
+Step #0 - "buildDemoClientApp": #28 71.60 [96m>[94m https://patreon.com/zloirock [0m
+Step #0 - "buildDemoClientApp": #28 71.60 [96m>[94m https://paypal.me/zloirock [0m
+Step #0 - "buildDemoClientApp": #28 71.60 [96m>[94m bitcoin: bc1qlea7544qtsmj2rayg0lthvza9fau63ux0fstcz [0m
+Step #0 - "buildDemoClientApp": #28 71.60 
+Step #0 - "buildDemoClientApp": #28 71.60 [96mAlso, the author of core-js ([94m https://github.com/zloirock [96m) is looking for a good job -)[0m
+Step #0 - "buildDemoClientApp": #28 71.60 
+Step #0 - "buildDemoClientApp": #28 71.62 
+Step #0 - "buildDemoClientApp": #28 71.62 > core-js-pure@3.21.1 postinstall /app/web/app/node_modules/core-js-pure
+Step #0 - "buildDemoClientApp": #28 71.62 > node -e "try{require('./postinstall')}catch(e){}"
+Step #0 - "buildDemoClientApp": #28 71.62 
+Step #0 - "buildDemoClientApp": #28 71.81 [96mThank you for using core-js ([94m https://github.com/zloirock/core-js [96m) for polyfilling JavaScript standard library![0m
+Step #0 - "buildDemoClientApp": #28 71.81 
+Step #0 - "buildDemoClientApp": #28 71.81 [96mThe project needs your help! Please consider supporting of core-js:[0m
+Step #0 - "buildDemoClientApp": #28 71.81 [96m>[94m https://opencollective.com/core-js [0m
+Step #0 - "buildDemoClientApp": #28 71.81 [96m>[94m https://patreon.com/zloirock [0m
+Step #0 - "buildDemoClientApp": #28 71.81 [96m>[94m https://paypal.me/zloirock [0m
+Step #0 - "buildDemoClientApp": #28 71.81 [96m>[94m bitcoin: bc1qlea7544qtsmj2rayg0lthvza9fau63ux0fstcz [0m
+Step #0 - "buildDemoClientApp": #28 71.81 
+Step #0 - "buildDemoClientApp": #28 71.81 [96mAlso, the author of core-js ([94m https://github.com/zloirock [96m) is looking for a good job -)[0m
+Step #0 - "buildDemoClientApp": #28 71.81
+Step #0 - "buildDemoClientApp": #28 75.77 npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@2.3.2 (node_modules/fsevents):
+Step #0 - "buildDemoClientApp": #28 75.77 npm WARN notsup SKIPPING OPTIONAL DEPENDENCY: Unsupported platform for fsevents@2.3.2: wanted {"os":"darwin","arch":"any"} (current: {"os":"linux","arch":"x64"})
+Step #0 - "buildDemoClientApp": #28 75.77 
+Step #0 - "buildDemoClientApp": #28 75.78 added 1350 packages from 784 contributors in 74.616s
+Step #0 - "buildDemoClientApp": #28 79.33 
+Step #0 - "buildDemoClientApp": #28 79.33 178 packages are looking for funding
+Step #0 - "buildDemoClientApp": #28 79.33   run `npm fund` for details
+Step #0 - "buildDemoClientApp": #28 79.33
+Step #0 - "buildDemoClientApp": #28 DONE 81.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #29 [js-builder 6/9] COPY apps/financroo-tpp/web/app/tsconfig.json tsconfig.json
+Step #0 - "buildDemoClientApp": #29 sha256:ccf18267d9d895d0d9c52c9073922b351bd3fafdec79cb504043fe52b70252a6
+Step #0 - "buildDemoClientApp": #29 DONE 0.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #22 [go-builder 9/9] RUN --mount=type=cache,target=/root/.cache/go-build,mode=777     CGO_ENABLED=0 go build -tags static_all -o main .
+Step #0 - "buildDemoClientApp": #22 sha256:15146244c2c2da1fd03d7043958c2fe6dc8798dc9adb3d6031687892aafed8b1
+Step #0 - "buildDemoClientApp": #22 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #30 [js-builder 7/9] COPY apps/financroo-tpp/web/app/public public
+Step #0 - "buildDemoClientApp": #30 sha256:08e4ebbab5d33746cda111741ad0de05c424c605d0cb927bc1fc15da51302a84
+Step #0 - "buildDemoClientApp": #30 DONE 0.2s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #31 [js-builder 8/9] COPY apps/financroo-tpp/web/app/src src
+Step #0 - "buildDemoClientApp": #31 sha256:dd5197fe30645957464cc7262e3f2bc5fd4d0265af33bd40c4e97e775f069826
+Step #0 - "buildDemoClientApp": #31 DONE 0.5s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #32 [js-builder 9/9] RUN npm run build
+Step #0 - "buildDemoClientApp": #32 sha256:ec40584222c390b7d634d6516b4c32fce0c98a8c31e5310f0268b9069362830a
+Step #0 - "buildDemoClientApp": #32 2.223 
+Step #0 - "buildDemoClientApp": #32 2.223 > financroo@0.1.0 build /app/web/app
+Step #0 - "buildDemoClientApp": #32 2.223 > react-scripts build
+Step #0 - "buildDemoClientApp": #32 2.223
+Step #0 - "buildDemoClientApp": #32 13.24 Creating an optimized production build...
+Step #0 - "buildDemoClientApp": #32 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #22 [go-builder 9/9] RUN --mount=type=cache,target=/root/.cache/go-build,mode=777     CGO_ENABLED=0 go build -tags static_all -o main .
+Step #0 - "buildDemoClientApp": #22 sha256:15146244c2c2da1fd03d7043958c2fe6dc8798dc9adb3d6031687892aafed8b1
+Step #0 - "buildDemoClientApp": #22 DONE 323.1s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #32 [js-builder 9/9] RUN npm run build
+Step #0 - "buildDemoClientApp": #32 sha256:ec40584222c390b7d634d6516b4c32fce0c98a8c31e5310f0268b9069362830a
+Step #0 - "buildDemoClientApp": #32 ...
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #23 [stage-2 4/5] COPY --from=go-builder /app/main .
+Step #0 - "buildDemoClientApp": #23 sha256:59c4df86901e5f9dd4613bd24606484ef0f3d5e955cce64dd3687391e76db2ef
+Step #0 - "buildDemoClientApp": #23 DONE 0.8s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #32 [js-builder 9/9] RUN npm run build
+Step #0 - "buildDemoClientApp": #32 sha256:ec40584222c390b7d634d6516b4c32fce0c98a8c31e5310f0268b9069362830a
+Step #0 - "buildDemoClientApp": #32 285.2 Compiled successfully.
+Step #0 - "buildDemoClientApp": #32 285.2 
+Step #0 - "buildDemoClientApp": #32 285.2 File sizes after gzip:
+Step #0 - "buildDemoClientApp": #32 285.2
+Step #0 - "buildDemoClientApp": #32 285.5   274.23 kB  build/static/js/main.aaa93fd1.js
+Step #0 - "buildDemoClientApp": #32 285.5   694 B      build/static/css/main.18740651.css
+Step #0 - "buildDemoClientApp": #32 285.5 
+Step #0 - "buildDemoClientApp": #32 285.5 The project was built assuming it is hosted at /.
+Step #0 - "buildDemoClientApp": #32 285.5 You can control this with the homepage field in your package.json.
+Step #0 - "buildDemoClientApp": #32 285.5 
+Step #0 - "buildDemoClientApp": #32 285.5 The build folder is ready to be deployed.
+Step #0 - "buildDemoClientApp": #32 285.5 You may serve it with a static server:
+Step #0 - "buildDemoClientApp": #32 285.5 
+Step #0 - "buildDemoClientApp": #32 285.5   npm install -g serve
+Step #0 - "buildDemoClientApp": #32 285.5   serve -s build
+Step #0 - "buildDemoClientApp": #32 285.5 
+Step #0 - "buildDemoClientApp": #32 285.5 Find out more about deployment here:
+Step #0 - "buildDemoClientApp": #32 285.5 
+Step #0 - "buildDemoClientApp": #32 285.5   https://cra.link/deployment
+Step #0 - "buildDemoClientApp": #32 285.5 
+Step #0 - "buildDemoClientApp": #32 DONE 286.3s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #33 [stage-2 5/5] COPY --from=js-builder /app/web/app/build ./web/app/build
+Step #0 - "buildDemoClientApp": #33 sha256:2334dce7a97ed5a314fdae614d472b30b4818b794313f4bb7783f5e465e66bae
+Step #0 - "buildDemoClientApp": #33 DONE 0.2s
+Step #0 - "buildDemoClientApp": 
+Step #0 - "buildDemoClientApp": #34 exporting to image
+Step #0 - "buildDemoClientApp": #34 sha256:e8c613e07b0b7ff33893b694f7759a10d42e180f2b4dc349fb57dc6b71dcab00
+Step #0 - "buildDemoClientApp": #34 exporting layers
+Step #0 - "buildDemoClientApp": #34 exporting layers 0.7s done
+Step #0 - "buildDemoClientApp": #34 writing image sha256:938828aa8d307052857aca4e99efe6ffc9669b011ea5bfd1870b5f0a2325667a done
+Step #0 - "buildDemoClientApp": #34 naming to gcr.io/cdr-bbray-step/ce-demo-client done
+Step #0 - "buildDemoClientApp": #34 DONE 0.7s
+Finished Step #0 - "buildDemoClientApp"
+Starting Step #1
+Step #1: Already have image (with digest): gcr.io/cloud-builders/docker
+Step #1: Using default tag: latest
+Step #1: The push refers to repository [gcr.io/cdr-bbray-step/ce-demo-client]
+Step #1: dff70a41c390: Preparing
+Step #1: b5e181eef69c: Preparing
+Step #1: ed08230bb954: Preparing
+Step #1: 2e76e677ad15: Preparing
+Step #1: ec34fcc1d526: Preparing
+Step #1: ec34fcc1d526: Layer already exists
+Step #1: 2e76e677ad15: Pushed
+Step #1: ed08230bb954: Pushed
+Step #1: dff70a41c390: Pushed
+Step #1: b5e181eef69c: Pushed
+Step #1: latest: digest: sha256:39dd0aa0c8b8bef16c9304ca0c6c572dec0de22a7fe36f48f09a5dfe5a39213f size: 1368
+Finished Step #1
+Starting Step #2
+Step #2: Pulling image: gcr.io/google.com/cloudsdktool/cloud-sdk
+Step #2: Using default tag: latest
+Step #2: latest: Pulling from google.com/cloudsdktool/cloud-sdk
+Step #2: 7e6a53d1988f: Pulling fs layer
+Step #2: dcfc2909732b: Pulling fs layer
+Step #2: 0154dcaa9df2: Pulling fs layer
+Step #2: 6af475bb0825: Pulling fs layer
+Step #2: e6d4d02026e7: Pulling fs layer
+Step #2: bd43fa87af1e: Pulling fs layer
+Step #2: b65e1b0ae3d0: Pulling fs layer
+Step #2: 7cc9a508b3cf: Pulling fs layer
+Step #2: 6af475bb0825: Waiting
+Step #2: e6d4d02026e7: Waiting
+Step #2: bd43fa87af1e: Waiting
+Step #2: b65e1b0ae3d0: Waiting
+Step #2: 7cc9a508b3cf: Waiting
+Step #2: 0154dcaa9df2: Verifying Checksum
+Step #2: 0154dcaa9df2: Download complete
+Step #2: dcfc2909732b: Verifying Checksum
+Step #2: dcfc2909732b: Download complete
+Step #2: 7e6a53d1988f: Verifying Checksum
+Step #2: 7e6a53d1988f: Download complete
+Step #2: bd43fa87af1e: Verifying Checksum
+Step #2: bd43fa87af1e: Download complete
+Step #2: b65e1b0ae3d0: Verifying Checksum
+Step #2: b65e1b0ae3d0: Download complete
+Step #2: e6d4d02026e7: Verifying Checksum
+Step #2: e6d4d02026e7: Download complete
+Step #2: 7cc9a508b3cf: Verifying Checksum
+Step #2: 7cc9a508b3cf: Download complete
+Step #2: 7e6a53d1988f: Pull complete
+Step #2: dcfc2909732b: Pull complete
+Step #2: 0154dcaa9df2: Pull complete
+Step #2: 6af475bb0825: Verifying Checksum
+Step #2: 6af475bb0825: Download complete
+Step #2: 6af475bb0825: Pull complete
+Step #2: e6d4d02026e7: Pull complete
+Step #2: bd43fa87af1e: Pull complete
+Step #2: b65e1b0ae3d0: Pull complete
+Step #2: 7cc9a508b3cf: Pull complete
+Step #2: Digest: sha256:38ebf555774912ded5c4a141c9a2c1c1662c407b89c26e356249aa4b8b18fbaa
+Step #2: Status: Downloaded newer image for gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+Step #2: gcr.io/google.com/cloudsdktool/cloud-sdk:latest
+Step #2: Deploying container to Cloud Run service [ce-demo-client] in project [cdr-bbray-step] region [us-central1]
+Step #2: Deploying...
+Step #2: Setting IAM Policy.........warning
+Step #2: Creating Revision...................................................................done
+Step #2: Routing traffic..........................................................................done
+Step #2: Completed with warnings:
+Step #2:   Setting IAM policy failed, try "gcloud beta run services add-iam-policy-binding --region=us-central1 --member=allUsers --role=roles/run.invoker ce-demo-client"
+Step #2: Service [ce-demo-client] revision [ce-demo-client-00003-sih] has been deployed and is serving 100 percent of traffic.
+Step #2: Service URL: https://ce-demo-client-4dx6lnllwq-uc.a.run.app
+Finished Step #2
+PUSH
+Pushing gcr.io/cdr-bbray-step/ce-demo-client
+The push refers to repository [gcr.io/cdr-bbray-step/ce-demo-client]
+dff70a41c390: Preparing
+b5e181eef69c: Preparing
+ed08230bb954: Preparing
+2e76e677ad15: Preparing
+ec34fcc1d526: Preparing
+2e76e677ad15: Layer already exists
+ed08230bb954: Layer already exists
+ec34fcc1d526: Layer already exists
+dff70a41c390: Layer already exists
+b5e181eef69c: Layer already exists
+latest: digest: sha256:39dd0aa0c8b8bef16c9304ca0c6c572dec0de22a7fe36f48f09a5dfe5a39213f size: 1368
+DONE
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ID                                    CREATE_TIME                DURATION  SOURCE                                                                                        IMAGES                                          STATUS
+6810f220-aa80-4479-9abd-ee1fd2f0832a  2022-08-06T00:48:02+00:00  9M47S     gs://cdr-bbray-step_cloudbuild/source/1659746875.251879-b5c2f5fdc19848b2873ca18a5d797043.tgz  gcr.io/cdr-bbray-step/ce-demo-client (+1 more)  SUCCESS
+bindings:
+- members:
+  - allUsers
+  role: roles/run.invoker
+etag: BwXliBKeYsw=
+version: 1
+=========================================================================
+--> Updating demo client configuration....
+=========================================================================
+bindings:
+- members:
+  - allUsers
+  role: roles/run.invoker
+etag: BwXliBPPivM=
+version: 1
+===================================================================================================
+The demo client app has been deployed at https://ce-demo-client-4dx6lnllwq-uc.a.run.app
+ Please update ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI 
+ with the following value: 
+   https://ce-demo-client-4dx6lnllwq-uc.a.run.app/api/callback    
+===================================================================================================
+===================================================================================================
+===================================================================================================
+===================================================================================================
+== IMPORTANT!                                                                                    ==
+== Remember to update the Cloud Entity ACP Workspace.                                            ==
+== You can run the following script to update it:                                                ==
+== deploy/setup-ce.sh replace-urls https://ce-demo-client-4dx6lnllwq-uc.a.run.app/api/callback https://ce-consent-page-4dx6lnllwq-uc.a.run.app
+== Or you can do it manually by updating:                                                        ==
+== 1) ACP Workspace -> Applications -> Clients -> financroo-tpp -> Redirect URI with this value: ==
+      https://ce-demo-client-4dx6lnllwq-uc.a.run.app/api/callback                                        
+== 2) ACP Workspace -> Auth Settings -> Consent -> Consent URL with this value:                  ==
+      https://ce-consent-page-4dx6lnllwq-uc.a.run.app                                                         
+===================================================================================================
+===================================================================================================
+===================================================================================================
+....
+=================================================
+ After updating the CloudEntity ACP Workspace, 
+ you can test this deployment by accessing the 
+ demo client app at:                           
+   https://ce-demo-client-4dx6lnllwq-uc.a.run.app                        
+=================================================
+~/cloudentity/ce-apigee-integration/openbanking
+Done
+Updating urls
+Updating consent app url
+Updating financroo redirect url

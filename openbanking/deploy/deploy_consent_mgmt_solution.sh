@@ -204,9 +204,3 @@ echo Done
 
 echo "DEMO_CLIENT_APP_URL=$DEMO_CLIENT_APP_URL" >> deploy/ce_workspace.env
 echo "CONSENT_APP_URL=$CONSENT_APP_URL" >> deploy/ce_workspace.env
-
-
-
-
-
-
