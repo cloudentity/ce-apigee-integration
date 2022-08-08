@@ -1067,7 +1067,7 @@ function setup_workspace {
 
 function full_deploy {
     sed -i "" "s|PROJECT_ID=.*|PROJECT_ID=$1|" deploy/consent_mgmt_solution_config.env
-    sed -i "" "s|REGION=.*|REGION==$2|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|REGION=.*|REGION=$2|" deploy/consent_mgmt_solution_config.env
     sed -i "" "s|APIGEE_X_ENDPOINT=.*|APIGEE_X_ENDPOINT=$3|" deploy/consent_mgmt_solution_config.env
 
     setup_workspace
