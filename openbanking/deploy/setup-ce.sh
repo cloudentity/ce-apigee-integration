@@ -1046,15 +1046,35 @@ function setup_workspace {
     printf "CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER\nCE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID\nCE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET\nCE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET\nCE_ACP_ISSUER_URL=$(echo https://$DOMAIN/$TENANT_ID/system)
     " > deploy/ce_workspace.env
 
-    printf '\n\n\n---workspace details---\n\n\n'
+    printf '\n\n---workspace details---\n'
 
-    echo CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER
     echo CE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID
     echo CE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET
     echo CE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID
     echo CE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID
     echo CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET
-    echo CE_ACP_ISSUER_URL=$(echo https://$DOMAIN/$TENANT_ID/system)
+    CE_ACP_ISSUER_URL="https://$DOMAIN/$TENANT_ID/system"
+    echo CE_ACP_ISSUER_URL=$CE_ACP_ISSUER_URL
+
+    sed -i "" "s|CE_ACP_AUTH_SERVER=.*|CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_APIGEE_CLIENT_ID=.*|CE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_APIGEE_CLIENT_SECRET=.*|CE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_TPP_CLIENT_ID=.*|CE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_CONSENT_SCREEN_CLIENT_ID=.*|CE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=.*|CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|CE_ACP_ISSUER_URL=.*|CE_ACP_ISSUER_URL=$CE_ACP_ISSUER_URL|" deploy/consent_mgmt_solution_config.env
+}
+
+function full_deploy {
+    sed -i "" "s|PROJECT_ID=.*|PROJECT_ID=$1|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|REGION=.*|REGION=$2|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|APIGEE_X_ENDPOINT=.*|APIGEE_X_ENDPOINT=$3|" deploy/consent_mgmt_solution_config.env
+
+    setup_workspace
+    source deploy/consent_mgmt_solution_config.env
+    source deploy/deploy_consent_mgmt_solution.sh deploy/consent_mgmt_solution_config.env
+    source deploy/ce_workspace.env
+    source deploy/setup-ce.sh replace-urls $DEMO_CLIENT_APP_URL/api/callback $CONSENT_APP_URL
 }
 
 case $1 in
@@ -1070,6 +1090,10 @@ case $1 in
         get_token
         replace_urls $2 $3
     ;;
+    "full-deploy") # arg1: ApigeeX ProjectID, arg2: ApigeeX region, arg3: ApigeeX host
+       get_token
+       full_deploy $2 $3 $4
+    ;;
     *)
-        echo "unknown argument - requires one of: create-workspace, delete-workspace, replace-urls"
+       echo "unknown argument - requires one of: create-workspace, full-deploy, delete-workspace, replace-urls"
 esac
