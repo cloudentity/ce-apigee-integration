@@ -31,7 +31,7 @@ There are three steps required when running the script:
 2. [GCP Configuration Steps](#GCP-Configuration-Steps)
 3. [Run Configuration Script](#Run-Configuration-Script)
 
->Note: A step-by-step guide for deploying all resources manually can be found [here](/README_DETAILED.md).
+>Note: A step-by-step guide for deploying all resources manually can be found [here](/openbanking/README_DETAILED.md).
 
 #### Create a Cloudentity Admin workspace
 
