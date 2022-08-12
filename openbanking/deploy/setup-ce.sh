@@ -1066,11 +1066,13 @@ function setup_workspace {
 }
 
 function full_deploy {
-    sed -i "" "s|PROJECT_ID=.*|PROJECT_ID=$1|" deploy/consent_mgmt_solution_config.env
-    sed -i "" "s|REGION=.*|REGION=$2|" deploy/consent_mgmt_solution_config.env
-    sed -i "" "s|APIGEE_X_ENDPOINT=.*|APIGEE_X_ENDPOINT=$3|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|PROJECT_ID=.*|PROJECT_ID=$GCP_PROJECT_ID|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|REGION=.*|REGION=$GCP_REGION|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|APIGEE_X_ENDPOINT=.*|APIGEE_X_ENDPOINT=$APIGEE_X_ENDPOINT|" deploy/consent_mgmt_solution_config.env
+    sed -i "" "s|APIGEE_X_ENV=.*|APIGEE_X_ENV=$APIGEE_X_ENV|" deploy/consent_mgmt_solution_config.env
 
     setup_workspace
+
     source deploy/consent_mgmt_solution_config.env
     source deploy/deploy_consent_mgmt_solution.sh deploy/consent_mgmt_solution_config.env
     source deploy/ce_workspace.env
@@ -1090,9 +1092,9 @@ case $1 in
         get_token
         replace_urls $2 $3
     ;;
-    "full-deploy") # arg1: ApigeeX ProjectID, arg2: ApigeeX region, arg3: ApigeeX host
+    "full-deploy")
        get_token
-       full_deploy $2 $3 $4
+       full_deploy
     ;;
     *)
        echo "unknown argument - requires one of: create-workspace, full-deploy, delete-workspace, replace-urls"
