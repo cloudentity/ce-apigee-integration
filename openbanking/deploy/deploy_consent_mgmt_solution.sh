@@ -154,7 +154,7 @@ export CE_ACP_MTLS_HOSTNAME=$(echo $CE_ACP_MTLS_ISSUER  |  awk -F/ '{print $3}')
 gcloud builds submit --region=$REGION --config ../../cloudbuild-financroo-app.yaml --substitutions=_CE_ACP_HOSTNAME="$CE_ACP_HOSTNAME",_CE_ACP_MTLS_HOSTNAME="$CE_ACP_MTLS_HOSTNAME",_CE_ACP_TENANT="$CE_ACP_TENANT",_CE_ACP_WORKSPACE="$CE_ACP_WORKSPACE",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_CE_ACP_TPP_CLIENT_ID="$CE_ACP_TPP_CLIENT_ID" .
 
 # Let all users access the deployed cloud function
-gcloud beta run services add-iam-policy-binding --region=australia-southeast1 --member=allUsers --role=roles/run.invoker ce-demo-client
+gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
 
 # Get URL for consent page app
 DEMO_CLIENT_APP_URL=$(gcloud run services describe ce-demo-client --platform managed --region=$REGION --format 'value(status.url)')
@@ -177,7 +177,5 @@ popd
 rm -rf deploy/tmp/
 echo Done
 
-
-
-
-
+echo "DEMO_CLIENT_APP_URL=$DEMO_CLIENT_APP_URL" >> deploy/ce_workspace.env
+echo "CONSENT_APP_URL=$CONSENT_APP_URL" >> deploy/ce_workspace.env
