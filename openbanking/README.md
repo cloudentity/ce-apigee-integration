@@ -69,7 +69,6 @@ To update the URIs using the script do the following from the `openbanking` dire
 deploy/setup-ce.sh replace-urls <replace with financroo redirect URI> <replace consent url>
 ```
 
->Note: When finished with the demo you can remove the CDR workspace by running the following from the `openbanking` directory `deploy/setup-ce.sh delete-workspace`
 
 #### Create Cloudentity workspace manually
 
@@ -262,7 +261,7 @@ after obtaining customer consent.
    ````
 
 
-## Verify the application.
+## Verifying the application.
 
 * Launch financroo URL obtained from above deployment. 
 
@@ -288,3 +287,17 @@ and redirects user back to financroo  app
 * Go Bank APIs are exposed & protected by ApigeeX and the user consent and CDR accessToken is issued by Cloudentity. ApigeeX checks with Cloudentity to ensure customer consent is in place before returning data to Financroo
 
 ![Cloudentity-ApigeeX](./images/ce-cdr-quickstart-financroo-app.png)
+
+
+### Undeploying the solution
+
+
+You can remove the CDR workspace by running the following from the `openbanking` directory 
+```` bash
+deploy/setup-ce.sh delete-workspace
+````
+
+You can then remove the GCP artefacts by running the following from the `openbanking` directory 
+```` bash
+deploy/undeploy_consent_mgmt_solution.sh <PATH_TO_YOUR_ENVIRONMENT_CONFIGURATION_FILE>
+````

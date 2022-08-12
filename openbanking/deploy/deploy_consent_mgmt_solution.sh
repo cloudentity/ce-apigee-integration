@@ -141,7 +141,7 @@ echo "==========================================================================
 
 # Deploy demo client app (Financroo)
 echo "========================================================================="
-echo "--> Deploying demo client (Financroo) app as a CloudRun function...."
+echo "--> Deploying demo client app -Financroo- as a CloudRun function...."
 echo "========================================================================="
 export CE_ACP_HOSTNAME=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $3}')
 export CE_ACP_TENANT=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $4}')
