@@ -69,7 +69,7 @@ Next, prepare GCP and ApigeeX
 #### Run Configuration Script
 
 The configuration script performs the following:
- - Creates and configures a Demo Consent application and Financroo data recipient application in your Cloudentity workspace for the ApigeeX proxy
+ - Creates and configures a Demo Consent application and Financroo data recipient application in your Cloudentity workspace for the ApigeeX proxies
  - Adds ApigeeX artefacts that implement the Banking data APIs. They return mock data
  - Demo consent application: This application talks to Bank APIs exposed by ApigeeX & Cloudentity APIs to gather and store consent within Cloudentity
  - Demo client to test this solution: We will use the Financroo data recipient app. This is a Data Recipient app that can interact with Bank APIs to use customer data after obtaining customer consent
@@ -86,7 +86,7 @@ This script can take awhile depending on your internet connection. Once complete
  The demo client app has now been deployed.
  You can test this solution by accessing the
  demo client app at:
-   <demo application URL>
+   <demo application URL will appear here>
 =================================================
 Done
 ```
