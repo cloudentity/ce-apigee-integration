@@ -6,7 +6,7 @@ regulations.
 
 ![Cloudentity-ApigeeX](./images/ce-apigeex-openbanking-overview.png)
 
- Cloudentity platform provides the capability for consumer consent management, registration and management of third parties, communication with registry etc while ApigeeX exposes the data APIs and enforces secure access of consumer data APIs as per regulations and compliance.  Cloudentity provides the open banking security profile implementation for data holder ecosystem and ApigeeX works in tandem with Cloudentity to ensure data is released only to authorized entities and enforce active consumer consent checks on requested data as per open banking regulations.
+ Cloudentity platform provides the capability for consumer consent management, registration and management of third parties, communication with registry etc., while ApigeeX exposes the data APIs and enforces secure access of consumer data APIs as per regulations and compliance.  Cloudentity provides the open banking security profile implementation for data holder ecosystem and ApigeeX works in tandem with Cloudentity to ensure data is released only to authorized entities and enforce active consumer consent checks on requested data as per open banking regulations.
 
 ![Cloudentity-ApigeeX](./images/ce-apigeex-overview.jpeg)
 
@@ -28,8 +28,8 @@ access tokens. A script is provided to facilitate the creation and configuration
 There are three steps required when running the script:
 
 1. [Create a Cloudentity Admin workspace](#Create-a-Cloudentity-Admin-workspace)
-2. [Create GCP and ApigeeX projects](#GCP-Deployment-Steps)
-3. [Run the provided script to deploy all resources](#deploying-the-script)
+2. [GCP Configuration Steps](#GCP-Configuration-Steps)
+3. [Run Configuration Script](#Run-Configuration-Script)
 
 >Note: A step-by-step guide for deploying all resources manually can be found [here](/README_DETAILED.md).
 
@@ -46,9 +46,9 @@ There are three steps required when running the script:
 * Update the environment variables for the Cloudentity setup script
    * In the repository under the `deploy` folder locate the `ce_admin.env` file and add the environment variables that were copied previously
       * CLIENT_ID - admin client application id
-      * CLIENT_SECRET - dmin client application secret
-      * DOMAIN - domain - ie my-demo-tenant.us.authz.cloudentity.io
-      * TENANT_ID - tenant id, ie my-demo-tenant
+      * CLIENT_SECRET - admin client application secret
+      * DOMAIN - domain - i.e .my-demo-tenant.us.authz.cloudentity.io
+      * TENANT_ID - tenant id, i.e. my-demo-tenant
       * WORKSPACE_ID - your desired workspace id without spaces
 
 Next, prepare GCP and ApigeeX
