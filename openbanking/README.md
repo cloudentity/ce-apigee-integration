@@ -60,11 +60,11 @@ Next, prepare GCP and ApigeeX
    - __jq__. If using Linux, install it by running: `sudo apt-get install jq`
    - __apigeecli__, tool to manage Apigee entities. Download the appropriate binary for your platform from https://github.com/apigee/apigeecli/releases
 
-2. In the repository under the `deploy` folder locate the `ce_admin.env` file and add the followingenvironment variables from your ApigeeX project:
+2. In the repository under the `deploy` folder locate the `ce_admin.env` file and add the following environment variables from your ApigeeX project:
    - GCP_PROJECT_ID - GCP project ID
    - GCP_REGION - GCP region
-   - APIGEE_X_ENDPOINT - host, without https:// for the apigeex proxy
-   - APIGEE_X_ENV - Optional: only edit if not using eval environment
+   - APIGEE_X_ENDPOINT - host without https:// for the apigeex proxy
+   - APIGEE_X_ENV - **Optional**: only edit if not using eval environment
 
 #### Run Configuration Script
 
