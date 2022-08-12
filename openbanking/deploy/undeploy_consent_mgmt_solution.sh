@@ -67,6 +67,6 @@ gcloud secrets delete ce-cert-auth
 echo "========================================================================="
 echo "--> Undeploying Apigee artefacts..."
 echo "========================================================================="
-deploy/apigee-artefacts-undeploy.sh
+deploy/apigee-artefacts-undeploy.sh also_delete
 
 echo Done
