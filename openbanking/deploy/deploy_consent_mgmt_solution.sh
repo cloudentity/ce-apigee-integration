@@ -91,9 +91,6 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
         --member="serviceAccount:$CR_SVC_ACCOUNT" \
         --role="roles/secretmanager.secretAccessor"
 
-# Let all users access the cloud run functions to be deployed
-gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
-
 # Deploy Apigee Artefacts
 echo "========================================================================="
 echo "--> Deploying Apigee artefacts..."
