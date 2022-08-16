@@ -74,8 +74,8 @@ The configuration script performs the following:
  - Add the consent application login URL in Cloudentity OAuth server
  - Sets the certificates and authentication methods in Cloudentity OAuth server
  - Adds ApigeeX artefacts that implement the Banking data APIs. They return mock data
- - Demo consent application: This application talks to Bank APIs exposed by ApigeeX & Cloudentity APIs to gather and store consent within Cloudentity
- - Demo client to test this solution: We will use the Financroo data recipient app. This is a Data Recipient app that can interact with Bank APIs to use customer data after obtaining customer consent
+ - Deploys *Demo consent application* as a GCP Cloud Run Function: This application talks to Bank APIs exposed by ApigeeX & Cloudentity APIs to gather and store consent within Cloudentity
+ - Deploys *Demo client* as a GCP Cloud Run Function: To test this solution, we will use the Financroo data recipient app. This is a Data Recipient app that can interact with Bank APIs to use customer data after obtaining customer consent
 
 Having configured the Cloudentity apps and ApigeeX proxies, in terminal, enter the following to start the configuration script from the root of the repo:
 ```bash
