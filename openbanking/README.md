@@ -122,3 +122,14 @@ and redirects user back to financroo  app
 ![Cloudentity-ApigeeX](./images/ce-cdr-quickstart-financroo-app.png)
 
 
+### Undeploying the solution
+
+You can remove the CDR workspace by running the following from the `openbanking` directory 
+```` bash
+deploy/setup-ce.sh delete-workspace
+````
+
+You can then remove the GCP artefacts by running the following from the `openbanking` directory 
+```` bash
+deploy/undeploy_consent_mgmt_solution.sh <PATH_TO_YOUR_ENVIRONMENT_CONFIGURATION_FILE>
+````
