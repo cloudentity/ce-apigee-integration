@@ -112,8 +112,9 @@ echo "--->"  Client Secret = $APIGEE_CE_CLIENT_SECRET
 echo "--->" These values will be used to configure the consent screen demo app 
 
 # Update the environment configuration file with these values
-sed -i '' "s/.*APIGEE_CE_CLIENT_ID.*/export APIGEE_CE_CLIENT_ID=$APIGEE_CE_CLIENT_ID # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
-sed -i '' "s/.*APIGEE_CE_CLIENT_SECRET.*/export APIGEE_CE_CLIENT_SECRET=$APIGEE_CE_CLIENT_SECRET # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
+sed -i.bak "s/.*APIGEE_CE_CLIENT_ID.*/export APIGEE_CE_CLIENT_ID=$APIGEE_CE_CLIENT_ID # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
+sed -i.bak "s/.*APIGEE_CE_CLIENT_SECRET.*/export APIGEE_CE_CLIENT_SECRET=$APIGEE_CE_CLIENT_SECRET # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
+rm $CONFIG_FILE_ABS_PATH.bak
 
 # Create Config KVM
 # If KVM already exists, delete it, to make sure that values can indeed be updated
