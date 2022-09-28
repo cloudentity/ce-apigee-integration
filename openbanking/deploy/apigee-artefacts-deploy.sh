@@ -97,7 +97,7 @@ apigeecli developers create --token $TOKEN --org $APIGEE_X_ORG --first "Consent 
 
 
 # Check if there is already a CloudEntity client app
-APP_CREDENTIALS=$(apigeecli developers getapps --token $TOKEN --org $APIGEE_X_ORG getapps --name consent-test-developer@somefictitioustestcompany.com --expand | grep -v 'WARNING' | jq -r '.app[] | select(.name=="CloudEntityInternal").credentials[0]')
+APP_CREDENTIALS=$(apigeecli developers getapps --token $TOKEN --org $APIGEE_X_ORG getapps --name consent-test-developer@somefictitioustestcompany.com --expand | grep -v 'WARNING' | jq -r '.app[] | select(.name=="CloudEntityInternal").credentials[0]' 2>/dev/null)
 if [[ -z "$APP_CREDENTIALS" ]];
 then
     # Not found. Create CloudEntity client app
