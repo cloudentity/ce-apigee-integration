@@ -8,9 +8,11 @@ steps:
       - "DOCKER_BUILDKIT=1"
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
+  id: pushContainerImageConsentApp
   args: ['push', 'gcr.io/$PROJECT_ID/ce-consent-screen']
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: deployConsentApp
   entrypoint: gcloud
   args: ['run', 'deploy', 'ce-consent-page', 
         '--region', '$LOCATION',
