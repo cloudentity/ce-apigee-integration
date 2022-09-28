@@ -8,9 +8,11 @@ steps:
       - "DOCKER_BUILDKIT=1"
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
+  id: pushContainerImageDemoClientApp
   args: ['push', 'gcr.io/$PROJECT_ID/ce-demo-client']
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: deployDemoClientApp
   entrypoint: gcloud
   args: ['run', 'deploy', 'ce-demo-client', 
         '--region', '$LOCATION',
