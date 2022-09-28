@@ -2,10 +2,16 @@
 
 source deploy/ce_admin.env
 
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        OPT="-w 0"
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+        OPT=""
+fi
+
 function get_token {
-  ACCESS_TOKEN=$(curl -k  --request POST \
+  ACCESS_TOKEN=$(curl -k --http1.1 --request POST \
   --url https://$DOMAIN/$TENANT_ID/admin/oauth2/token \
-  --header "Authorization: Basic `echo -n $CLIENT_ID:$CLIENT_SECRET | base64`" \
+  --header "Authorization: Basic $(echo -n $CLIENT_ID:$CLIENT_SECRET | base64 $OPT)" \
   --header 'Content-Type: application/x-www-form-urlencoded' \
   --data grant_type=client_credentials | jq -r '.access_token')
 }
@@ -545,7 +551,8 @@ function create_client_financroo {
     "response_types": [
         "id_token",
         "code",
-        "token"
+        "token",
+        "code id_token"
     ],
     "scopes": [
         "admin:metadata:update",
@@ -848,7 +855,8 @@ function update_financroo_redirect_url {
     "response_types": [
         "id_token",
         "code",
-        "token"
+        "token",
+        "code id_token"
     ],
     "scopes": [
         "admin:metadata:update",
