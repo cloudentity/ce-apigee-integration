@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ExtractVariables continueOnError="false" enabled="true" name="EV-ParseCachedIntrospectionDetails">
-    <DisplayName>EV-ParseCachedIntrospectionDetails</DisplayName>
-    <Variable name="cachedIntrospectionVal">
-        <Pattern>{isActive}||{consentId}||{clientId}||{customerId}||{state}||{scope}||{accounts}||{expiresAtEpoch}||{expiresAt}||{createdAt}||{updatedAt}</Pattern>
-    </Variable>
-    <VariablePrefix>consentInfo</VariablePrefix>
-</ExtractVariables>

@@ -22,9 +22,9 @@
             <JSONPath>$.scope</JSONPath>
         </Variable>
         <Variable name="accounts">
-            <JSONPath>$.AccountIDs</JSONPath>
+            <JSONPath>$.cdr_arrangement.account_ids</JSONPath>
         </Variable>
-        <Variable name="expiresAtEpoch">
+        <Variable name="tokenExpiresAtEpoch">
             <JSONPath>$.exp</JSONPath>
         </Variable>
         <Variable name="expiresAt">

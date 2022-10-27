@@ -95,7 +95,7 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
 echo "========================================================================="
 echo "--> Deploying Apigee artefacts..."
 echo "========================================================================="
-deploy/apigee-artefacts-deploy.sh
+deploy/apigee-artefacts-deploy.sh $CONFIG_FILE
 
 # Clone CloudEntity quickstart repo
 echo "==================================================================================================="

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PopulateCache continueOnError="false" enabled="true" name="PC-StoreConsentIdAssociatedWithToken">
+    <DisplayName>PC-StoreConsentIdAssociatedWithToken</DisplayName>
+    <Properties/>
+    <CacheKey>
+        <KeyFragment ref="theAccessToken"/>
+    </CacheKey>
+    <CacheResource>ConsentAssociatedWithAccessToken</CacheResource>
+    <Scope>Global</Scope>
+    <ExpirySettings>
+        <TimeoutInSeconds ref="tokenExpiryInSeconds">600</TimeoutInSeconds>
+    </ExpirySettings>
+    <Source>consentInfo.consentId</Source>
+</PopulateCache>

@@ -24,63 +24,20 @@
         <Condition>isAllowed != "true"</Condition>
     </Step>
     <Step>
-        <Name>LC-GetTokenIntrospectionDetails</Name>
+        <Name>LC-GetConsentAssociatedWithToken</Name>
     </Step>
     <Step>
-        <Name>EV-ParseCachedIntrospectionDetails</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "true")</Condition>
+        <Name>KVM-RetrieveConsentInfo</Name>
+        <Condition>lookupcache.LC-GetConsentAssociatedWithToken.cachehit = "true"</Condition>
     </Step>
     <Step>
-        <Name>LC-GetConsentManagementToken</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false")</Condition>
+        <Name>EV-ParseConsentInfoStructFromKVM</Name>
+        <Condition>(lookupcache.LC-GetConsentAssociatedWithToken.cachehit = "true") and (consentInfoStructFromKVM != null) and (consentInfoStructFromKVM != "")</Condition>
     </Step>
+    <!-- Introspect the access token if it hasn't been seen before, of if the consent info associated with the token is not up to date -->
     <Step>
-        <Name>SC-AcquireConsentManagementAccessToken</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>
-    </Step>
-    <!--<Step>-->
-    <!--    <Name>AM-DebugAddAcquireTokenCalloutResponse</Name>-->
-    <!--    <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>-->
-    <!--</Step>-->
-    <Step>
-        <Name>EV-ExtractTokenFromResponse</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>
-    </Step>
-    <Step>
-        <Name>JS-AdjustCacheTimeForAccessToken</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>
-    </Step>
-    <Step>
-        <Name>PC-StoreConsentMangementToken</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>
-    </Step>
-    <Step>
-        <Name>SC-IntrospectToken</Name>
-        <Condition>lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false"</Condition>
-    </Step>
-    <Step>
-        <Name>AM-DebugAddIntrospectTokenCalloutResponse</Name>
-        <Condition>lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false"</Condition>
-    </Step>
-    <Step>
-        <Name>EV-ExtractErrorDetails</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (introspectTokenCalloutResponse.status.code != 200) and (introspectTokenCalloutResponse.content != "")</Condition>
-    </Step>
-    <Step>
-        <Name>RF-IntrospectTokenFailed</Name>
-        <Condition>(lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false") and (introspectTokenCalloutResponse.status.code != 200)</Condition>
-    </Step>
-    <Step>
-        <Name>EV-TokenIntrospectResult</Name>
-        <Condition>lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false"</Condition>
-    </Step>
-    <Step>
-        <Name>AM-SetIntrospectionCacheValues</Name>
-        <Condition>lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false"</Condition>
-    </Step>
-    <Step>
-        <Name>PC-StoreIntrospectionDetailsForAShortTime</Name>
-        <Condition>lookupcache.LC-GetTokenIntrospectionDetails.cachehit = "false"</Condition>
+        <Name>FC-IntrospectTokenIfNotSeenBeforeOrInfoNotUpToDate</Name>
+        <Condition>(lookupcache.LC-GetConsentAssociatedWithToken.cachehit = "false") or (consentInfoStructFromKVM = null) or (consentInfoStructFromKVM = "") or (consentInfo.infoUpToDate != "true")</Condition>
     </Step>
     <Step>
         <Name>RF-InvalidConsent</Name>

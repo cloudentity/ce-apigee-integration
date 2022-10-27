@@ -1,0 +1,20 @@
+<APIProxy revision="4" name="CE-handle-consent-events">
+    <DisplayName></DisplayName>
+    <Description>Handle notifications sent by Cloudentity every time a consent state changes. The handler will mark any consent info stored in Apigee as &#34;Need to be updated&#34;, so that the next time it is required, it is refreshed via a token introspection operation</Description>
+    <CreatedAt>1666673191568</CreatedAt>
+    <LastModifiedAt>1666673191568</LastModifiedAt>
+    <BasePaths>/ce/consent/events</BasePaths>
+    <Policies>
+        <Policy>RF-UnsupportedMethod</Policy>
+        <Policy>RF-NotFound</Policy>
+        <Policy>EV-ExtractConsentInfoFromRequestParams</Policy>
+        <Policy>AM-MarkConsentInfoAsNeedsToBeUpdated</Policy>
+        <Policy>KVM-StoreConsentInfo</Policy>
+        <Policy>AM-SetResponse204NoContent</Policy>
+        <Policy>VAK-VerifyAPIKey</Policy>
+        <Policy>AM-RemoveAPIKeyHeader</Policy>
+    </Policies>
+    <ProxyEndpoints>
+        <ProxyEndpoint>default</ProxyEndpoint>
+    </ProxyEndpoints>
+</APIProxy>

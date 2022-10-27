@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FlowCallout continueOnError="false" enabled="true" name="FC-IntrospectTokenIfNotSeenBeforeOrInfoNotUpToDate">
+    <DisplayName>FC-IntrospectTokenIfNotSeenBeforeOrInfoNotUpToDate</DisplayName>
+    <SharedFlowBundle>CE-introspect-token</SharedFlowBundle>
+    <Parameters>
+        <Parameter name="theAccessToken">{theAccessToken}</Parameter>
+        <Parameter name="tokenExpiryInSeconds">{jwt.JWT-Verify-Token.seconds_remaining}</Parameter>
+    </Parameters>
+</FlowCallout>

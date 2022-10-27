@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SharedFlow name="default">
+    <Step>
+        <Name>KVM-GetConsentManagementClientIdAndSecret</Name>
+    </Step>
+    <Step>
+        <Name>LC-GetConsentManagementToken</Name>
+    </Step>
+    <Step>
+        <Name>SC-AcquireConsentManagementAccessToken</Name>
+        <Condition>lookupcache.LC-GetConsentManagementToken.cachehit = "false"</Condition>
+    </Step>
+    <!--<Step>-->
+    <!--    <Name>AM-DebugAddAcquireTokenCalloutResponse</Name>-->
+    <!--    <Condition>(lookupcache.LC-GetConsentManagementToken.cachehit = "false")</Condition>-->
+    <!--</Step>-->
+    <Step>
+        <Name>EV-ExtractTokenFromResponse</Name>
+        <Condition>lookupcache.LC-GetConsentManagementToken.cachehit = "false"</Condition>
+    </Step>
+    <Step>
+        <Name>JS-AdjustCacheTimeForAccessToken</Name>
+        <Condition>lookupcache.LC-GetConsentManagementToken.cachehit = "false"</Condition>
+    </Step>
+    <Step>
+        <Name>PC-StoreConsentManagementToken</Name>
+        <Condition>lookupcache.LC-GetConsentManagementToken.cachehit = "false"</Condition>
+    </Step>
+    <Step>
+        <Name>SC-IntrospectToken</Name>
+    </Step>
+    <Step>
+        <Name>AM-DebugAddIntrospectTokenCalloutResponse</Name>
+    </Step>
+    <Step>
+        <Name>EV-ExtractErrorDetails</Name>
+        <Condition>(introspectTokenCalloutResponse.status.code != 200) and (introspectTokenCalloutResponse.content != "")</Condition>
+    </Step>
+    <Step>
+        <Name>RF-IntrospectTokenFailed</Name>
+        <Condition>introspectTokenCalloutResponse.status.code != 200</Condition>
+    </Step>
+    <Step>
+        <Name>EV-TokenIntrospectResult</Name>
+    </Step>
+    <Step>
+        <Name>PC-StoreConsentIdAssociatedWithToken</Name>
+    </Step>
+    <Step>
+        <Name>AM-SetConsentInfoToBeStored</Name>
+    </Step>
+    <Step>
+        <Name>KVM-StoreConsentInfo</Name>
+    </Step>
+</SharedFlow>

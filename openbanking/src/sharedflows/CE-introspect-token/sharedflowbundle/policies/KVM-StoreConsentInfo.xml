@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations continueOnError="false" enabled="true" name="KVM-StoreConsentInfo" mapIdentifier="ConsentInfo">
+    <DisplayName>KVM-StoreConsentInfo</DisplayName>
+    <Properties/>
+    <ExclusiveCache>false</ExclusiveCache>
+    <ExpiryTimeInSecs>5</ExpiryTimeInSecs>
+    <Put override="true">
+        <Key>
+            <Parameter ref="consentInfo.consentId"/>
+        </Key>
+        <Value ref="consentInfoKVMEntry"/>
+    </Put>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>
