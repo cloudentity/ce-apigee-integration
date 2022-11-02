@@ -41,7 +41,7 @@
     </Step>
     <Step>
         <Name>RF-InvalidConsent</Name>
-        <Condition>consentInfo.isActive != "true"</Condition>
+        <Condition>(consentInfo.isActive != "true") or (consentInfo.state != "Authorised")</Condition>
     </Step>
     <Step>
         <Name>JS-checkScopeIsSufficient</Name>
