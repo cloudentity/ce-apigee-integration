@@ -23,6 +23,18 @@
                 }
             ],
             "quota": {}
+        },
+        {
+            "apiSource": "CE-handle-consent-events",
+            "operations": [
+                {
+                    "resource": "/",
+                    "methods": [
+                        "POST"
+                    ]
+                }
+            ],
+            "quota": {}
         }
     ],
     "operationConfigType": "proxy"

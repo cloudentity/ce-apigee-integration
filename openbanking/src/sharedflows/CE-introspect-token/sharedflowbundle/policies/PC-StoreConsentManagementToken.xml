@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<PopulateCache continueOnError="false" enabled="true" name="PC-StoreConsentMangementToken">
-    <DisplayName>PC-StoreConsentMangementToken</DisplayName>
+<PopulateCache continueOnError="false" enabled="true" name="PC-StoreConsentManagementToken">
+    <DisplayName>PC-StoreConsentManagementToken</DisplayName>
     <Properties/>
     <CacheKey>
         <Prefix>consentMgmtToken</Prefix>

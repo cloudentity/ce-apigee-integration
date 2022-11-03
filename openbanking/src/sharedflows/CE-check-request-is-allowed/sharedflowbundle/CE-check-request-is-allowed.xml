@@ -1,39 +1,27 @@
-<SharedFlowBundle revision="2" name="CE-check-request-is-allowed">
+<SharedFlowBundle revision="3" name="CE-check-request-is-allowed">
     <DisplayName>CE-check-request-is-allowed</DisplayName>
     <Description>Check whether an access token has sufficient permissions to execute a request, based on token validity and consent associated to the token</Description>
-    <CreatedAt>1659497700723</CreatedAt>
-    <LastModifiedAt>1659497773031</LastModifiedAt>
+    <CreatedAt>1666585929348</CreatedAt>
+    <LastModifiedAt>1666585929348</LastModifiedAt>
     <Policies>
-        <Policy>EV-ExtractTokenFromResponse</Policy>
-        <Policy>PC-StoreConsentMangementToken</Policy>
         <Policy>JS-checkScopeIsSufficient</Policy>
         <Policy>FC-get-jwks</Policy>
-        <Policy>LC-GetTokenIntrospectionDetails</Policy>
-        <Policy>AM-DebugAddIntrospectTokenCalloutResponse</Policy>
         <Policy>RF-InvalidConsent</Policy>
-        <Policy>JS-AdjustCacheTimeForAccessToken</Policy>
-        <Policy>EV-TokenIntrospectResult</Policy>
         <Policy>RF-InvalidToken</Policy>
-        <Policy>EV-ParseCachedIntrospectionDetails</Policy>
-        <Policy>AM-SetIntrospectionCacheValues</Policy>
         <Policy>RF-InsufficientScope</Policy>
-        <Policy>LC-GetConsentManagementToken</Policy>
         <Policy>JS-CheckAccountIsIncludedInConsent</Policy>
-        <Policy>EV-ExtractErrorDetails</Policy>
-        <Policy>SC-AcquireConsentManagementAccessToken</Policy>
-        <Policy>RF-IntrospectTokenFailed</Policy>
-        <Policy>SC-IntrospectToken</Policy>
         <Policy>EV-ExtractTokenFromAuthHdr</Policy>
         <Policy>JWT-Verify-Token</Policy>
         <Policy>KVM-GetConsentManagementCliendIdAndSecret</Policy>
-        <Policy>PC-StoreIntrospectionDetailsForAShortTime</Policy>
         <Policy>RF-AccountNotAuthorised</Policy>
-        <Policy>AM-DebugAddAcquireTokenCalloutResponse</Policy>
+        <Policy>LC-GetConsentAssociatedWithToken</Policy>
+        <Policy>KVM-RetrieveConsentInfo</Policy>
+        <Policy>EV-ParseConsentInfoStructFromKVM</Policy>
+        <Policy>FC-IntrospectTokenIfNotSeenBeforeOrInfoNotUpToDate</Policy>
     </Policies>
     <Resources>
         <Resource>jsc://checkAccountIsIncludedInConsent.js</Resource>
         <Resource>jsc://checkScopeIsSufficient.js</Resource>
-        <Resource>jsc://adjustCacheTimeForAccessToken.js</Resource>
     </Resources>
     <SharedFlows>
         <SharedFlow>default</SharedFlow>

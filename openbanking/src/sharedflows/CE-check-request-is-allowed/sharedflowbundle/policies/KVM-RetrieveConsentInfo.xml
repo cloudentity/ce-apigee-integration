@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations continueOnError="false" enabled="true" name="KVM-RetrieveConsentInfo" mapIdentifier="ConsentInfo">
+    <DisplayName>KVM-RetrieveConsentInfo</DisplayName>
+    <ExpiryTimeInSecs>5</ExpiryTimeInSecs>
+    <Get assignTo="consentInfoStructFromKVM">
+        <Key>
+            <Parameter ref="theConsentId"/>
+        </Key>
+    </Get>
+    <Scope>environment</Scope>
+</KeyValueMapOperations>

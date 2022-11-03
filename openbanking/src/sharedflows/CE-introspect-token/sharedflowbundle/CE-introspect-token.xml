@@ -1,0 +1,29 @@
+<SharedFlowBundle revision="7" name="CE-introspect-token">
+    <DisplayName>CE-introspect-token</DisplayName>
+    <Description>Introspect token issued by Cloudentity and update information kept at Apigee regarding its associated consent</Description>
+    <CreatedAt>1666585490476</CreatedAt>
+    <LastModifiedAt>1666585490476</LastModifiedAt>
+    <Policies>
+        <Policy>EV-ExtractTokenFromResponse</Policy>
+        <Policy>AM-DebugAddIntrospectTokenCalloutResponse</Policy>
+        <Policy>JS-AdjustCacheTimeForAccessToken</Policy>
+        <Policy>EV-TokenIntrospectResult</Policy>
+        <Policy>LC-GetConsentManagementToken</Policy>
+        <Policy>EV-ExtractErrorDetails</Policy>
+        <Policy>SC-AcquireConsentManagementAccessToken</Policy>
+        <Policy>RF-IntrospectTokenFailed</Policy>
+        <Policy>SC-IntrospectToken</Policy>
+        <Policy>PC-StoreConsentIdAssociatedWithToken</Policy>
+        <Policy>AM-SetConsentInfoToBeStored</Policy>
+        <Policy>KVM-StoreConsentInfo</Policy>
+        <Policy>PC-StoreConsentManagementToken</Policy>
+        <Policy>KVM-GetConsentManagementClientIdAndSecret</Policy>
+    </Policies>
+    <Resources>
+        <Resource>jsc://adjustCacheTimeForAccessToken.js</Resource>
+    </Resources>
+    <SharedFlows>
+        <SharedFlow>default</SharedFlow>
+    </SharedFlows>
+    <subType>SharedFlow</subType>
+</SharedFlowBundle>

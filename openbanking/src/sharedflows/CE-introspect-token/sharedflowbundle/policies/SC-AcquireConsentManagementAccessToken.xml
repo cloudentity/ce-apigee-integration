@@ -4,9 +4,6 @@
     <Properties/>
     <Request clearPayload="false" variable="acquireTokenCalloutRequest">
         <Set>
-            <!--<Headers>-->
-            <!--    <Header name="Authorization">{ConsentMgmtBasicAuthHdr}</Header>-->
-            <!--</Headers>-->
             <FormParams>
                 <FormParam name="grant_type">client_credentials</FormParam>
                 <FormParam name="client_id">{private.ConsentManagement_ClientId}</FormParam>

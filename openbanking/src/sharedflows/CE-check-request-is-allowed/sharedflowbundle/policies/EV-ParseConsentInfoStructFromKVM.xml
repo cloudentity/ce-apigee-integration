@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-ParseConsentInfoStructFromKVM">
+    <DisplayName>EV-ParseConsentInfoStructFromKVM</DisplayName>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="state">
+            <JSONPath>$.consentStatus</JSONPath>
+        </Variable>
+        <Variable name="infoUpToDate">
+            <JSONPath>$.infoUpToDate</JSONPath>
+        </Variable>
+        <Variable name="isActive">
+            <JSONPath>$.consentInfo.isActive</JSONPath>
+        </Variable>
+        <Variable name="consentId">
+            <JSONPath>$.consentInfo.consentId</JSONPath>
+        </Variable>
+        <Variable name="clientId">
+            <JSONPath>$.consentInfo.clientId</JSONPath>
+        </Variable>
+        <Variable name="customerId">
+            <JSONPath>$.consentInfo.customerId</JSONPath>
+        </Variable>
+        <Variable name="scope">
+            <JSONPath>$.consentInfo.scope</JSONPath>
+        </Variable>
+        <Variable name="accounts">
+            <JSONPath>$.consentInfo.accounts</JSONPath>
+        </Variable>
+        <Variable name="expiresAt">
+            <JSONPath>$.consentInfo.expiresAt</JSONPath>
+        </Variable>
+        <Variable name="createdAt">
+            <JSONPath>$.consentInfo.createdAt</JSONPath>
+        </Variable>
+        <Variable name="updatedAt">
+            <JSONPath>$.consentInfo.updatedAt</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source>consentInfoStructFromKVM</Source>
+    <VariablePrefix>consentInfo</VariablePrefix>
+</ExtractVariables>

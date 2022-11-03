@@ -46,6 +46,22 @@ function upload_and_deploy_artefact {
 
 #### End Utility functions
 
+if [ "$#" -ne 1 ]; then
+    echo "This script deploys all necessary Apigee artefacts to demonstrate how to use CloudEntity ACP and GCP Apigee to manage consent in Embedded Finance (Open Banking APIs)"
+    echo "Usage: apigee_artefacts-deploy.sh CONFIG_FILE"
+    exit
+fi
+
+CONFIG_FILE=$1
+# Get absolute path to config file
+export CONFIG_FILE_ABS_PATH=$(echo "$(cd "$(dirname "$CONFIG_FILE")" && pwd)/$(basename "$CONFIG_FILE")")
+
+# Set up environment variables
+echo "========================================================================="
+echo "--> Setting up environment using file "
+echo "    $CONFIG_FILE_ABS_PATH"
+echo "========================================================================="
+source $CONFIG_FILE_ABS_PATH
 
 # Obtain ACP Instance hostname and basepath from env variable
 CE_ACP_HOSTNAME=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $3}')
@@ -65,7 +81,7 @@ done
 # They need to be deployed in order
 echo "--->"  Deploying shared flows....
 cd src/sharedflows
-SHAREDFLOW_LIST=("add-response-headers-links-meta" "paginate-backend-response" "CE-get-jwks-from-ACP" "CE-check-request-is-allowed" "add-response-fapi-interaction-id" "apply-traffic-thresholds" "decide-if-customer-present" "check-request-headers" "collect-performance-slo" "validate-request-params")
+SHAREDFLOW_LIST=("add-response-headers-links-meta" "paginate-backend-response" "CE-get-jwks-from-ACP" "CE-introspect-token" "CE-check-request-is-allowed" "add-response-fapi-interaction-id" "apply-traffic-thresholds" "decide-if-customer-present" "check-request-headers" "collect-performance-slo" "validate-request-params")
 for sf in "${SHAREDFLOW_LIST[@]}"
 do 
     cd $sf
@@ -74,7 +90,7 @@ do
 done
 cd ../..
 
-# # Deploy  apiproxies
+# Deploy  apiproxies
 echo "--->"  Deploying proxies....
 cd src/apiproxies
 for ap in $(ls .) 
@@ -95,9 +111,8 @@ cd ..
 echo "--->"  Creating test developer consent-test-developer@somefictitioustestcompany.com ...
 apigeecli developers create --token $TOKEN --org $APIGEE_X_ORG --first "Consent Test" --last "Developer" --email "consent-test-developer@somefictitioustestcompany.com" --user "consent-test-developer@somefictitioustestcompany.com" 
 
-
 # Check if there is already a CloudEntity client app
-APP_CREDENTIALS=$(apigeecli developers getapps --token $TOKEN --org $APIGEE_X_ORG getapps --name consent-test-developer@somefictitioustestcompany.com --expand | grep -v 'WARNING' | jq -r '.app[] | select(.name=="CloudEntityInternal").credentials[0]' 2>/dev/null)
+APP_CREDENTIALS=$(apigeecli developers getapps --token $TOKEN --org $APIGEE_X_ORG getapps --name consent-test-developer@somefictitioustestcompany.com --expand | grep -v 'WARNING' | jq -r '.app[] | select(.name=="CloudEntityInternal").credentials[] | select(.consumerSecret | startswith("dummySecret") | not)' 2>/dev/null)
 if [[ -z "$APP_CREDENTIALS" ]];
 then
     # Not found. Create CloudEntity client app
@@ -116,6 +131,21 @@ sed -i.bak "s/.*APIGEE_CE_CLIENT_ID.*/export APIGEE_CE_CLIENT_ID=$APIGEE_CE_CLIE
 sed -i.bak "s/.*APIGEE_CE_CLIENT_SECRET.*/export APIGEE_CE_CLIENT_SECRET=$APIGEE_CE_CLIENT_SECRET # Edited by apigee-artefacts-deploy script/" $CONFIG_FILE_ABS_PATH
 rm $CONFIG_FILE_ABS_PATH.bak
 
+# Check if there is already a webhook key added to the CloudEntity client app. 
+# This key is identified for its consumerSecret that starts with 'dummySecret'
+EXISTING_WEBHOOK_KEY=$(apigeecli developers getapps --token $TOKEN --org $APIGEE_X_ORG getapps --name consent-test-developer@somefictitioustestcompany.com --expand | grep -v 'WARNING' | jq -r '.app[] | select(.name=="CloudEntityInternal").credentials[] | select(.consumerSecret | startswith("dummySecret")).consumerKey' 2>/dev/null)
+if [[ -n $EXISTING_WEBHOOK_KEY ]];
+then
+   # Key exists, delete it
+   echo "--->" "Deleting previous webhook key for the CloudEntity client"
+   apigeecli apps keys delete --token $TOKEN --org $APIGEE_X_ORG --dev consent-test-developer@somefictitioustestcompany.com --name "CloudEntityInternal" --key $EXISTING_WEBHOOK_KEY
+fi
+# Add the wekbhook key
+# First generate a random secret for it, that starts with "dummySecret"
+echo "--->" "Adding  webhook key to the CloudEntity client"
+RANDOM_SECRET=$(openssl rand -hex 32)
+apigeecli apps keys create --token $TOKEN --org $APIGEE_X_ORG --dev consent-test-developer@somefictitioustestcompany.com --name "CloudEntityInternal" --key $CE_WEBHOOK_APIKEY --prods CloudEntity-InternalAccess --secret "dummySecret$RANDOM_SECRET"
+
 # Create Config KVM
 # If KVM already exists, delete it, to make sure that values can indeed be updated
 KVM_EXISTS=$(apigeecli kvms list -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV | grep -v 'WARNING' | grep '"Config"')
@@ -132,5 +162,8 @@ echo "--->" Adding Client Id and Secret defined in ACP for Apigee use - Adding A
 apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_ClientId --value $CE_ACP_APIGEE_CLIENT_ID
 apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_ClientSecret --value $CE_ACP_APIGEE_CLIENT_SECRET
 apigeecli kvms entries -t $TOKEN  -o $APIGEE_X_ORG -e $APIGEE_X_ENV -m Config create --key ApigeeConsentManagement_BasePath --value $CE_ACP_BASEPATH
+
+echo "--->" Creating ConsentInfo Key Value Map
+apigeecli kvms create --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name ConsentInfo
 
 echo "--->" Done

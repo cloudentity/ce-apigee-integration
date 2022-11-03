@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="AM-MarkConsentInfoAsNeedsToBeUpdated">
+    <DisplayName>AM-MarkConsentInfoAsNeedsToBeUpdated</DisplayName>
+    <!-- Use jsonPath function to return only the first element of the array extracted by the previous ExtractVariables JSONPath policy -->
+    <AssignVariable>
+        <Name>consentInfoKVMEntry</Name>
+        <Template>{
+    "consentStatus": "{jsonPath('$',consentNotificationPayload.state)}",
+    "infoUpToDate": "false",
+    "consentInfo": {}
+}            
+        </Template>
+    </AssignVariable>
+    <AssignVariable>
+        <Name>consentInfoKVMKey</Name>
+        <Template>{jsonPath('$',consentNotificationPayload.consentId)}</Template>
+    </AssignVariable>
+    <!--    <AssignVariable>-->
+    <!--        <Name>consentInfoKVMEntry</Name>-->
+    <!--        <Template>{-->
+    <!--    "consentStatus": "{jsonPath('$.',consentNotificationPayload.state)}",-->
+    <!--    "infoUpToDate": "false",-->
+    <!--    "consentInfo": {}-->
+    <!--}            -->
+    <!--        </Template>-->
+    <!--    </AssignVariable>-->
+    <!--    <AssignVariable>-->
+    <!--        <Name>consentInfoKVMKey</Name>-->
+    <!--        <Template>{jsonPath('$.',consentNotificationPayload.consentId)}</Template>-->
+    <!--    </AssignVariable>-->
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <AssignTo createNew="false" transport="http" type="request"/>
+</AssignMessage>

@@ -56,7 +56,6 @@ apigeecli apps delete --token $TOKEN --org $APIGEE_X_ORG --name "CloudEntityInte
 echo "--->"  Deleting test developer consent-test-developer@somefictitioustestcompany.com...
 apigeecli developers delete --token $TOKEN --org $APIGEE_X_ORG --email "consent-test-developer@somefictitioustestcompany.com"
 
-
 # Delete product for internal access
 echo "--->"  Deleting product for internal access...
 apigeecli products delete --token $TOKEN --org $APIGEE_X_ORG --name CloudEntity-InternalAccess 
@@ -73,7 +72,7 @@ cd ../..
 # Undeploy sharedflows
 # They need to be undeployed in order
 echo "--->"  Undeploying shared flows....
-SHAREDFLOW_LIST=("CE-check-request-is-allowed" "CE-get-jwks-from-ACP" "paginate-backend-response" "add-response-headers-links-meta" "add-response-fapi-interaction-id" "apply-traffic-thresholds" "check-request-headers" "collect-performance-slo" "decide-if-customer-present" "validate-request-params")
+SHAREDFLOW_LIST=("CE-check-request-is-allowed" "CE-introspect-token" "CE-get-jwks-from-ACP" "paginate-backend-response" "add-response-headers-links-meta" "add-response-fapi-interaction-id" "apply-traffic-thresholds" "check-request-headers" "collect-performance-slo" "decide-if-customer-present" "validate-request-params")
 
 for sf in "${SHAREDFLOW_LIST[@]}"
 do 
@@ -93,6 +92,11 @@ apigeecli targetservers delete --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_
 # Delete Config KVM
 echo "--->" Deleting Config Key Value Map
 KVM_NAME=Config
+apigeecli kvms delete --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name $KVM_NAME 
+
+# Delete ConsentInfo KVM
+echo "--->" Deleting ConsentInfo Key Value Map
+KVM_NAME=ConsentInfo
 apigeecli kvms delete --token $TOKEN --org $APIGEE_X_ORG --env $APIGEE_X_ENV --name $KVM_NAME 
 
 echo "--->" Done

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupCache continueOnError="false" enabled="true" name="LC-GetConsentAssociatedWithToken">
+    <DisplayName>LC-GetConsentAssociatedWithToken</DisplayName>
+    <Properties/>
+    <CacheKey>
+        <KeyFragment ref="theAccessToken"/>
+    </CacheKey>
+    <CacheResource>ConsentAssociatedWithAccessToken</CacheResource>
+    <Scope>Global</Scope>
+    <AssignTo>theConsentId</AssignTo>
+</LookupCache>
