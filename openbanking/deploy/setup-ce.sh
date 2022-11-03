@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Enable for debug
+#set -x
+
 source deploy/ce_admin.env
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
@@ -790,6 +793,27 @@ function create_static_idp {
 }')
 }
 
+function create_webhook_for_apigeex {
+    printf "Creating a webhook\n"
+
+    read CE_ACP_WEBHOOK_APIGEE_ID CE_ACP_WEBHOOK_APIGEE_APIKEY < <(echo $(curl -k  --request POST \
+  --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID/webhooks \
+  --header "Authorization: Bearer $ACCESS_TOKEN" \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"active": true,
+    "insecure":true,
+	"url": '\"https://$APIGEE_X_ENDPOINT/ce/consent/events\"',
+	"events": {
+		"consent": ["accepted", "created", "rejected", "revoked", "updated"],
+		"dcr": ["created", "rejected"],
+		"access_token": ["denied", "issued"],
+		"scopes": ["granted"]
+	}
+}' | jq -r ' "\(.webhook_id) \(.api_key)"'))
+
+}
+
 function update_consent_app_url {
     printf "Updating consent app url\n"
 
@@ -1043,6 +1067,7 @@ function setup_workspace {
     printf "Preparing workspace\n"
     create_oauth_server
     create_client_apigee_proxy
+    create_webhook_for_apigeex
 
     create_client_financroo
     create_static_idp
@@ -1063,6 +1088,8 @@ function setup_workspace {
     echo CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET
     CE_ACP_ISSUER_URL="https://$DOMAIN/$TENANT_ID/system"
     echo CE_ACP_ISSUER_URL=$CE_ACP_ISSUER_URL
+    echo CE_ACP_WEBHOOK_APIGEE_ID=$CE_ACP_WEBHOOK_APIGEE_ID
+    echo CE_ACP_WEBHOOK_APIGEE_APIKEY=$CE_ACP_WEBHOOK_APIGEE_APIKEY
 
     sed -i.bak "s|CE_ACP_AUTH_SERVER=.*|CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER|" deploy/consent_mgmt_solution_config.env
     sed -i.bak "s|CE_ACP_APIGEE_CLIENT_ID=.*|CE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID|" deploy/consent_mgmt_solution_config.env
@@ -1071,6 +1098,7 @@ function setup_workspace {
     sed -i.bak "s|CE_ACP_CONSENT_SCREEN_CLIENT_ID=.*|CE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID|" deploy/consent_mgmt_solution_config.env
     sed -i.bak "s|CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=.*|CE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET|" deploy/consent_mgmt_solution_config.env
     sed -i.bak "s|CE_ACP_ISSUER_URL=.*|CE_ACP_ISSUER_URL=$CE_ACP_ISSUER_URL|" deploy/consent_mgmt_solution_config.env
+    sed -i.bak "s|CE_WEBHOOK_APIKEY=.*|CE_WEBHOOK_APIKEY=$CE_ACP_WEBHOOK_APIGEE_APIKEY|" deploy/consent_mgmt_solution_config.env
     rm deploy/consent_mgmt_solution_config.env.bak
 }
 
