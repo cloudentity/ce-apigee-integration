@@ -136,24 +136,18 @@ deploy/undeploy_consent_mgmt_solution.sh <PATH_TO_YOUR_ENVIRONMENT_CONFIGURATION
 
 ### Supported Integration Patterns
 
-Cloudentity and ApigeeX can be integrated with multiple patterns. These patterns can be chosen based on the specific non functional requirements within each deployment. Currently this repo supports Pattern 1 & Pattern 2 shown below
+Cloudentity and ApigeeX can be integrated with multiple patterns. These patterns can be chosen based on the specific non functional requirements within each deployment. Currently this repo supports Pattern 1 shown below
 
-#### Pattern 1 - ApigeeX handles data traffic while Cloudentity directly handles token & consents
-
-In this model, all the external data API traffic to data holder will be handled by Apigee while the OAuth endpoints are served by Cloudentity domain. In this model Apigee reaches out to Cloudentity to verify the token and consent information everytime a data API access is requested using an OB compliant access token. 
-
-![Cloudentity Apigee integration pattern1](./images/cloudentity-apigee-integration-pattern-1.jpeg)
-
-#### Pattern 2 - ApigeeX handles data traffic with token & consent caching while Cloudentity  handles token & consent management
+#### Pattern 1 - ApigeeX handles data traffic with token & consent caching while Cloudentity  handles token & consent management
 
 In this model, all the external data API traffic to data holder will be handled by Apigee while the OAuth endpoints are served by Cloudentity domain. In this model Apigee caches the access token and consent information issued by Cloudentity to make data API responses faster and rely on asynchronous webhook notifications from Cloudentity platform to keep a valid map of active consents. 
 
-![Cloudentity Apigee integration pattern2](./images/cloudentity-apigee-integration-pattern-2.jpeg)
+![Cloudentity Apigee open banking integration pattern1](./images/cloudentity-apigee-integration-pattern-2.jpeg)
 
 
-#### Pattern 3 - ApigeeX handles data and OAuth traffic and proxies to Cloudentity for OAuth, token & consents with optional caching
+#### Pattern 2 - ApigeeX handles data and OAuth traffic and proxies to Cloudentity for OAuth, token & consents with optional caching
 
 In this model, all the external traffic to data holder including OAuth endpoints & data API endpoints traverses Apigee. Apigee domain is configured as a vanity domain within Cloudentity
 and Cloudentity tenant will accept only the traffic from the configured Apigee domain. 
 
-![Cloudentity Apigee integration pattern3](./images/cloudentity-apigee-integration-pattern-3.jpeg)
+![Cloudentity Apigee open banking integration pattern3](./images/cloudentity-apigee-integration-pattern-3.jpeg)

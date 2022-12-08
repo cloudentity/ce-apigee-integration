@@ -805,10 +805,7 @@ function create_webhook_for_apigeex {
     "insecure":true,
 	"url": '\"https://$APIGEE_X_ENDPOINT/ce/consent/events\"',
 	"events": {
-		"consent": ["accepted", "created", "rejected", "revoked", "updated"],
-		"dcr": ["created", "rejected"],
-		"access_token": ["denied", "issued"],
-		"scopes": ["granted"]
+		"consent": ["accepted", "created", "rejected", "revoked", "updated"]
 	}
 }' | jq -r ' "\(.webhook_id) \(.api_key)"'))
 
