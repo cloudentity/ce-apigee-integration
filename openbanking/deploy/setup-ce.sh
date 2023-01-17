@@ -75,6 +75,11 @@ function create_oauth_server {
         "private_key_jwt",
         "tls_client_auth"
     ],
+    "token_endpoint_auth_signing_alg_values": [
+        "PS256",
+        "ES256",
+        "RS256"
+    ],
     "access_token_ttl": "10m0s",
     "refresh_token_ttl": "4h0m0s",
     "authorization_code_ttl": "5m0s",
@@ -580,8 +585,8 @@ function create_client_financroo {
     "audience": [
         "cah9d021pkhkrv729gg0"
     ],
-    "token_endpoint_auth_method": "tls_client_auth",
-    "token_endpoint_auth_signing_alg": "none",
+    "token_endpoint_auth_method": "private_key_jwt",
+    "token_endpoint_auth_signing_alg": "RS256",
     "jwks": {
         "keys": [
             {
@@ -635,6 +640,7 @@ function create_client_financroo {
     "software_version": "",
     "dynamically_registered": false
 }' | jq -r '.client_id')
+
 }
 
 function create_static_idp {
@@ -1073,8 +1079,7 @@ function setup_workspace {
     update_financroo_redirect_url "http://replace-this-url"
     update_customer_id_mapping
 
-    printf "CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER\nCE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID\nCE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET\nCE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET\nCE_ACP_ISSUER_URL=$(echo https://$DOMAIN/$TENANT_ID/system)
-    " > deploy/ce_workspace.env
+    printf "CE_ACP_AUTH_SERVER=$CE_ACP_AUTH_SERVER\nCE_ACP_APIGEE_CLIENT_ID=$CE_ACP_APIGEE_CLIENT_ID\nCE_ACP_APIGEE_CLIENT_SECRET=$CE_ACP_APIGEE_CLIENT_SECRET\nCE_ACP_TPP_CLIENT_ID=$CE_ACP_TPP_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_ID=$CE_ACP_CONSENT_SCREEN_CLIENT_ID\nCE_ACP_CONSENT_SCREEN_CLIENT_SECRET=$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET\nCE_ACP_ISSUER_URL=$(echo https://$DOMAIN/$TENANT_ID/system)\n" > deploy/ce_workspace.env
 
     printf '\n\n---workspace details---\n'
 
