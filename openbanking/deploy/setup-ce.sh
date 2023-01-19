@@ -1109,6 +1109,9 @@ function full_deploy {
     sed -i.bak  "s|REGION=.*|REGION=$GCP_REGION|" deploy/consent_mgmt_solution_config.env
     sed -i.bak  "s|APIGEE_X_ENDPOINT=.*|APIGEE_X_ENDPOINT=$APIGEE_X_ENDPOINT|" deploy/consent_mgmt_solution_config.env
     sed -i.bak  "s|APIGEE_X_ENV=.*|APIGEE_X_ENV=$APIGEE_X_ENV|" deploy/consent_mgmt_solution_config.env
+    sed -i.bak  "s|APIGEE_X_ORG=.*|APIGEE_X_ORG=$APIGEE_X_ORG|" deploy/consent_mgmt_solution_config.env
+    sed -i.bak  "s|USE_PREBUILT_CONTAINER_IMGS=.*|USE_PREBUILT_CONTAINER_IMGS=$USE_PREBUILT_CONTAINER_IMGS|" deploy/consent_mgmt_solution_config.env
+    sed -i.bak  "s|PREBUILT_CONTAINER_REPO=.*|PREBUILT_CONTAINER_REPO=$PREBUILT_CONTAINER_REPO|" deploy/consent_mgmt_solution_config.env
     rm deploy/consent_mgmt_solution_config.env.bak
 
     setup_workspace
