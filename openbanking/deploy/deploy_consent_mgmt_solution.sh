@@ -109,7 +109,6 @@ popd
 
 pushd deploy/tmp/openbanking-quickstart
 
-
 # Create Cloud secrets required for files that are mounted as volumes by the consent page app and the demo client app (Financroo)
 echo "========================================================================="
 echo "--> Creating Google Cloud secrets to store certificates used by apps"
@@ -121,12 +120,34 @@ echo "========================================================================="
 # Re-read the environment file to get the latest values updated from the previous Apigee deployment step
 source $CONFIG_FILE_ABS_PATH
 
+# Build consent page app demo client apps if necessary
+if [[ "$USE_PREBUILT_CONTAINER_IMGS" == "true" ]]; then
+   # Use prebuilt container images pulled from specified artefact repo
+   # To DO - Use public repo. For now use prebuilt images
+   CONSENT_APP_IMG=$PREBUILT_CONTAINER_REPO/ce-consent-screen:stable
+   DEMO_CLIENT_IMG=$PREBUILT_CONTAINER_REPO/ce-demo-client:stable
+else
+   echo "========================================================================="
+   echo "--> Building consent page app...."
+   echo "========================================================================="
+   gcloud builds submit --region=$REGION --config ../../cloudbuild/cloudbuild-consent-app.yaml 
+   CONSENT_APP_IMG=gcr.io/$PROJECT_ID/ce-consent-screen
+   echo "========================================================================="
+   echo "--> Building demo client app -Financroo- ..."
+   echo "========================================================================="
+   gcloud builds submit --region=$REGION --config ../../cloudbuild/cloudbuild-financroo-app.yaml 
+   DEMO_CLIENT_IMG=gcr.io/$PROJECT_ID/ce-demo-client   
+fi
 
 # Deploy consent app page
 echo "========================================================================="
 echo "--> Deploying consent page app as a CloudRun function...."
+echo "--> Using image $CONSENT_APP_IMG "
 echo "========================================================================="
-gcloud builds submit --region=$REGION --config ../../cloudbuild-consent-app.yaml --substitutions=_CE_ACP_ISSUER_URL="$CE_ACP_ISSUER_URL",_CE_ACP_CONSENT_SCREEN_CLIENT_ID="$CE_ACP_CONSENT_SCREEN_CLIENT_ID",_CE_ACP_CONSENT_SCREEN_CLIENT_SECRET="$CE_ACP_CONSENT_SCREEN_CLIENT_SECRET",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_APIGEE_CE_CLIENT_ID="$APIGEE_CE_CLIENT_ID",_APIGEE_CE_CLIENT_SECRET="$APIGEE_CE_CLIENT_SECRET" .
+gcloud run deploy ce-consent-page --region $REGION --image $CONSENT_APP_IMG \
+        --set-env-vars ISSUER_URL=${CE_ACP_ISSUER_URL},CLIENT_ID=${CE_ACP_CONSENT_SCREEN_CLIENT_ID},CLIENT_SECRET=${CE_ACP_CONSENT_SCREEN_CLIENT_SECRET},LOG_LEVEL=debug,SPEC=cdr,GIN_MODE=release,OTP_MODE=mock,MFA_CLAIM=sub,BANK_ID_CLAIM=customer_id,BANK_URL=https://${APIGEE_X_ENDPOINT},BANK_CLIENT_TOKEN_URL=https://${APIGEE_X_ENDPOINT}/ce/token,BANK_ACCOUNTS_ENDPOINT=https://${APIGEE_X_ENDPOINT}/ce/internal/accounts,BANK_CLIENT_ID=${APIGEE_CE_CLIENT_ID},BANK_CLIENT_SECRET=${APIGEE_CE_CLIENT_SECRET},BANK_CLIENT_SCOPES=bank:accounts.internal:read,DB_FILE=/tmp/my.db,ENABLE_TLS_SERVER=false,CERT_FILE=/certs/tpp_cert.pem,KEY_FILE=/certs-keys/tpp_key.pem,BANK_CLIENT_CERT_FILE=/certs/tpp_cert.pem,BANK_CLIENT_KEY_FILE=/certs-keys/tpp_key.pem,ROOT_CA=/ca/ca.pem \
+        --update-secrets /certs/tpp_cert.pem=ce-tpp-cert:latest,/certs-keys/tpp_key.pem=ce-tpp-key:latest,/ca/ca.pem=ce-cert-auth:latest \
+        --allow-unauthenticated
 
 # Get URL for consent page app
 CONSENT_APP_URL=$(gcloud run services describe ce-consent-page --platform managed --region=$REGION --format 'value(status.url)')
@@ -142,18 +163,22 @@ echo "==========================================================================
 # Deploy demo client app (Financroo)
 echo "========================================================================="
 echo "--> Deploying demo client app -Financroo- as a CloudRun function...."
+echo "--> Using image $DEMO_CLIENT_IMG "
 echo "========================================================================="
 export CE_ACP_HOSTNAME=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $3}')
 export CE_ACP_TENANT=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $4}')
 export CE_ACP_WORKSPACE=$(echo $CE_ACP_AUTH_SERVER  |  awk -F/ '{print $5}')
 export CE_ACP_MTLS_ISSUER=$(curl $CE_ACP_AUTH_SERVER/.well-known/openid-configuration -s | jq -r '.mtls_issuer')
 export CE_ACP_MTLS_HOSTNAME=$(echo $CE_ACP_MTLS_ISSUER  |  awk -F/ '{print $3}')
-gcloud builds submit --region=$REGION --config ../../cloudbuild-financroo-app.yaml --substitutions=_CE_ACP_HOSTNAME="$CE_ACP_HOSTNAME",_CE_ACP_MTLS_HOSTNAME="$CE_ACP_MTLS_HOSTNAME",_CE_ACP_TENANT="$CE_ACP_TENANT",_CE_ACP_WORKSPACE="$CE_ACP_WORKSPACE",_APIGEE_X_ENDPOINT="$APIGEE_X_ENDPOINT",_CE_ACP_TPP_CLIENT_ID="$CE_ACP_TPP_CLIENT_ID" .
+gcloud run deploy ce-demo-client --region $REGION --image $DEMO_CLIENT_IMG \
+        --set-env-vars ACP_URL=https://${CE_ACP_HOSTNAME},ACP_MTLS_URL=https://${CE_ACP_MTLS_HOSTNAME},TENANT=${CE_ACP_TENANT},OPENBANKING_SERVER_ID=${CE_ACP_WORKSPACE},LOG_LEVEL=debug,SPEC=cdr,GIN_MODE=debug,UI_URL=${DEMO_CLIENT_APP_URL},ENABLE_TLS_SERVER=false,BANK_URL=https://${APIGEE_X_ENDPOINT}/ce,CLIENT_ID=${CE_ACP_TPP_CLIENT_ID},DB_FILE=/tmp/my.db,CERT_FILE=/certs/tpp_cert.pem,KEY_FILE=/certs-keys/tpp_key.pem,ROOT_CA=/ca/ca.pem \
+        --update-secrets /certs/tpp_cert.pem=ce-tpp-cert:latest,/certs-keys/tpp_key.pem=ce-tpp-key:latest,/ca/ca.pem=ce-cert-auth:latest \
+        --allow-unauthenticated
 
 # Let all users access the deployed cloud function
 gcloud beta run services add-iam-policy-binding --region=$REGION --member=allUsers --role=roles/run.invoker ce-demo-client
 
-# Get URL for consent page app
+# Get URL for demo client app
 DEMO_CLIENT_APP_URL=$(gcloud run services describe ce-demo-client --platform managed --region=$REGION --format 'value(status.url)')
 # Update config of deployed client app
 echo "========================================================================="

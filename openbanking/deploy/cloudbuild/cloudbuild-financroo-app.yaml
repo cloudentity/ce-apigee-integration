@@ -1,0 +1,17 @@
+steps:
+# Build and deploy consent page app
+# Build the container image 
+- name: 'gcr.io/cloud-builders/docker'
+  id: buildDemoClientApp
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/ce-demo-client', '-f', 'apps/financroo-tpp/Dockerfile', '.']
+  env:
+      - "DOCKER_BUILDKIT=1"
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  id: pushContainerImageDemoClientApp
+  args: ['push', 'gcr.io/$PROJECT_ID/ce-demo-client']
+
+timeout: 1200s
+
+images:
+- gcr.io/$PROJECT_ID/ce-demo-client

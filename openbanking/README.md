@@ -64,6 +64,7 @@ Next, prepare GCP and ApigeeX
    - GCP_PROJECT_ID - GCP project ID
    - GCP_REGION - GCP region
    - APIGEE_X_ENDPOINT - host without https:// for the apigeex proxy
+   - APIGEE_X_ORG - **Optional**: only edit if the Apigee instance is associated with a different GCP project than GCP_PROJECT_ID
    - APIGEE_X_ENV - **Optional**: only edit if not using eval environment
 
 #### Run Configuration Script
