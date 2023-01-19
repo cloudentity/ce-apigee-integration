@@ -1,0 +1,17 @@
+steps:
+# Build consent page app
+# Build the container image 
+- name: 'gcr.io/cloud-builders/docker'
+  id: buildConsentApp
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/ce-consent-screen', '-f', 'consent/consent-page/Dockerfile', '.']
+  env:
+      - "DOCKER_BUILDKIT=1"
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  id: pushContainerImageConsentApp
+  args: ['push', 'gcr.io/$PROJECT_ID/ce-consent-screen']
+
+timeout: 1200s
+
+images:
+- gcr.io/$PROJECT_ID/ce-consent-screen
