@@ -574,7 +574,6 @@ function create_client_financroo {
         "cah9d021pkhkrv729gg0"
     ],
     "token_endpoint_auth_method": "private_key_jwt",
-    "token_endpoint_auth_signing_alg": "RS256",
     "jwks": {
         "keys": [
             {
@@ -604,7 +603,7 @@ function create_client_financroo {
         ]
     },
     "jwks_uri": "",
-    "request_object_signing_alg": "any",
+    "request_object_signing_alg": "RS256",
     "request_uris": [],
     "client_secret_expires_at": 0,
     "sector_identifier_uri": "",
@@ -909,7 +908,6 @@ function update_financroo_redirect_url {
         "cah9d021pkhkrv729gg0"
     ],
     "token_endpoint_auth_method": "private_key_jwt",
-    "token_endpoint_auth_signing_alg": "RS256",
     "jwks": {
         "keys": [
             {
@@ -939,7 +937,7 @@ function update_financroo_redirect_url {
         ]
     },
     "jwks_uri": "",
-    "request_object_signing_alg": "any",
+    "request_object_signing_alg": "RS256",
     "request_uris": [],
     "client_secret_expires_at": 0,
     "sector_identifier_uri": "",
