@@ -105,8 +105,6 @@ function create_oauth_server {
                 ],
                 "x5t": "A6YtVT3QZDzGYLtrazguMkYGsJc",
                 "x5t#S256": "4IbbR7pIR9Ugjsc47XqkfFcniyIfux3NVoV3VuZ_10Y",
-                "created_at": "2022-06-09T22:22:19Z",
-                "promoted_at": "2022-06-09T22:22:19Z",
                 "rotated_at": null,
                 "revoked_at": null
             },
@@ -123,8 +121,6 @@ function create_oauth_server {
                 "dp": "RZh9xKclwm_AhZZfNJmHkmjLC97dzJwOo7qHsZAcuUuMIDoGSq-5L2_IBFAkHRvjyPF9dN3t2rpvULzxhBDdCy1w0D17r_Vqt5qYxv-a5dvW7vJ7wE629cMN1MXuXah5HHHzcbCdOVCRmcpn8RoKQC4Ug9R7a8vSQS6jvjZNs5k",
                 "dq": "1SfhAnacDXm7tkQEA43n80dbIsW193sdvxTiqlGtmjbmqlCiQzTBBmTmRoLxhlm8yQ7Y9bPasFuXIltyfzs2LrwFahEJC_-pbNkE1v_uP9Z1vEmZpD6225dKbtpVg9pcqMxXwtpMaGQILEvWMfEI8YMUY8etu1Gtw1gtIwiT4-U",
                 "qi": "DZgAf6CX80MujIB03t-LvQtBbgBal0CTCL6PIcr7THOljXiJE4fE1y6NdMGBTeKGnEbrFFL7wc37W4Afxj03jGkaQFGELf1S5Qai-URMX-kZmNZgf7Zdw9EByXFnZL8hPIpKiMOhM9XUde83FWaH4l94sXyEIkIH3xyB3wuncNc",
-                "created_at": "2022-06-09T22:22:19Z",
-                "promoted_at": "2022-06-09T22:22:19Z",
                 "rotated_at": null,
                 "revoked_at": null
             }
@@ -147,7 +143,6 @@ function create_oauth_server {
             ],
             "x5t": "r7Kb3nsSFGMsVheIqbY0wCmsWUU",
             "x5t#S256": "h5XxtEMdORmGlJ_wJmLuvGcWMpOJaxnKKcLQh3rJmH4",
-            "created_at": "2022-06-09T22:22:19Z",
             "promoted_at": null,
             "rotated_at": null,
             "revoked_at": null
@@ -165,7 +160,6 @@ function create_oauth_server {
             "dp": "347cI-cqGQQn9m67MwvOf_8L4F_ZoYMTyYImSKqUwcvw1E8gML6QHBbgmMrL9qp_bm5WH_XdsU4INenxWPuCkEeTDXLNnXllvrOrdwLlNMLR82aJ_Ldc7VZ73J7uXcxZDhtDfqGMM7QzGBsJzrHA9ndsut-EglLk8sE5KWQRTq8",
             "dq": "On2jcfONHPgtA-c3EoHpQkZW_VFZu2qIn5M-9h3fPYz-gfu4xhzlwsHrFVNoI_N2jimjSp6VGNWjdp6gHgq_424PQLkkxOxuuqTauShvoS3UcCdCZDCrAc0-Mn9pjh2hTBpWxIFU-TGyGgu27LkB5czKIIZ2o0yUMd_TXVd4FtU",
             "qi": "oUdb5Yr9mHCH5CSD8ZHtK01IV57TOs6ENA_C7aeAKTCiJRXSVNnEhCZJekhNM4dQ9pfkF-ePjyq0GhTmFO8uiqsPRBU4r7kWXl30M92dXhnbGUGNZUSQjZwDfDmS7FGwNXGC9tINle5C8w2o3_do1X5Dtwss7P9OkqJU1yjjEkI",
-            "created_at": "2022-06-09T22:22:19Z",
             "promoted_at": null,
             "rotated_at": null,
             "revoked_at": null
@@ -175,6 +169,7 @@ function create_oauth_server {
         "rotated_keys_limit": 8,
         "revoked_keys_limit": 16
     },
+    "response_types": ["token", "code", "code id_token"],
     "enforce_pkce": false,
     "enforce_pkce_for_public_clients": false,
     "root_cas": "-----BEGIN CERTIFICATE-----\nMIIEVjCCAz6gAwIBAgIUHVV9LeNtt81MoMzosAABgejAp60wDQYJKoZIhvcNAQEL\nBQAwVzELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hpbmd0b24xEDAOBgNVBAcT\nB1NlYXR0bGUxFDASBgNVBAoTC0Nsb3VkZW50aXR5MQswCQYDVQQLEwJDQTAeFw0y\nMTAxMjAwOTQ4MDBaFw0yNjAxMTkwOTQ4MDBaMIGQMQswCQYDVQQGEwJVUzEUMBIG\nA1UECBMLV2FzaGluZ2h0b24xEDAOBgNVBAcTB1NlYXR0bGUxFDASBgNVBAoTC0Ns\nb3VkZW50aXR5MRYwFAYDVQQLEw1BdXRob3JpemF0aW9uMSswKQYDVQQDEyJjaWQx\nLmF1dGhvcml6YXRpb24uY2xvdWRlbnRpdHkuY29tMIIBIjANBgkqhkiG9w0BAQEF\nAAOCAQ8AMIIBCgKCAQEA4b/IX1bV29pw6/Ce8DdkoNx4dxJnDD9AyxmTG2z99cvl\nHG6BJaMF6l09ncGXGbv3dufDKrhftkwfbTBdpUEAeext/ugCmXTV06Fayva6Iq7x\nCNE8pA6hJT1y3Edsqq3IU8KVivYjYwd/vrSUfCe8pQRsR6K8rqnJ66ryn0yewkTE\nyCgPIv6pOMbgq1d5iX/2G9rZNhj74miN5y4fy0tsbI3q2RUOzt2d+htkoysqu3Xt\na6qPA3vEJ2FnQo3dhgw4XSCEvjz+HSGnsTC+XBv6j6jI9SD5jI2UYqnyDcYmRHPJ\nx2sQ/c8aLYHRdZxrxqIxUzulS6g0x74E2m0gBMKF5wIDAQABo4HfMIHcMA4GA1Ud\nDwEB/wQEAwIFoDAdBgNVHSUEFjAUBggrBgEFBQcDAQYIKwYBBQUHAwIwDAYDVR0T\nAQH/BAIwADAdBgNVHQ4EFgQUt+G5I2aokd3gFFMty1rsIT8yMuwwHwYDVR0jBBgw\nFoAUylkHhGQUSf1DtT8uxH02jqlbo20wXQYDVR0RBFYwVIIJbG9jYWxob3N0giJj\naWQxLmF1dGhvcml6YXRpb24uY2xvdWRlbnRpdHkuY29tgh1hdXRob3JpemF0aW9u\nLmNsb3VkZW50aXR5LmNvbYcEfwAAATANBgkqhkiG9w0BAQsFAAOCAQEAjKXSkhqk\nL7tpjk5KbQe8OIvpsR0EjO3Za2KsvzUGDQzE+3tqL3jDvAhqWpICGGzv0kkroveb\n0kXc2Ltc5a+EQtm5l100N0kMB8f11/B1tcLFWQQnqEPB4RTkesGv70e1C3LbjmgJ\nbE62cLR8X2dXr20HxUMZAzmlDdRZS/80YnXSDgjcWxDiFVitFbFeUyYF/oh4RmO5\nHQKvMEd3XIO/hWKp0Jv2G4B5IwtWm2ZodaM6zwMgX0BBp1LUsSF5OYDjuJ2Tq8da\nEGmUj5Y/+CroeW7nFDgAwt+1x3M76uT8fo+rP+UHweR8TCSq28dY3+N8UYrD5YIB\nZD/0ro2b2KVvgg==\n-----END CERTIFICATE-----",
@@ -183,12 +178,9 @@ function create_oauth_server {
     ],
     "subject_format": "hash",
     "subject_identifier_algorithm_salt": "8Yr3jZSsJOirrskIWJEDTCUUst4vP67umY9C6_6Aqzg",
-    "enable_trust_anchor": true,
+    "enable_trust_anchor": false,
     "trust_anchor_configuration": {
-        "jwks": {
-            "keys": null
-        },
-        "jwks_uri": "https://api.cdr.gov.au/idp/.well-known/openid-configuration/jwks"
+        
     },
     "enable_quick_access": false,
     "enable_idp_discovery": false,
@@ -482,9 +474,6 @@ function create_client_apigee_proxy {
         "jwks_uri": "",
         "request_object_signing_alg": "any",
         "request_uris": [],
-        "client_id_issued_at": 1654813743,
-        "created_at": "2022-06-09T22:29:03.212206Z",
-        "updated_at": "2022-06-16T06:38:50.207223Z",
         "client_secret_expires_at": 0,
         "sector_identifier_uri": "",
         "userinfo_signed_response_alg": "none",
@@ -525,7 +514,7 @@ function create_client_apigee_proxy {
 function create_client_financroo {
     printf "Creating client - financroo\n"
 
-    CE_ACP_TPP_CLIENT_ID=$(curl -k  --request POST \
+    CE_ACP_TPP_CLIENT_ID=$(curl -k --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/clients \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -557,7 +546,6 @@ function create_client_financroo {
         "client_credentials"
     ],
     "response_types": [
-        "id_token",
         "code",
         "token",
         "code id_token"
@@ -602,9 +590,6 @@ function create_client_financroo {
     "jwks_uri": "",
     "request_object_signing_alg": "any",
     "request_uris": [],
-    "client_id_issued_at": 1654822528,
-    "created_at": "2022-06-10T00:55:28.842375Z",
-    "updated_at": "2022-06-16T06:20:58.068459Z",
     "client_secret_expires_at": 0,
     "sector_identifier_uri": "",
     "userinfo_signed_response_alg": "none",
@@ -646,7 +631,7 @@ function create_client_financroo {
 function create_static_idp {
     printf "Creating static idp\n"
 
-    RES=$(curl -k  --request POST \
+    RES=$(curl -k --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID/idps/static \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -802,7 +787,7 @@ function create_static_idp {
 function create_webhook_for_apigeex {
     printf "Creating a webhook\n"
 
-    read CE_ACP_WEBHOOK_APIGEE_ID CE_ACP_WEBHOOK_APIGEE_APIKEY < <(echo $(curl -k  --request POST \
+    read CE_ACP_WEBHOOK_APIGEE_ID CE_ACP_WEBHOOK_APIGEE_APIKEY < <(echo $(curl -k --request POST \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID/webhooks \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -820,7 +805,7 @@ function create_webhook_for_apigeex {
 function update_consent_app_url {
     printf "Updating consent app url\n"
 
-    CE_ACP_CONSENT_SCREEN_CLIENT_ID=$(curl -k  --request PUT \
+    CE_ACP_CONSENT_SCREEN_CLIENT_ID=$(curl -k --request PUT \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID/server-consent \
   --header "Authorization: Bearer $ACCESS_TOKEN" \
   --header 'Content-Type: application/json' \
@@ -880,7 +865,6 @@ function update_financroo_redirect_url {
         "client_credentials"
     ],
     "response_types": [
-        "id_token",
         "code",
         "token",
         "code id_token"
@@ -925,9 +909,6 @@ function update_financroo_redirect_url {
     "jwks_uri": "",
     "request_object_signing_alg": "any",
     "request_uris": [],
-    "client_id_issued_at": 1654822528,
-    "created_at": "2022-06-10T00:55:28.842375Z",
-    "updated_at": "2022-06-17T18:54:55.914443948Z",
     "client_secret_expires_at": 0,
     "sector_identifier_uri": "",
     "userinfo_signed_response_alg": "none",
@@ -1055,7 +1036,7 @@ function update_customer_id_mapping {
 function delete_workspace {
     printf "Deleting workspace\n"
 
-    RES=$(curl -k  --request DELETE \
+    RES=$(curl -k --request DELETE \
   --url https://$DOMAIN/api/admin/$TENANT_ID/servers/$WORKSPACE_ID \
   --header "Authorization: Bearer $ACCESS_TOKEN")
 }
